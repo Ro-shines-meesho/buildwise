@@ -1,0 +1,1934 @@
+Branch indexing
+Connecting to https://api.github.com using 379051/****** (CICD github app credentials)
+Obtained Jenkinsfile from 41a4eeb5670f265f6aa02af4411e92f2772bf0a6
+Loading library devops-lib@main
+Attempting to resolve main from remote references...
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+using GIT_ASKPASS to set credentials cicd-github-app
+ > git ls-remote -h -- https://github.com/meesho/devops-lib.git # timeout=10
+Found match: refs/heads/main revision b6104dc6b6c1b14ec67c6f07d862e8e349ef1f68
+The recommended git tool is: git
+using credential cicd-github-app
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/v-ops-buddy-backend-cicd_develop@libs/9f4aa0b8c61c0ec511db846eb4d299e5a43956275c5f10ed3178f4fe35cbf77d/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/meesho/devops-lib.git # timeout=10
+Fetching without tags
+Fetching upstream changes from https://github.com/meesho/devops-lib.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+using GIT_ASKPASS to set credentials cicd-github-app
+ > git fetch --no-tags --force --progress -- https://github.com/meesho/devops-lib.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+Checking out Revision b6104dc6b6c1b14ec67c6f07d862e8e349ef1f68 (main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f b6104dc6b6c1b14ec67c6f07d862e8e349ef1f68 # timeout=10
+Commit message: "Merge pull request #564 from Meesho/ShivamGupta0402-patch-4"
+ > git rev-list --no-walk b6104dc6b6c1b14ec67c6f07d862e8e349ef1f68 # timeout=10
+[Pipeline] Start of Pipeline
+[Pipeline] echo
+CLOUD_PROVIDER : GCP
+[Pipeline] echo
+INFRA_ENV : stg
+[Pipeline] echo
+Running on GCP
+[Pipeline] libraryResource
+[Pipeline] podTemplate
+[Pipeline] {
+[Pipeline] node
+Created Pod: kubernetes jenkins/dev-ops-buddy-backend-cicd-develop-251-58pjp-2269n-2llm0
+Still waiting to schedule task
+‘dev-ops-buddy-backend-cicd-develop-251-58pjp-2269n-2llm0’ is offline
+Agent dev-ops-buddy-backend-cicd-develop-251-58pjp-2269n-2llm0 is provisioned from template dev-ops-buddy-backend-cicd_develop_251-58pjp-2269n
+---
+apiVersion: "v1"
+kind: "Pod"
+metadata:
+  annotations:
+    buildUrl: "http://jenkins-dev.jenkins.svc.cluster.local:8080/job/dev-ops-buddy-backend-cicd/job/develop/251/"
+    runUrl: "job/dev-ops-buddy-backend-cicd/job/develop/251/"
+  labels:
+    bu: "infra"
+    team: "devops"
+    service: "jenkins-stg"
+    env: "stg"
+    priority: "p0"
+    type: "jenkins"
+    component: "jenkins-agent"
+    jenkins/jenkins-admin-dev-jenkins-agent: "true"
+    jenkins/label-digest: "3abbf0396c87d2602adf4ca7412ddfcbd65d3a76"
+    jenkins/label: "dev-ops-buddy-backend-cicd_develop_251-58pjp"
+  name: "dev-ops-buddy-backend-cicd-develop-251-58pjp-2269n-2llm0"
+  namespace: "jenkins"
+spec:
+  containers:
+  - command:
+    - "cat"
+    env:
+    - name: "TZ"
+      value: "Asia/Kolkata"
+    - name: "DOCKER_HOST"
+      value: "dind-dev-svc"
+    image: "asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/devops/build-tools:lunar-v1.0.1-v2"
+    imagePullPolicy: "Always"
+    name: "devops-tools"
+    resources:
+      limits:
+        memory: "1000G"
+        cpu: "100"
+      requests:
+        memory: "6G"
+        cpu: "2"
+    tty: true
+    volumeMounts:
+    - mountPath: "/root"
+      name: "cache"
+      readOnly: false
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  - env:
+    - name: "JENKINS_SECRET"
+      value: "********"
+    - name: "JENKINS_TUNNEL"
+      value: "jenkins-dev-agent.jenkins.svc.cluster.local:50000"
+    - name: "JENKINS_AGENT_NAME"
+      value: "dev-ops-buddy-backend-cicd-develop-251-58pjp-2269n-2llm0"
+    - name: "JENKINS_NAME"
+      value: "dev-ops-buddy-backend-cicd-develop-251-58pjp-2269n-2llm0"
+    - name: "JENKINS_AGENT_WORKDIR"
+      value: "/home/jenkins/agent"
+    - name: "JENKINS_URL"
+      value: "http://jenkins-dev.jenkins.svc.cluster.local:8080/"
+    image: "jenkins/inbound-agent:3206.vb_15dcf73f6a_9-2"
+    name: "jnlp"
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "100m"
+    volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  nodeSelector:
+    dedicated: "jenkins"
+  restartPolicy: "Never"
+  serviceAccountName: "jenkins-dev-agent"
+  tolerations:
+  - effect: "NoSchedule"
+    key: "dedicated"
+    operator: "Equal"
+    value: "jenkins"
+  volumes:
+  - name: "cache"
+    persistentVolumeClaim:
+      claimName: "pvc-jenkins-agents-cache-dev"
+  - emptyDir:
+      medium: ""
+    name: "workspace-volume"
+
+Running on dev-ops-buddy-backend-cicd-develop-251-58pjp-2269n-2llm0 in /home/jenkins/agent/workspace/v-ops-buddy-backend-cicd_develop
+[Pipeline] {
+[Pipeline] container
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] ansiColor
+[Pipeline] {
+[2025-08-02T11:24:04.246Z] 
+[Pipeline] stage
+[Pipeline] { (Checkout from git)
+[Pipeline] dir
+[2025-08-02T11:24:05.714Z] Running in /home/jenkins/agent/workspace/v-ops-buddy-backend-cicd_develop/dev-ops-buddy-backend
+[Pipeline] {
+[Pipeline] checkout
+[2025-08-02T11:24:05.745Z] The recommended git tool is: NONE
+[2025-08-02T11:24:08.057Z] using credential svc-devops-meesho
+[2025-08-02T11:24:08.085Z] Warning: JENKINS-30600: special launcher org.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator$1@486415c6; decorates RemoteLauncher[hudson.remoting.Channel@b5bc648:JNLP4-connect connection from 172.22.162.131/172.22.162.131:59242] will be ignored (a typical symptom is the Git executable not being run inside a designated container)
+[2025-08-02T11:24:08.089Z] Cloning the remote Git repository
+[2025-08-02T11:24:08.089Z] Cloning with configured refspecs honoured and without tags
+[2025-08-02T11:24:08.109Z] Cloning repository https://github.com/Meesho/dev-ops-buddy-backend.git
+[2025-08-02T11:24:08.135Z]  > git init /home/jenkins/agent/workspace/v-ops-buddy-backend-cicd_develop/dev-ops-buddy-backend # timeout=10
+[2025-08-02T11:24:08.208Z] Fetching upstream changes from https://github.com/Meesho/dev-ops-buddy-backend.git
+[2025-08-02T11:24:08.208Z]  > git --version # timeout=10
+[2025-08-02T11:24:08.211Z]  > git --version # 'git version 2.39.2'
+[2025-08-02T11:24:08.211Z] using GIT_ASKPASS to set credentials CICD github app credentials
+[2025-08-02T11:24:08.270Z]  > git fetch --no-tags --force --progress -- https://github.com/Meesho/dev-ops-buddy-backend.git +refs/heads/develop:refs/remotes/origin/develop # timeout=10
+[2025-08-02T11:24:10.087Z] Avoid second fetch
+[2025-08-02T11:24:10.087Z] Checking out Revision 41a4eeb5670f265f6aa02af4411e92f2772bf0a6 (develop)
+[2025-08-02T11:24:10.212Z] Commit message: "Merge pull request #153 from Meesho/delay-added-split"
+[2025-08-02T11:24:09.825Z]  > git config remote.origin.url https://github.com/Meesho/dev-ops-buddy-backend.git # timeout=10
+[2025-08-02T11:24:09.828Z]  > git config --add remote.origin.fetch +refs/heads/develop:refs/remotes/origin/develop # timeout=10
+[2025-08-02T11:24:10.091Z]  > git config core.sparsecheckout # timeout=10
+[2025-08-02T11:24:10.098Z]  > git checkout -f 41a4eeb5670f265f6aa02af4411e92f2772bf0a6 # timeout=10
+[2025-08-02T11:24:10.215Z]  > git rev-list --no-walk 41a4eeb5670f265f6aa02af4411e92f2772bf0a6 # timeout=10
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] dir
+[2025-08-02T11:24:12.110Z] Running in /home/jenkins/agent/workspace/v-ops-buddy-backend-cicd_develop/dev-ops-buddy-backend
+[Pipeline] {
+[Pipeline] readYaml
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] dir
+[2025-08-02T11:24:12.185Z] Running in /home/jenkins/agent/workspace/v-ops-buddy-backend-cicd_develop/whitelist
+[Pipeline] {
+[Pipeline] git
+[2025-08-02T11:24:12.208Z] The recommended git tool is: NONE
+[2025-08-02T11:24:12.213Z] using credential cicd-github-app
+[2025-08-02T11:24:12.219Z] Warning: JENKINS-30600: special launcher org.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator$1@49af1484; decorates RemoteLauncher[hudson.remoting.Channel@b5bc648:JNLP4-connect connection from 172.22.162.131/172.22.162.131:59242] will be ignored (a typical symptom is the Git executable not being run inside a designated container)
+[2025-08-02T11:24:12.221Z] Cloning the remote Git repository
+[2025-08-02T11:24:12.223Z] Cloning repository https://github.com/Meesho/whitelists.git
+[2025-08-02T11:24:12.224Z]  > git init /home/jenkins/agent/workspace/v-ops-buddy-backend-cicd_develop/whitelist # timeout=10
+[2025-08-02T11:24:12.332Z] Fetching upstream changes from https://github.com/Meesho/whitelists.git
+[2025-08-02T11:24:12.332Z]  > git --version # timeout=10
+[2025-08-02T11:24:12.334Z]  > git --version # 'git version 2.39.2'
+[2025-08-02T11:24:12.334Z] using GIT_ASKPASS to set credentials cicd-github-app
+[2025-08-02T11:24:12.429Z]  > git fetch --tags --force --progress -- https://github.com/Meesho/whitelists.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2025-08-02T11:24:14.415Z] Avoid second fetch
+[2025-08-02T11:24:14.420Z] Checking out Revision be5c80394054ca272f6e81d37221ea25ac88c3c5 (refs/remotes/origin/main)
+[2025-08-02T11:24:14.515Z] Commit message: "Update Auto-cicd-skip.yaml"
+[2025-08-02T11:24:14.322Z]  > git config remote.origin.url https://github.com/Meesho/whitelists.git # timeout=10
+[2025-08-02T11:24:14.325Z]  > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2025-08-02T11:24:14.417Z]  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+[2025-08-02T11:24:14.421Z]  > git config core.sparsecheckout # timeout=10
+[2025-08-02T11:24:14.424Z]  > git checkout -f be5c80394054ca272f6e81d37221ea25ac88c3c5 # timeout=10
+[2025-08-02T11:24:14.427Z]  > git branch -a -v --no-abbrev # timeout=10
+[2025-08-02T11:24:14.437Z]  > git checkout -b main be5c80394054ca272f6e81d37221ea25ac88c3c5 # timeout=10
+[2025-08-02T11:24:14.517Z]  > git rev-list --no-walk be5c80394054ca272f6e81d37221ea25ac88c3c5 # timeout=10
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] readYaml
+[Pipeline] echo
+[2025-08-02T11:24:15.599Z] Branch Name - develop and Environment - stg
+[Pipeline] echo
+[2025-08-02T11:24:15.665Z] Bucket and Image Repo Details - asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622 asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin gcs-infr-dvps-meesho-artifacts-stg
+[Pipeline] echo
+[2025-08-02T11:24:15.683Z] [1;32mINFO: [arch:amd64, bu:central, build_tool:docker, deployArgo:true, deployment_order:[dev-ops-buddy-backend, dev-ops-buddy-proxy, dev-ops-buddy-cron], dockerBuildVersion:go-1.23.2, excludedModules:[null], maintainer:aryaman.parida@meesho.com, modules:[buddy, sync], repo_name:dev-ops-buddy-backend, skip_sonar:true, team:devops, skip_notify:true][0m
+[Pipeline] stage
+[Pipeline] { (Check for Hot Fix)
+[Pipeline] dir
+[2025-08-02T11:24:16.399Z] Running in /home/jenkins/agent/workspace/v-ops-buddy-backend-cicd_develop/dev-ops-buddy-backend
+[Pipeline] {
+[Pipeline] echo
+[2025-08-02T11:24:16.420Z] [1;32mINFO: **** Branch: develop, So Skipping Hot-fix check ****[0m
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] dir
+[2025-08-02T11:24:17.057Z] Running in /home/jenkins/agent/workspace/v-ops-buddy-backend-cicd_develop/dev-ops-buddy-backend
+[Pipeline] {
+[Pipeline] fileExists
+[Pipeline] fileExists
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] dir
+[2025-08-02T11:24:17.146Z] Running in /home/jenkins/agent/workspace/v-ops-buddy-backend-cicd_develop/dev-ops-buddy-backend
+[Pipeline] {
+[Pipeline] sh
+[2025-08-02T11:24:17.692Z] + git log -1 --format=%h
+[Pipeline] sh
+[2025-08-02T11:24:18.207Z] + git log -1 --format=%H
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] stage
+[Pipeline] { (Build docker images)
+[Pipeline] sh
+[2025-08-02T11:24:19.377Z] + gcloud auth configure-docker asia-southeast1-docker.pkg.dev --quiet
+[2025-08-02T11:24:19.938Z] WARNING: Your config file at [/root/.docker/config.json] contains these credential helper entries:
+[2025-08-02T11:24:19.938Z] 
+[2025-08-02T11:24:19.938Z] {
+[2025-08-02T11:24:19.938Z]   "credHelpers": {
+[2025-08-02T11:24:19.938Z]     "asia-southeast1-docker.pkg.dev": "gcloud"
+[2025-08-02T11:24:19.938Z]   }
+[2025-08-02T11:24:19.938Z] }
+[2025-08-02T11:24:19.938Z] Adding credentials for: asia-southeast1-docker.pkg.dev
+[2025-08-02T11:24:19.938Z] gcloud credential helpers already registered correctly.
+[Pipeline] dir
+[2025-08-02T11:24:19.954Z] Running in /home/jenkins/agent/workspace/v-ops-buddy-backend-cicd_develop/dev-ops-buddy-backend
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Run sonar scan)
+[Pipeline] echo
+[2025-08-02T11:24:20.724Z] [1;32mINFO: Skipping - Sonar Scan[0m
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Quality Gate)
+[Pipeline] echo
+[2025-08-02T11:24:22.062Z] [1;32mINFO: Sonar scan is skipped. Marking this stage as passed.[0m
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withCredentials
+[2025-08-02T11:24:22.773Z] Masking supported pattern matches of $FILE
+[Pipeline] {
+[Pipeline] sh
+[2025-08-02T11:24:22.788Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2025-08-02T11:24:22.788Z] 		 Affected argument(s) used the following variable(s): [FILE]
+[2025-08-02T11:24:22.788Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2025-08-02T11:24:23.282Z] + cat ****
+[2025-08-02T11:24:23.282Z] + chmod 600 ./id_github_jenkins
+[2025-08-02T11:24:23.282Z] + pwd
+[2025-08-02T11:24:23.282Z] /home/jenkins/agent/workspace/v-ops-buddy-backend-cicd_develop/dev-ops-buddy-backend
+[2025-08-02T11:24:23.282Z] + ls -al ./id_github_jenkins
+[2025-08-02T11:24:23.282Z] -rw------- 1 root root 3381 Aug  2 11:24 ./id_github_jenkins
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] fileExists
+[Pipeline] libraryResource
+[Pipeline] writeFile
+[Pipeline] sh
+[2025-08-02T11:24:23.867Z] + cat Dockerfile-buddy
+[2025-08-02T11:24:23.867Z] # tools and packages from base image
+[2025-08-02T11:24:23.867Z] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/golang:1.23.2-alpine3.18 as builder
+[2025-08-02T11:24:23.867Z] 
+[2025-08-02T11:24:23.867Z] ENV CGO_ENABLED=0 GOOS=linux
+[2025-08-02T11:24:23.867Z] 
+[2025-08-02T11:24:23.867Z] # Following steps will help in downloading dependencies for the project
+[2025-08-02T11:24:23.867Z] COPY id_github_jenkins /root/.ssh/id_rsa
+[2025-08-02T11:24:23.867Z] 
+[2025-08-02T11:24:23.867Z] # directory inside container and default destination for all subsequent commands
+[2025-08-02T11:24:23.867Z] WORKDIR /app/
+[2025-08-02T11:24:23.867Z] 
+[2025-08-02T11:24:23.867Z] # copying the source code
+[2025-08-02T11:24:23.867Z] COPY . ./
+[2025-08-02T11:24:23.867Z] 
+[2025-08-02T11:24:23.867Z] # downloading all the dependencies
+[2025-08-02T11:24:23.867Z] RUN go env -w GOPRIVATE=github.com/Meesho/* && go mod download && go mod tidy
+[2025-08-02T11:24:23.867Z] 
+[2025-08-02T11:24:23.867Z] 
+[2025-08-02T11:24:23.867Z] # building the code for linux OS
+[2025-08-02T11:24:23.867Z] RUN go build -tags musl --ldflags "-extldflags -static" -v -o /app/server cmd/buddy/main.go
+[2025-08-02T11:24:23.867Z] 
+[2025-08-02T11:24:23.867Z] # deploy multistage 
+[2025-08-02T11:24:23.867Z] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/debian:10-slim-v1
+[2025-08-02T11:24:23.867Z] 
+[2025-08-02T11:24:23.867Z] # copy the binary to the production image from the builder stage.
+[2025-08-02T11:24:23.867Z] COPY --from=builder /app/server /app/server
+[2025-08-02T11:24:23.867Z] COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+[2025-08-02T11:24:23.867Z] 
+[2025-08-02T11:24:23.867Z] # running the binary
+[2025-08-02T11:24:23.867Z] CMD ["/app/server"]
+[Pipeline] echo
+[2025-08-02T11:24:23.882Z] Skipping - Registry Creation in GCP.
+[Pipeline] sh
+[2025-08-02T11:24:24.384Z] + set +x
+[2025-08-02T11:24:24.640Z] #0 building with "default" instance using docker driver
+[2025-08-02T11:24:24.640Z] 
+[2025-08-02T11:24:24.640Z] #1 [internal] load .dockerignore
+[2025-08-02T11:24:24.640Z] #1 transferring context: 2B done
+[2025-08-02T11:24:24.640Z] #1 DONE 0.0s
+[2025-08-02T11:24:24.640Z] 
+[2025-08-02T11:24:24.640Z] #2 [internal] load build definition from Dockerfile-buddy
+[2025-08-02T11:24:24.640Z] #2 transferring dockerfile: 1.05kB done
+[2025-08-02T11:24:24.640Z] #2 DONE 0.0s
+[2025-08-02T11:24:24.640Z] 
+[2025-08-02T11:24:24.640Z] #3 [internal] load metadata for asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/golang:1.23.2-alpine3.18
+[2025-08-02T11:24:25.565Z] #3 DONE 0.8s
+[2025-08-02T11:24:25.565Z] 
+[2025-08-02T11:24:25.565Z] #4 [builder 1/6] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/golang:1.23.2-alpine3.18@sha256:b7a1a3a3c57bb4d81937cddbd3219acd72f1122ce6c8a46b2c9c633077f26c35
+[2025-08-02T11:24:25.565Z] #4 DONE 0.0s
+[2025-08-02T11:24:25.565Z] 
+[2025-08-02T11:24:25.565Z] #5 [stage-1 1/3] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/debian:10-slim-v1@sha256:9dde01ac2121d9b2d94c4d7966d1855945d840cc9ece267f0cc6250b2d439fab
+[2025-08-02T11:24:25.565Z] #5 CACHED
+[2025-08-02T11:24:25.565Z] 
+[2025-08-02T11:24:25.565Z] #6 [internal] load metadata for asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/debian:10-slim-v1
+[2025-08-02T11:24:25.565Z] #6 DONE 0.7s
+[2025-08-02T11:24:25.565Z] 
+[2025-08-02T11:24:25.565Z] #7 [internal] load build context
+[2025-08-02T11:24:25.565Z] #7 transferring context: 1.03MB 0.0s done
+[2025-08-02T11:24:25.565Z] #7 DONE 0.0s
+[2025-08-02T11:24:25.565Z] 
+[2025-08-02T11:24:25.565Z] #8 [builder 3/6] WORKDIR /app/
+[2025-08-02T11:24:25.565Z] #8 CACHED
+[2025-08-02T11:24:25.565Z] 
+[2025-08-02T11:24:25.565Z] #9 [builder 2/6] COPY id_github_jenkins /root/.ssh/id_rsa
+[2025-08-02T11:24:25.565Z] #9 CACHED
+[2025-08-02T11:24:25.565Z] 
+[2025-08-02T11:24:25.565Z] #10 [builder 4/6] COPY . ./
+[2025-08-02T11:24:26.125Z] #10 DONE 0.5s
+[2025-08-02T11:24:26.125Z] 
+[2025-08-02T11:24:26.125Z] #11 [builder 5/6] RUN go env -w GOPRIVATE=github.com/Meesho/* && go mod download && go mod tidy
+[2025-08-02T11:24:52.614Z] #11 23.57 go: downloading gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c
+[2025-08-02T11:24:52.614Z] #11 23.64 go: downloading github.com/go-git/go-git-fixtures/v4 v4.3.2-0.20231010084843-55a94097c399
+[2025-08-02T11:24:52.614Z] #11 23.68 go: downloading github.com/elazarl/goproxy v1.7.2
+[2025-08-02T11:24:52.614Z] #11 23.74 go: downloading github.com/google/go-cmp v0.7.0
+[2025-08-02T11:24:52.614Z] #11 23.76 go: downloading github.com/go-redis/redis v6.15.9+incompatible
+[2025-08-02T11:24:52.614Z] #11 23.76 go: downloading github.com/go-redis/redis/v7 v7.4.1
+[2025-08-02T11:24:52.614Z] #11 23.76 go: downloading github.com/gomodule/redigo v1.8.9
+[2025-08-02T11:24:52.614Z] #11 23.82 go: downloading github.com/redis/rueidis v1.0.19
+[2025-08-02T11:24:52.614Z] #11 23.87 go: downloading github.com/stvp/tempredis v0.0.0-20181119212430-b82af8480203
+[2025-08-02T11:24:52.614Z] #11 23.91 go: downloading go.uber.org/goleak v1.3.0
+[2025-08-02T11:24:52.614Z] #11 23.94 go: downloading github.com/onsi/ginkgo v1.16.5
+[2025-08-02T11:24:52.614Z] #11 23.97 go: downloading github.com/onsi/gomega v1.34.1
+[2025-08-02T11:24:52.614Z] #11 24.00 go: downloading github.com/frankban/quicktest v1.14.6
+[2025-08-02T11:24:52.614Z] #11 24.15 go: downloading github.com/kr/pretty v0.3.1
+[2025-08-02T11:24:52.614Z] #11 24.18 go: downloading github.com/bsm/ginkgo/v2 v2.12.0
+[2025-08-02T11:24:52.614Z] #11 24.18 go: downloading github.com/bsm/gomega v1.27.10
+[2025-08-02T11:24:52.614Z] #11 24.35 go: downloading github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5
+[2025-08-02T11:24:52.614Z] #11 24.35 go: downloading github.com/gliderlabs/ssh v0.3.8
+[2025-08-02T11:24:52.614Z] #11 24.36 go: downloading github.com/testcontainers/testcontainers-go v0.29.1
+[2025-08-02T11:24:52.614Z] #11 24.51 go: downloading github.com/kr/text v0.2.0
+[2025-08-02T11:24:52.614Z] #11 24.58 go: downloading github.com/rogpeppe/go-internal v1.14.1
+[2025-08-02T11:24:52.614Z] #11 24.72 go: downloading google.golang.org/genproto/googleapis/api v0.0.0-20250106144421-5f5ef82da422
+[2025-08-02T11:24:52.614Z] #11 24.79 go: downloading google.golang.org/genproto v0.0.0-20240325203815-454cdb8f5daa
+[2025-08-02T11:24:52.614Z] #11 24.95 go: downloading github.com/anmitsu/go-shlex v0.0.0-20200514113438-38f4b401e2be
+[2025-08-02T11:24:52.614Z] #11 25.01 go: downloading github.com/nxadm/tail v1.4.8
+[2025-08-02T11:24:52.614Z] #11 25.03 go: downloading golang.org/x/term v0.32.0
+[2025-08-02T11:24:52.614Z] #11 25.04 go: downloading github.com/docker/docker v25.0.3+incompatible
+[2025-08-02T11:24:52.614Z] #11 25.04 go: downloading github.com/docker/go-connections v0.5.0
+[2025-08-02T11:24:52.614Z] #11 25.08 go: downloading github.com/cenkalti/backoff/v4 v4.2.1
+[2025-08-02T11:24:52.614Z] #11 25.08 go: downloading github.com/containerd/containerd v1.7.18
+[2025-08-02T11:24:52.614Z] #11 25.10 go: downloading github.com/cpuguy83/dockercfg v0.3.2
+[2025-08-02T11:24:52.614Z] #11 26.19 go: downloading github.com/moby/patternmatcher v0.6.0
+[2025-08-02T11:24:52.614Z] #11 26.19 go: downloading github.com/opencontainers/image-spec v1.1.0
+[2025-08-02T11:24:52.614Z] #11 26.19 go: downloading github.com/moby/term v0.5.0
+[2025-08-02T11:24:52.614Z] #11 26.20 go: downloading github.com/go-playground/assert/v2 v2.2.0
+[2025-08-02T11:24:52.614Z] #11 26.22 go: downloading go.opentelemetry.io/otel/sdk/metric v1.34.0
+[2025-08-02T11:24:52.614Z] #11 26.24 go: downloading github.com/golang/protobuf v1.5.4
+[2025-08-02T11:24:52.614Z] #11 26.26 go: downloading go.opentelemetry.io/otel/sdk v1.34.0
+[2025-08-02T11:24:52.614Z] #11 26.33 go: downloading gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7
+[2025-08-02T11:24:52.614Z] #11 26.35 go: downloading github.com/Microsoft/hcsshim v0.11.5
+[2025-08-02T11:24:52.614Z] #11 26.35 go: downloading github.com/containerd/log v0.1.0
+[2025-08-02T11:24:52.614Z] #11 26.35 go: downloading github.com/containerd/errdefs v0.1.0
+[2025-08-02T11:24:52.614Z] #11 26.40 go: downloading github.com/docker/go-units v0.5.0
+[2025-08-02T11:24:52.614Z] #11 26.42 go: downloading github.com/moby/sys/sequential v0.5.0
+[2025-08-02T11:24:52.614Z] #11 26.43 go: downloading github.com/morikuni/aec v1.0.0
+[2025-08-02T11:24:52.614Z] #11 26.47 go: downloading github.com/distribution/reference v0.6.0
+[2025-08-02T11:24:52.614Z] #11 26.48 go: downloading github.com/opencontainers/go-digest v1.0.0
+[2025-08-02T11:24:52.614Z] #11 26.48 go: downloading github.com/shirou/gopsutil/v3 v3.23.12
+[2025-08-02T11:24:52.614Z] #11 26.54 go: downloading github.com/sirupsen/logrus v1.9.3
+[2025-08-02T11:24:52.614Z] #11 26.54 go: downloading github.com/moby/sys/user v0.1.0
+[2025-08-02T11:24:52.614Z] #11 26.54 go: downloading github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1
+[2025-08-02T11:24:52.614Z] #11 26.57 go: downloading github.com/gogo/protobuf v1.3.2
+[2025-08-02T11:24:52.614Z] #11 26.64 go: downloading github.com/tklauser/go-sysconf v0.3.12
+[2025-08-02T11:24:52.614Z] #11 26.64 go: downloading github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0
+[2025-08-02T11:24:52.614Z] #11 26.64 go: downloading github.com/yusufpapurcu/wmi v1.2.3
+[2025-08-02T11:24:52.614Z] #11 26.64 go: downloading github.com/shoenig/go-m1cpu v0.1.6
+[2025-08-02T11:24:52.614Z] #11 26.64 go: downloading github.com/power-devops/perfstat v0.0.0-20210106213030-5aafc221ea8c
+[2025-08-02T11:24:52.869Z] #11 26.71 go: downloading github.com/go-ole/go-ole v1.2.6
+[2025-08-02T11:24:52.869Z] #11 26.71 go: downloading github.com/tklauser/numcpus v0.6.1
+[2025-08-02T11:25:07.700Z] #11 DONE 40.1s
+[2025-08-02T11:25:07.700Z] 
+[2025-08-02T11:25:07.700Z] #12 [builder 6/6] RUN go build -tags musl --ldflags "-extldflags -static" -v -o /app/server cmd/buddy/main.go
+[2025-08-02T11:25:07.700Z] #12 1.192 internal/byteorder
+[2025-08-02T11:25:07.700Z] #12 1.193 internal/coverage/rtcov
+[2025-08-02T11:25:07.700Z] #12 1.198 internal/godebugs
+[2025-08-02T11:25:07.700Z] #12 1.199 internal/goexperiment
+[2025-08-02T11:25:07.700Z] #12 1.199 internal/unsafeheader
+[2025-08-02T11:25:07.700Z] #12 1.201 internal/goarch
+[2025-08-02T11:25:07.700Z] #12 1.207 internal/goos
+[2025-08-02T11:25:07.700Z] #12 1.226 internal/cpu
+[2025-08-02T11:25:07.700Z] #12 1.240 internal/profilerecord
+[2025-08-02T11:25:07.700Z] #12 1.243 internal/runtime/atomic
+[2025-08-02T11:25:07.700Z] #12 1.254 internal/runtime/syscall
+[2025-08-02T11:25:07.700Z] #12 1.267 cmp
+[2025-08-02T11:25:07.700Z] #12 1.267 internal/itoa
+[2025-08-02T11:25:07.700Z] #12 1.274 internal/race
+[2025-08-02T11:25:07.700Z] #12 1.287 internal/abi
+[2025-08-02T11:25:07.700Z] #12 1.315 internal/chacha8rand
+[2025-08-02T11:25:07.700Z] #12 1.316 runtime/internal/math
+[2025-08-02T11:25:07.700Z] #12 1.348 runtime/internal/sys
+[2025-08-02T11:25:07.700Z] #12 1.359 math/bits
+[2025-08-02T11:25:07.700Z] #12 1.368 unicode/utf8
+[2025-08-02T11:25:07.700Z] #12 1.379 internal/bytealg
+[2025-08-02T11:25:07.700Z] #12 1.390 sync/atomic
+[2025-08-02T11:25:07.700Z] #12 1.446 unicode
+[2025-08-02T11:25:07.700Z] #12 1.490 internal/asan
+[2025-08-02T11:25:07.700Z] #12 1.506 math
+[2025-08-02T11:25:07.700Z] #12 1.507 internal/msan
+[2025-08-02T11:25:07.700Z] #12 1.608 encoding
+[2025-08-02T11:25:07.955Z] #12 1.619 internal/runtime/exithook
+[2025-08-02T11:25:07.955Z] #12 1.653 unicode/utf16
+[2025-08-02T11:25:07.955Z] #12 1.661 internal/nettrace
+[2025-08-02T11:25:07.955Z] #12 1.693 log/internal
+[2025-08-02T11:25:07.955Z] #12 1.694 log/slog/internal
+[2025-08-02T11:25:07.955Z] #12 1.700 container/list
+[2025-08-02T11:25:07.955Z] #12 1.718 crypto/internal/alias
+[2025-08-02T11:25:07.955Z] #12 1.723 crypto/subtle
+[2025-08-02T11:25:07.955Z] #12 1.728 crypto/internal/boring/sig
+[2025-08-02T11:25:07.955Z] #12 1.730 vendor/golang.org/x/crypto/cryptobyte/asn1
+[2025-08-02T11:25:07.955Z] #12 1.749 vendor/golang.org/x/crypto/internal/alias
+[2025-08-02T11:25:07.955Z] #12 1.782 golang.org/x/text/encoding/internal/identifier
+[2025-08-02T11:25:07.955Z] #12 1.792 golang.org/x/text/internal/utf8internal
+[2025-08-02T11:25:07.955Z] #12 1.821 github.com/pelletier/go-toml/v2/internal/characters
+[2025-08-02T11:25:08.210Z] #12 1.825 github.com/spf13/viper/internal/features
+[2025-08-02T11:25:08.210Z] #12 1.844 github.com/failsafe-go/failsafe-go/common
+[2025-08-02T11:25:08.210Z] #12 1.874 google.golang.org/protobuf/internal/flags
+[2025-08-02T11:25:08.210Z] #12 1.907 github.com/failsafe-go/failsafe-go/internal
+[2025-08-02T11:25:08.210Z] #12 1.925 internal/stringslite
+[2025-08-02T11:25:08.210Z] #12 1.944 google.golang.org/grpc/serviceconfig
+[2025-08-02T11:25:08.210Z] #12 1.958 google.golang.org/protobuf/internal/set
+[2025-08-02T11:25:08.210Z] #12 1.986 golang.org/x/net/html/atom
+[2025-08-02T11:25:08.210Z] #12 2.004 github.com/go-playground/locales/currency
+[2025-08-02T11:25:08.210Z] #12 2.028 go.mongodb.org/mongo-driver/bson/bsontype
+[2025-08-02T11:25:08.210Z] #12 2.029 github.com/gin-gonic/gin/internal/bytesconv
+[2025-08-02T11:25:08.210Z] #12 2.030 go.mongodb.org/mongo-driver/bson/bsonoptions
+[2025-08-02T11:25:08.210Z] #12 2.032 runtime
+[2025-08-02T11:25:08.210Z] #12 2.035 go.mongodb.org/mongo-driver/internal/handshake
+[2025-08-02T11:25:08.210Z] #12 2.060 go.mongodb.org/mongo-driver/internal/ptrutil
+[2025-08-02T11:25:08.210Z] #12 2.064 github.com/klauspost/compress/internal/cpuinfo
+[2025-08-02T11:25:08.210Z] #12 2.074 go.mongodb.org/mongo-driver/version
+[2025-08-02T11:25:08.210Z] #12 2.091 github.com/dgryski/go-rendezvous
+[2025-08-02T11:25:08.210Z] #12 2.091 image/color
+[2025-08-02T11:25:08.210Z] #12 2.092 github.com/ProtonMail/go-crypto/internal/byteutil
+[2025-08-02T11:25:08.210Z] #12 2.099 golang.org/x/crypto/cryptobyte/asn1
+[2025-08-02T11:25:08.210Z] #12 2.100 github.com/pjbgf/sha1cd/internal
+[2025-08-02T11:25:08.210Z] #12 2.129 github.com/go-git/go-git/v5/plumbing/color
+[2025-08-02T11:25:08.464Z] #12 2.139 github.com/pjbgf/sha1cd/ubc
+[2025-08-02T11:25:08.464Z] #12 2.145 github.com/golang/groupcache/lru
+[2025-08-02T11:25:08.464Z] #12 2.154 golang.org/x/crypto/internal/alias
+[2025-08-02T11:25:08.464Z] #12 2.165 github.com/googleapis/gax-go/v2/internal
+[2025-08-02T11:25:08.464Z] #12 2.182 go.opentelemetry.io/otel/trace/embedded
+[2025-08-02T11:25:08.464Z] #12 2.184 go.opentelemetry.io/otel/metric/embedded
+[2025-08-02T11:25:08.719Z] #12 2.367 github.com/klauspost/compress
+[2025-08-02T11:25:08.719Z] #12 2.371 go.opentelemetry.io/otel/internal
+[2025-08-02T11:25:12.877Z] #12 6.096 internal/reflectlite
+[2025-08-02T11:25:12.877Z] #12 6.098 iter
+[2025-08-02T11:25:12.877Z] #12 6.098 sync
+[2025-08-02T11:25:12.877Z] #12 6.098 internal/weak
+[2025-08-02T11:25:12.877Z] #12 6.168 slices
+[2025-08-02T11:25:12.877Z] #12 6.180 maps
+[2025-08-02T11:25:12.877Z] #12 6.351 internal/bisect
+[2025-08-02T11:25:12.877Z] #12 6.356 github.com/spf13/viper/internal/encoding
+[2025-08-02T11:25:12.877Z] #12 6.357 internal/testlog
+[2025-08-02T11:25:12.877Z] #12 6.357 internal/singleflight
+[2025-08-02T11:25:12.877Z] #12 6.357 google.golang.org/protobuf/internal/pragma
+[2025-08-02T11:25:12.877Z] #12 6.357 log/slog/internal/buffer
+[2025-08-02T11:25:12.877Z] #12 6.508 errors
+[2025-08-02T11:25:12.877Z] #12 6.509 sort
+[2025-08-02T11:25:12.877Z] #12 6.518 internal/godebug
+[2025-08-02T11:25:12.877Z] #12 6.590 strconv
+[2025-08-02T11:25:12.877Z] #12 6.598 io
+[2025-08-02T11:25:12.877Z] #12 6.599 internal/oserror
+[2025-08-02T11:25:12.877Z] #12 6.605 path
+[2025-08-02T11:25:12.877Z] #12 6.606 vendor/golang.org/x/net/dns/dnsmessage
+[2025-08-02T11:25:12.877Z] #12 6.606 math/rand/v2
+[2025-08-02T11:25:12.877Z] #12 6.654 syscall
+[2025-08-02T11:25:12.877Z] #12 6.733 math/rand
+[2025-08-02T11:25:13.131Z] #12 6.777 crypto/internal/edwards25519/field
+[2025-08-02T11:25:13.131Z] #12 6.883 bytes
+[2025-08-02T11:25:13.131Z] #12 6.949 strings
+[2025-08-02T11:25:13.386Z] #12 7.161 internal/concurrent
+[2025-08-02T11:25:13.386Z] #12 7.223 unique
+[2025-08-02T11:25:13.386Z] #12 7.273 hash
+[2025-08-02T11:25:13.640Z] #12 7.396 crypto/internal/randutil
+[2025-08-02T11:25:13.895Z] #12 7.632 crypto/internal/nistec/fiat
+[2025-08-02T11:25:13.895Z] #12 7.661 hash/crc32
+[2025-08-02T11:25:13.895Z] #12 7.762 crypto/internal/edwards25519
+[2025-08-02T11:25:14.150Z] #12 7.833 reflect
+[2025-08-02T11:25:14.150Z] #12 7.863 net/netip
+[2025-08-02T11:25:14.150Z] #12 7.894 bufio
+[2025-08-02T11:25:14.404Z] #12 8.234 regexp/syntax
+[2025-08-02T11:25:14.660Z] #12 8.341 golang.org/x/text/transform
+[2025-08-02T11:25:14.660Z] #12 8.441 crypto
+[2025-08-02T11:25:14.660Z] #12 8.525 crypto/cipher
+[2025-08-02T11:25:14.914Z] #12 8.741 crypto/md5
+[2025-08-02T11:25:15.168Z] #12 8.883 golang.org/x/text/runes
+[2025-08-02T11:25:15.423Z] #12 9.065 internal/syscall/unix
+[2025-08-02T11:25:15.423Z] #12 9.147 time
+[2025-08-02T11:25:15.423Z] #12 9.218 internal/syscall/execenv
+[2025-08-02T11:25:15.423Z] #12 9.256 crypto/internal/boring
+[2025-08-02T11:25:15.423Z] #12 9.360 crypto/aes
+[2025-08-02T11:25:15.677Z] #12 9.362 crypto/des
+[2025-08-02T11:25:15.677Z] #12 9.470 crypto/sha512
+[2025-08-02T11:25:15.677Z] #12 9.613 crypto/hmac
+[2025-08-02T11:25:15.932Z] #12 9.659 regexp
+[2025-08-02T11:25:15.932Z] #12 9.721 crypto/rc4
+[2025-08-02T11:25:15.932Z] #12 9.778 vendor/golang.org/x/crypto/hkdf
+[2025-08-02T11:25:15.932Z] #12 9.839 crypto/sha1
+[2025-08-02T11:25:16.187Z] #12 9.861 crypto/sha256
+[2025-08-02T11:25:16.187Z] #12 9.893 vendor/golang.org/x/text/transform
+[2025-08-02T11:25:16.187Z] #12 9.971 net/http/internal/ascii
+[2025-08-02T11:25:16.187Z] #12 10.02 html
+[2025-08-02T11:25:16.441Z] #12 10.17 golang.org/x/text/encoding
+[2025-08-02T11:25:16.441Z] #12 10.21 github.com/hashicorp/hcl/hcl/strconv
+[2025-08-02T11:25:16.696Z] #12 10.36 hash/fnv
+[2025-08-02T11:25:16.696Z] #12 10.48 google.golang.org/grpc/internal/buffer
+[2025-08-02T11:25:16.950Z] #12 10.58 golang.org/x/text/encoding/internal
+[2025-08-02T11:25:16.950Z] #12 10.58 net/http/internal/testcert
+[2025-08-02T11:25:16.950Z] #12 10.61 hash/adler32
+[2025-08-02T11:25:16.950Z] #12 10.69 internal/saferio
+[2025-08-02T11:25:16.950Z] #12 10.70 golang.org/x/text/encoding/unicode
+[2025-08-02T11:25:16.950Z] #12 10.73 golang.org/x/text/internal/tag
+[2025-08-02T11:25:16.950Z] #12 10.79 golang.org/x/crypto/pbkdf2
+[2025-08-02T11:25:16.950Z] #12 10.81 go.mongodb.org/mongo-driver/internal/aws
+[2025-08-02T11:25:17.205Z] #12 10.86 github.com/go-redis/redis/v8/internal/rand
+[2025-08-02T11:25:17.205Z] #12 10.88 github.com/go-redis/redis/v8/internal/util
+[2025-08-02T11:25:17.205Z] #12 10.89 golang.org/x/crypto/openpgp/errors
+[2025-08-02T11:25:17.205Z] #12 10.94 compress/bzip2
+[2025-08-02T11:25:17.205Z] #12 10.95 golang.org/x/crypto/cast5
+[2025-08-02T11:25:17.205Z] #12 10.98 github.com/go-redis/redis/v8/internal/hashtag
+[2025-08-02T11:25:17.205Z] #12 11.02 golang.org/x/crypto/openpgp/s2k
+[2025-08-02T11:25:17.459Z] #12 11.20 container/heap
+[2025-08-02T11:25:17.459Z] #12 11.20 github.com/redis/go-redis/v9/internal/util
+[2025-08-02T11:25:17.459Z] #12 11.20 image
+[2025-08-02T11:25:17.459Z] #12 11.20 github.com/redis/go-redis/v9/internal/rand
+[2025-08-02T11:25:17.459Z] #12 11.21 github.com/ProtonMail/go-crypto/eax
+[2025-08-02T11:25:17.459Z] #12 11.27 github.com/cloudflare/circl/internal/sha3
+[2025-08-02T11:25:17.459Z] #12 11.27 github.com/cloudflare/circl/sign
+[2025-08-02T11:25:17.459Z] #12 11.33 github.com/redis/go-redis/v9/internal/hashtag
+[2025-08-02T11:25:17.714Z] #12 11.34 golang.org/x/crypto/hkdf
+[2025-08-02T11:25:17.714Z] #12 11.46 github.com/go-git/go-git/v5/internal/url
+[2025-08-02T11:25:17.714Z] #12 11.55 google.golang.org/api/internal/third_party/uritemplates
+[2025-08-02T11:25:17.714Z] #12 11.57 golang.org/x/crypto/blowfish
+[2025-08-02T11:25:17.969Z] #12 11.76 internal/poll
+[2025-08-02T11:25:17.969Z] #12 11.81 io/fs
+[2025-08-02T11:25:17.969Z] #12 11.81 google.golang.org/grpc/backoff
+[2025-08-02T11:25:17.969Z] #12 11.81 context
+[2025-08-02T11:25:17.969Z] #12 11.82 google.golang.org/grpc/balancer/pickfirst/internal
+[2025-08-02T11:25:17.969Z] #12 11.84 google.golang.org/grpc/keepalive
+[2025-08-02T11:25:18.224Z] #12 11.90 github.com/go-playground/locales
+[2025-08-02T11:25:18.224Z] #12 11.96 github.com/hibiken/asynq/internal/timeutil
+[2025-08-02T11:25:18.224Z] #12 12.00 golang.org/x/crypto/ssh/internal/bcrypt_pbkdf
+[2025-08-02T11:25:18.479Z] #12 12.27 image/internal/imageutil
+[2025-08-02T11:25:18.479Z] #12 12.31 internal/filepathlite
+[2025-08-02T11:25:18.479Z] #12 12.31 embed
+[2025-08-02T11:25:18.479Z] #12 12.31 github.com/spf13/afero/internal/common
+[2025-08-02T11:25:18.479Z] #12 12.39 github.com/failsafe-go/failsafe-go
+[2025-08-02T11:25:18.734Z] #12 12.39 google.golang.org/grpc/internal/backoff
+[2025-08-02T11:25:18.734Z] #12 12.46 google.golang.org/grpc/internal/grpcsync
+[2025-08-02T11:25:18.734Z] #12 12.51 go.mongodb.org/mongo-driver/internal/csot
+[2025-08-02T11:25:18.734Z] #12 12.57 crypto/internal/nistec
+[2025-08-02T11:25:18.734Z] #12 12.57 google.golang.org/protobuf/internal/editiondefaults
+[2025-08-02T11:25:18.734Z] #12 12.60 image/jpeg
+[2025-08-02T11:25:18.734Z] #12 12.63 golang.org/x/net/context
+[2025-08-02T11:25:18.988Z] #12 12.64 os
+[2025-08-02T11:25:18.988Z] #12 12.67 github.com/jbenet/go-context/io
+[2025-08-02T11:25:18.988Z] #12 12.68 go.opentelemetry.io/otel/internal/baggage
+[2025-08-02T11:25:18.988Z] #12 12.76 encoding/binary
+[2025-08-02T11:25:18.988Z] #12 12.76 internal/fmtsort
+[2025-08-02T11:25:18.988Z] #12 12.86 github.com/failsafe-go/failsafe-go/internal/util
+[2025-08-02T11:25:19.243Z] #12 13.00 github.com/hashicorp/errwrap
+[2025-08-02T11:25:19.243Z] #12 13.03 github.com/go-git/go-git/v5/utils/ioutil
+[2025-08-02T11:25:19.243Z] #12 13.06 go.opentelemetry.io/otel/internal/attribute
+[2025-08-02T11:25:19.498Z] #12 13.27 github.com/failsafe-go/failsafe-go/policy
+[2025-08-02T11:25:19.752Z] #12 13.52 encoding/base64
+[2025-08-02T11:25:19.752Z] #12 13.52 vendor/golang.org/x/crypto/chacha20
+[2025-08-02T11:25:19.752Z] #12 13.52 vendor/golang.org/x/crypto/internal/poly1305
+[2025-08-02T11:25:19.752Z] #12 13.52 go.mongodb.org/mongo-driver/internal/rand
+[2025-08-02T11:25:19.752Z] #12 13.59 crypto/ecdh
+[2025-08-02T11:25:19.752Z] #12 13.66 golang.org/x/sys/unix
+[2025-08-02T11:25:20.007Z] #12 13.67 golang.org/x/crypto/scrypt
+[2025-08-02T11:25:20.007Z] #12 13.68 github.com/golang/snappy
+[2025-08-02T11:25:20.007Z] #12 13.77 github.com/klauspost/compress/internal/snapref
+[2025-08-02T11:25:20.007Z] #12 13.79 github.com/klauspost/compress/zstd/internal/xxhash
+[2025-08-02T11:25:20.007Z] #12 13.82 github.com/xdg-go/pbkdf2
+[2025-08-02T11:25:20.007Z] #12 13.89 github.com/cespare/xxhash/v2
+[2025-08-02T11:25:20.261Z] #12 13.96 github.com/ProtonMail/go-crypto/openpgp/aes/keywrap
+[2025-08-02T11:25:20.261Z] #12 13.98 encoding/pem
+[2025-08-02T11:25:20.261Z] #12 14.12 golang.org/x/crypto/openpgp/armor
+[2025-08-02T11:25:20.516Z] #12 14.22 golang.org/x/crypto/chacha20
+[2025-08-02T11:25:20.516Z] #12 14.25 golang.org/x/crypto/curve25519
+[2025-08-02T11:25:20.516Z] #12 14.28 golang.org/x/crypto/internal/poly1305
+[2025-08-02T11:25:20.770Z] #12 14.58 path/filepath
+[2025-08-02T11:25:20.770Z] #12 14.60 vendor/golang.org/x/sys/cpu
+[2025-08-02T11:25:20.770Z] #12 14.60 io/ioutil
+[2025-08-02T11:25:20.770Z] #12 14.60 google.golang.org/grpc/internal/envconfig
+[2025-08-02T11:25:20.770Z] #12 14.60 fmt
+[2025-08-02T11:25:20.770Z] #12 14.60 net
+[2025-08-02T11:25:20.770Z] #12 14.62 google.golang.org/protobuf/internal/detrand
+[2025-08-02T11:25:20.770Z] #12 14.71 golang.org/x/sys/cpu
+[2025-08-02T11:25:21.025Z] #12 14.81 go.mongodb.org/mongo-driver/internal/driverutil
+[2025-08-02T11:25:21.025Z] #12 14.84 os/signal
+[2025-08-02T11:25:21.025Z] #12 14.94 github.com/go-git/go-billy/v5
+[2025-08-02T11:25:21.280Z] #12 14.99 github.com/spf13/afero/mem
+[2025-08-02T11:25:21.280Z] #12 15.02 os/exec
+[2025-08-02T11:25:21.535Z] #12 15.09 vendor/golang.org/x/crypto/chacha20poly1305
+[2025-08-02T11:25:21.535Z] #12 15.12 golang.org/x/crypto/sha3
+[2025-08-02T11:25:21.535Z] #12 15.49 vendor/golang.org/x/crypto/sha3
+[2025-08-02T11:25:21.790Z] #12 15.60 golang.org/x/crypto/blake2b
+[2025-08-02T11:25:22.044Z] #12 15.84 github.com/go-git/go-billy/v5/helper/polyfill
+[2025-08-02T11:25:22.298Z] #12 15.98 github.com/go-git/go-billy/v5/util
+[2025-08-02T11:25:22.298Z] #12 16.04 golang.org/x/crypto/chacha20poly1305
+[2025-08-02T11:25:22.553Z] #12 16.25 github.com/go-git/go-billy/v5/helper/chroot
+[2025-08-02T11:25:22.553Z] #12 16.29 encoding/json
+[2025-08-02T11:25:22.553Z] #12 16.33 log
+[2025-08-02T11:25:22.553Z] #12 16.34 net/url
+[2025-08-02T11:25:22.553Z] #12 16.44 encoding/csv
+[2025-08-02T11:25:22.807Z] #12 16.49 golang.org/x/text/unicode/norm
+[2025-08-02T11:25:22.807Z] #12 16.69 compress/flate
+[2025-08-02T11:25:23.061Z] #12 16.74 math/big
+[2025-08-02T11:25:23.062Z] #12 16.90 encoding/hex
+[2025-08-02T11:25:23.620Z] #12 17.28 vendor/golang.org/x/text/unicode/bidi
+[2025-08-02T11:25:23.620Z] #12 17.39 vendor/golang.org/x/text/unicode/norm
+[2025-08-02T11:25:24.178Z] #12 17.95 compress/gzip
+[2025-08-02T11:25:24.436Z] #12 18.13 github.com/mattn/go-isatty
+[2025-08-02T11:25:24.696Z] #12 18.44 github.com/fsnotify/fsnotify
+[2025-08-02T11:25:24.696Z] #12 18.48 log/slog
+[2025-08-02T11:25:24.696Z] #12 18.51 vendor/golang.org/x/text/secure/bidirule
+[2025-08-02T11:25:24.696Z] #12 18.56 github.com/mattn/go-colorable
+[2025-08-02T11:25:24.696Z] #12 18.64 vendor/golang.org/x/net/http2/hpack
+[2025-08-02T11:25:25.280Z] #12 18.82 mime
+[2025-08-02T11:25:25.280Z] #12 18.93 mime/quotedprintable
+[2025-08-02T11:25:25.280Z] #12 19.10 net/http/internal
+[2025-08-02T11:25:25.839Z] #12 19.38 text/template/parse
+[2025-08-02T11:25:25.839Z] #12 19.41 flag
+[2025-08-02T11:25:25.839Z] #12 19.47 github.com/subosito/gotenv
+[2025-08-02T11:25:25.839Z] #12 19.50 github.com/hashicorp/hcl/hcl/token
+[2025-08-02T11:25:26.094Z] #12 19.82 github.com/hashicorp/hcl/hcl/ast
+[2025-08-02T11:25:26.094Z] #12 19.90 vendor/golang.org/x/net/idna
+[2025-08-02T11:25:26.348Z] #12 20.20 github.com/hashicorp/hcl/hcl/scanner
+[2025-08-02T11:25:26.603Z] #12 20.41 github.com/hashicorp/hcl/json/token
+[2025-08-02T11:25:27.163Z] #12 20.80 github.com/hashicorp/hcl/json/scanner
+[2025-08-02T11:25:27.163Z] #12 20.84 github.com/hashicorp/hcl/hcl/parser
+[2025-08-02T11:25:27.163Z] #12 20.85 text/tabwriter
+[2025-08-02T11:25:27.163Z] #12 21.03 github.com/sagikazarmark/slog-shim
+[2025-08-02T11:25:27.417Z] #12 21.15 gopkg.in/ini.v1
+[2025-08-02T11:25:27.417Z] #12 21.15 github.com/hashicorp/hcl/json/parser
+[2025-08-02T11:25:27.417Z] #12 21.26 github.com/spf13/viper/internal/encoding/json
+[2025-08-02T11:25:27.417Z] #12 21.34 github.com/hashicorp/hcl/hcl/printer
+[2025-08-02T11:25:27.417Z] #12 21.36 crypto/rand
+[2025-08-02T11:25:27.671Z] #12 21.38 crypto/elliptic
+[2025-08-02T11:25:27.671Z] #12 21.43 crypto/internal/bigmod
+[2025-08-02T11:25:27.671Z] #12 21.44 crypto/internal/boring/bbig
+[2025-08-02T11:25:27.926Z] #12 21.53 encoding/asn1
+[2025-08-02T11:25:27.926Z] #12 21.54 crypto/dsa
+[2025-08-02T11:25:27.926Z] #12 21.55 github.com/rs/zerolog/internal/json
+[2025-08-02T11:25:27.926Z] #12 21.70 github.com/DataDog/datadog-go/v5/statsd
+[2025-08-02T11:25:27.926Z] #12 21.78 github.com/mitchellh/mapstructure
+[2025-08-02T11:25:28.180Z] #12 21.85 crypto/ed25519
+[2025-08-02T11:25:28.442Z] #12 22.09 crypto/internal/hpke
+[2025-08-02T11:25:28.442Z] #12 22.17 crypto/internal/mlkem768
+[2025-08-02T11:25:28.696Z] #12 22.39 github.com/rs/zerolog
+[2025-08-02T11:25:28.696Z] #12 22.39 net/textproto
+[2025-08-02T11:25:28.696Z] #12 22.42 crypto/rsa
+[2025-08-02T11:25:28.696Z] #12 22.50 vendor/golang.org/x/crypto/cryptobyte
+[2025-08-02T11:25:28.951Z] #12 22.56 crypto/x509/pkix
+[2025-08-02T11:25:28.951Z] #12 22.68 vendor/golang.org/x/net/http/httpguts
+[2025-08-02T11:25:28.951Z] #12 22.80 vendor/golang.org/x/net/http/httpproxy
+[2025-08-02T11:25:29.205Z] #12 22.82 mime/multipart
+[2025-08-02T11:25:29.459Z] #12 23.16 text/template
+[2025-08-02T11:25:29.459Z] #12 23.26 github.com/hashicorp/hcl
+[2025-08-02T11:25:29.459Z] #12 23.30 github.com/spf13/pflag
+[2025-08-02T11:25:29.713Z] #12 23.42 crypto/ecdsa
+[2025-08-02T11:25:29.967Z] #12 23.64 github.com/pelletier/go-toml/v2/internal/danger
+[2025-08-02T11:25:29.967Z] #12 23.79 github.com/spf13/viper/internal/encoding/hcl
+[2025-08-02T11:25:29.967Z] #12 23.80 github.com/pelletier/go-toml/v2/unstable
+[2025-08-02T11:25:29.967Z] #12 23.90 gopkg.in/yaml.v3
+[2025-08-02T11:25:30.526Z] #12 24.13 github.com/bits-and-blooms/bitset
+[2025-08-02T11:25:30.526Z] #12 24.18 golang.org/x/net/internal/timeseries
+[2025-08-02T11:25:30.526Z] #12 24.21 crypto/x509
+[2025-08-02T11:25:31.085Z] #12 24.64 github.com/pelletier/go-toml/v2/internal/tracker
+[2025-08-02T11:25:31.085Z] #12 24.89 github.com/pelletier/go-toml/v2
+[2025-08-02T11:25:31.340Z] #12 25.12 google.golang.org/grpc/grpclog/internal
+[2025-08-02T11:25:31.594Z] #12 25.35 github.com/failsafe-go/failsafe-go/circuitbreaker
+[2025-08-02T11:25:31.594Z] #12 25.47 google.golang.org/grpc/grpclog
+[2025-08-02T11:25:31.849Z] #12 25.61 html/template
+[2025-08-02T11:25:31.849Z] #12 25.67 github.com/rs/zerolog/log
+[2025-08-02T11:25:31.849Z] #12 25.75 github.com/Meesho/go-core/config/configutils
+[2025-08-02T11:25:32.409Z] #12 26.12 google.golang.org/grpc/connectivity
+[2025-08-02T11:25:32.664Z] #12 26.49 google.golang.org/grpc/attributes
+[2025-08-02T11:25:32.918Z] #12 26.69 google.golang.org/protobuf/internal/errors
+[2025-08-02T11:25:33.173Z] #12 26.93 google.golang.org/protobuf/encoding/protowire
+[2025-08-02T11:25:33.173Z] #12 26.97 go/token
+[2025-08-02T11:25:33.427Z] #12 27.16 google.golang.org/grpc/internal
+[2025-08-02T11:25:33.681Z] #12 27.48 google.golang.org/protobuf/reflect/protoreflect
+[2025-08-02T11:25:33.936Z] #12 27.64 google.golang.org/grpc/internal/grpclog
+[2025-08-02T11:25:33.936Z] #12 27.66 github.com/spf13/viper/internal/encoding/toml
+[2025-08-02T11:25:33.936Z] #12 27.66 google.golang.org/grpc/metadata
+[2025-08-02T11:25:34.190Z] #12 27.96 google.golang.org/protobuf/internal/version
+[2025-08-02T11:25:34.190Z] #12 27.96 google.golang.org/grpc/stats
+[2025-08-02T11:25:34.445Z] #12 28.10 google.golang.org/grpc/codes
+[2025-08-02T11:25:34.445Z] #12 28.12 google.golang.org/grpc/internal/grpcutil
+[2025-08-02T11:25:34.445Z] #12 28.24 google.golang.org/grpc/experimental/stats
+[2025-08-02T11:25:34.445Z] #12 28.25 google.golang.org/grpc/mem
+[2025-08-02T11:25:34.445Z] #12 28.30 google.golang.org/grpc/internal/balancerload
+[2025-08-02T11:25:34.445Z] #12 28.31 google.golang.org/grpc/internal/idle
+[2025-08-02T11:25:34.700Z] #12 28.52 github.com/spf13/cast
+[2025-08-02T11:25:34.955Z] #12 28.54 golang.org/x/text/unicode/bidi
+[2025-08-02T11:25:34.955Z] #12 28.57 google.golang.org/protobuf/internal/encoding/messageset
+[2025-08-02T11:25:34.955Z] #12 28.68 crypto/tls
+[2025-08-02T11:25:34.955Z] #12 28.78 google.golang.org/protobuf/internal/genid
+[2025-08-02T11:25:35.208Z] #12 28.79 google.golang.org/protobuf/internal/order
+[2025-08-02T11:25:35.208Z] #12 28.82 google.golang.org/protobuf/internal/strs
+[2025-08-02T11:25:35.208Z] #12 28.92 google.golang.org/protobuf/reflect/protoregistry
+[2025-08-02T11:25:35.208Z] #12 28.95 google.golang.org/protobuf/runtime/protoiface
+[2025-08-02T11:25:35.208Z] #12 28.98 github.com/spf13/viper/internal/encoding/yaml
+[2025-08-02T11:25:35.208Z] #12 29.01 google.golang.org/protobuf/internal/encoding/json
+[2025-08-02T11:25:35.209Z] #12 29.02 google.golang.org/protobuf/internal/descfmt
+[2025-08-02T11:25:35.209Z] #12 29.07 google.golang.org/protobuf/internal/descopts
+[2025-08-02T11:25:35.209Z] #12 29.16 google.golang.org/protobuf/internal/encoding/text
+[2025-08-02T11:25:35.463Z] #12 29.22 google.golang.org/protobuf/internal/protolazy
+[2025-08-02T11:25:35.463Z] #12 29.29 google.golang.org/grpc/encoding
+[2025-08-02T11:25:35.733Z] #12 29.38 google.golang.org/grpc/internal/stats
+[2025-08-02T11:25:35.733Z] #12 29.44 golang.org/x/text/secure/bidirule
+[2025-08-02T11:25:35.733Z] #12 29.44 golang.org/x/net/http2/hpack
+[2025-08-02T11:25:35.733Z] #12 29.57 github.com/spf13/viper/internal/encoding/dotenv
+[2025-08-02T11:25:35.987Z] #12 29.61 github.com/spf13/viper/internal/encoding/ini
+[2025-08-02T11:25:35.988Z] #12 29.62 google.golang.org/protobuf/proto
+[2025-08-02T11:25:35.988Z] #12 29.71 golang.org/x/net/idna
+[2025-08-02T11:25:35.988Z] #12 29.76 google.golang.org/grpc/internal/syscall
+[2025-08-02T11:25:35.988Z] #12 29.85 google.golang.org/grpc/tap
+[2025-08-02T11:25:36.242Z] #12 29.85 google.golang.org/grpc/internal/resolver/dns/internal
+[2025-08-02T11:25:36.242Z] #12 29.87 github.com/davecgh/go-spew/spew
+[2025-08-02T11:25:36.242Z] #12 30.02 github.com/pmezard/go-difflib/difflib
+[2025-08-02T11:25:36.242Z] #12 30.03 github.com/stretchr/objx
+[2025-08-02T11:25:36.242Z] #12 30.15 github.com/stretchr/testify/assert/yaml
+[2025-08-02T11:25:36.496Z] #12 30.20 google.golang.org/protobuf/internal/encoding/defval
+[2025-08-02T11:25:36.496Z] #12 30.28 google.golang.org/protobuf/encoding/prototext
+[2025-08-02T11:25:36.496Z] #12 30.33 runtime/debug
+[2025-08-02T11:25:36.496Z] #12 30.39 github.com/go-zookeeper/zk
+[2025-08-02T11:25:36.751Z] #12 30.52 google.golang.org/protobuf/internal/filedesc
+[2025-08-02T11:25:37.006Z] #12 30.77 encoding/xml
+[2025-08-02T11:25:37.261Z] #12 30.88 golang.org/x/net/http/httpguts
+[2025-08-02T11:25:37.515Z] #12 31.20 github.com/gin-gonic/gin/internal/json
+[2025-08-02T11:25:37.515Z] #12 31.28 compress/zlib
+[2025-08-02T11:25:37.515Z] #12 31.29 golang.org/x/net/html
+[2025-08-02T11:25:37.770Z] #12 31.56 debug/dwarf
+[2025-08-02T11:25:37.770Z] #12 31.69 github.com/gabriel-vasile/mimetype/internal/json
+[2025-08-02T11:25:38.330Z] #12 32.06 github.com/go-playground/universal-translator
+[2025-08-02T11:25:38.584Z] #12 32.36 github.com/leodido/go-urn
+[2025-08-02T11:25:38.838Z] #12 32.65 golang.org/x/text/internal/language
+[2025-08-02T11:25:39.109Z] #12 33.03 encoding/gob
+[2025-08-02T11:25:39.363Z] #12 33.15 go.mongodb.org/mongo-driver/bson/primitive
+[2025-08-02T11:25:39.363Z] #12 33.19 go.mongodb.org/mongo-driver/mongo/address
+[2025-08-02T11:25:39.921Z] #12 33.51 go.mongodb.org/mongo-driver/tag
+[2025-08-02T11:25:39.921Z] #12 33.74 go.mongodb.org/mongo-driver/mongo/readpref
+[2025-08-02T11:25:40.175Z] #12 33.93 go.mongodb.org/mongo-driver/x/bsonx/bsoncore
+[2025-08-02T11:25:40.430Z] #12 34.16 go.mongodb.org/mongo-driver/internal/logger
+[2025-08-02T11:25:40.990Z] #12 34.64 github.com/gabriel-vasile/mimetype/internal/charset
+[2025-08-02T11:25:40.990Z] #12 34.65 go.mongodb.org/mongo-driver/internal/randutil
+[2025-08-02T11:25:40.990Z] #12 34.68 debug/macho
+[2025-08-02T11:25:40.990Z] #12 34.81 go.mongodb.org/mongo-driver/internal/uuid
+[2025-08-02T11:25:40.990Z] #12 34.82 github.com/youmark/pkcs8
+[2025-08-02T11:25:41.244Z] #12 34.94 github.com/klauspost/compress/fse
+[2025-08-02T11:25:41.244Z] #12 35.11 github.com/xdg-go/stringprep
+[2025-08-02T11:25:41.244Z] #12 35.20 golang.org/x/text/internal/language/compact
+[2025-08-02T11:25:41.498Z] #12 35.26 google.golang.org/protobuf/encoding/protojson
+[2025-08-02T11:25:42.432Z] #12 35.98 google.golang.org/protobuf/internal/encoding/tag
+[2025-08-02T11:25:42.432Z] #12 36.14 golang.org/x/text/language
+[2025-08-02T11:25:42.432Z] #12 36.18 github.com/gabriel-vasile/mimetype/internal/magic
+[2025-08-02T11:25:42.686Z] #12 36.43 go.mongodb.org/mongo-driver/bson/bsonrw
+[2025-08-02T11:25:42.686Z] #12 36.50 google.golang.org/protobuf/internal/impl
+[2025-08-02T11:25:43.246Z] #12 36.99 go.mongodb.org/mongo-driver/internal/csfle
+[2025-08-02T11:25:43.246Z] #12 37.07 go.mongodb.org/mongo-driver/mongo/readconcern
+[2025-08-02T11:25:43.501Z] #12 37.11 github.com/klauspost/compress/huff0
+[2025-08-02T11:25:43.501Z] #12 37.23 go.mongodb.org/mongo-driver/x/mongo/driver/wiremessage
+[2025-08-02T11:25:43.501Z] #12 37.28 net/http/httptrace
+[2025-08-02T11:25:43.756Z] #12 37.54 net/http
+[2025-08-02T11:25:44.011Z] #12 37.77 google.golang.org/grpc/internal/credentials
+[2025-08-02T11:25:44.265Z] #12 37.97 golang.org/x/net/internal/httpcommon
+[2025-08-02T11:25:44.265Z] #12 37.97 github.com/gabriel-vasile/mimetype
+[2025-08-02T11:25:44.265Z] #12 38.06 google.golang.org/grpc/credentials
+[2025-08-02T11:25:44.519Z] #12 38.23 go.mongodb.org/mongo-driver/internal/aws/awserr
+[2025-08-02T11:25:44.774Z] #12 38.47 golang.org/x/sync/singleflight
+[2025-08-02T11:25:44.774Z] #12 38.53 github.com/xdg-go/scram
+[2025-08-02T11:25:45.028Z] #12 38.73 go.mongodb.org/mongo-driver/internal/aws/credentials
+[2025-08-02T11:25:45.028Z] #12 38.79 google.golang.org/grpc/internal/channelz
+[2025-08-02T11:25:45.028Z] #12 38.84 google.golang.org/grpc/credentials/insecure
+[2025-08-02T11:25:45.028Z] #12 38.84 google.golang.org/grpc/resolver
+[2025-08-02T11:25:45.028Z] #12 38.94 google.golang.org/grpc/peer
+[2025-08-02T11:25:45.282Z] #12 38.95 github.com/go-playground/validator/v10
+[2025-08-02T11:25:45.537Z] #12 39.30 go.mongodb.org/mongo-driver/x/mongo/driver/dns
+[2025-08-02T11:25:45.537Z] #12 39.33 google.golang.org/grpc/internal/metadata
+[2025-08-02T11:25:45.537Z] #12 39.34 github.com/klauspost/compress/zstd
+[2025-08-02T11:25:45.537Z] #12 39.37 google.golang.org/grpc/channelz
+[2025-08-02T11:25:45.791Z] #12 39.45 google.golang.org/grpc/internal/proxyattributes
+[2025-08-02T11:25:45.791Z] #12 39.53 google.golang.org/grpc/internal/resolver/passthrough
+[2025-08-02T11:25:45.791Z] #12 39.53 google.golang.org/grpc/internal/transport/networktype
+[2025-08-02T11:25:45.791Z] #12 39.57 google.golang.org/grpc/internal/resolver/unix
+[2025-08-02T11:25:45.791Z] #12 39.59 google.golang.org/grpc/balancer/grpclb/state
+[2025-08-02T11:25:45.791Z] #12 39.61 google.golang.org/grpc/balancer
+[2025-08-02T11:25:46.045Z] #12 39.69 google.golang.org/grpc/internal/resolver/dns
+[2025-08-02T11:25:46.045Z] #12 39.73 go.mongodb.org/mongo-driver/bson/bsoncodec
+[2025-08-02T11:25:46.045Z] #12 39.79 google.golang.org/grpc/balancer/base
+[2025-08-02T11:25:46.045Z] #12 39.79 google.golang.org/grpc/internal/serviceconfig
+[2025-08-02T11:25:46.299Z] #12 39.94 google.golang.org/grpc/internal/resolver
+[2025-08-02T11:25:46.299Z] #12 40.11 github.com/montanaflynn/stats
+[2025-08-02T11:25:46.299Z] #12 40.15 google.golang.org/grpc/resolver/dns
+[2025-08-02T11:25:46.857Z] #12 40.42 google.golang.org/grpc/balancer/endpointsharding
+[2025-08-02T11:25:46.857Z] #12 40.45 google.golang.org/grpc/internal/balancer/gracefulswitch
+[2025-08-02T11:25:47.111Z] #12 40.83 golang.org/x/crypto/ocsp
+[2025-08-02T11:25:47.111Z] #12 40.87 golang.org/x/sync/errgroup
+[2025-08-02T11:25:47.366Z] #12 41.11 buddy/pkg/models
+[2025-08-02T11:25:47.620Z] #12 41.32 github.com/go-redis/redis/v8/internal
+[2025-08-02T11:25:47.620Z] #12 41.42 github.com/go-redis/redis/v8/internal/hscan
+[2025-08-02T11:25:47.620Z] #12 41.43 github.com/go-redis/redis/v8/internal/proto
+[2025-08-02T11:25:47.879Z] #12 41.83 github.com/go-redsync/redsync/v4/redis
+[2025-08-02T11:25:48.134Z] #12 41.88 github.com/hashicorp/go-multierror
+[2025-08-02T11:25:48.134Z] #12 41.96 github.com/google/go-querystring/query
+[2025-08-02T11:25:48.693Z] #12 42.42 github.com/go-redis/redis/v8/internal/pool
+[2025-08-02T11:25:48.693Z] #12 42.49 github.com/go-redsync/redsync/v4
+[2025-08-02T11:25:48.948Z] #12 42.66 golang.org/x/crypto/openpgp/elgamal
+[2025-08-02T11:25:49.203Z] #12 43.06 golang.org/x/crypto/openpgp/packet
+[2025-08-02T11:25:49.458Z] #12 43.20 github.com/fatih/structs
+[2025-08-02T11:25:50.016Z] #12 43.64 github.com/go-redis/redis/v8
+[2025-08-02T11:25:50.939Z] #12 44.47 github.com/golang-jwt/jwt/v4
+[2025-08-02T11:25:51.193Z] #12 44.83 go.mongodb.org/mongo-driver/bson
+[2025-08-02T11:25:51.193Z] #12 44.86 github.com/pkg/errors
+[2025-08-02T11:25:51.447Z] #12 45.14 github.com/trivago/tgo/treflect
+[2025-08-02T11:25:51.702Z] #12 45.51 github.com/trivago/tgo/tcontainer
+[2025-08-02T11:25:52.261Z] #12 45.98 database/sql/driver
+[2025-08-02T11:25:52.261Z] #12 46.03 golang.org/x/crypto/openpgp
+[2025-08-02T11:25:52.261Z] #12 46.07 google.golang.org/protobuf/internal/filetype
+[2025-08-02T11:25:52.516Z] #12 46.23 github.com/hibiken/asynq/internal/errors
+[2025-08-02T11:25:52.770Z] #12 46.42 go.mongodb.org/mongo-driver/internal/bsonutil
+[2025-08-02T11:25:52.770Z] #12 46.49 google.golang.org/protobuf/runtime/protoimpl
+[2025-08-02T11:25:52.770Z] #12 46.61 go.mongodb.org/mongo-driver/internal/codecutil
+[2025-08-02T11:25:53.025Z] #12 46.67 go.mongodb.org/mongo-driver/mongo/writeconcern
+[2025-08-02T11:25:53.025Z] #12 46.70 github.com/google/uuid
+[2025-08-02T11:25:53.025Z] #12 46.87 google.golang.org/protobuf/types/known/durationpb
+[2025-08-02T11:25:53.280Z] #12 46.88 google.golang.org/protobuf/protoadapt
+[2025-08-02T11:25:53.280Z] #12 47.01 google.golang.org/grpc/internal/pretty
+[2025-08-02T11:25:53.280Z] #12 47.14 google.golang.org/grpc/encoding/proto
+[2025-08-02T11:25:53.535Z] #12 47.15 google.golang.org/protobuf/types/known/timestamppb
+[2025-08-02T11:25:53.535Z] #12 47.16 google.golang.org/protobuf/types/known/anypb
+[2025-08-02T11:25:53.535Z] #12 47.17 go.mongodb.org/mongo-driver/mongo/description
+[2025-08-02T11:25:53.535Z] #12 47.19 google.golang.org/grpc/balancer/pickfirst/pickfirstleaf
+[2025-08-02T11:25:53.535Z] #12 47.33 github.com/redis/go-redis/v9/internal
+[2025-08-02T11:25:53.535Z] #12 47.40 google.golang.org/genproto/googleapis/rpc/status
+[2025-08-02T11:25:53.789Z] #12 47.46 github.com/redis/go-redis/v9/internal/hscan
+[2025-08-02T11:25:53.789Z] #12 47.58 google.golang.org/grpc/binarylog/grpc_binarylog_v1
+[2025-08-02T11:25:53.789Z] #12 47.65 github.com/hibiken/asynq/internal/proto
+[2025-08-02T11:25:54.044Z] #12 47.83 google.golang.org/grpc/internal/status
+[2025-08-02T11:25:54.044Z] #12 47.86 github.com/redis/go-redis/v9/internal/proto
+[2025-08-02T11:25:54.298Z] #12 48.11 google.golang.org/grpc/balancer/pickfirst
+[2025-08-02T11:25:54.298Z] #12 48.14 google.golang.org/grpc/balancer/roundrobin
+[2025-08-02T11:25:54.553Z] #12 48.26 google.golang.org/grpc/status
+[2025-08-02T11:25:54.553Z] #12 48.28 github.com/hibiken/asynq/internal/log
+[2025-08-02T11:25:54.553Z] #12 48.37 go.mongodb.org/mongo-driver/event
+[2025-08-02T11:25:54.808Z] #12 48.38 go.mongodb.org/mongo-driver/x/mongo/driver/session
+[2025-08-02T11:25:54.808Z] #12 48.46 github.com/robfig/cron/v3
+[2025-08-02T11:25:54.808Z] #12 48.56 google.golang.org/grpc/internal/binarylog
+[2025-08-02T11:25:55.062Z] #12 48.80 github.com/redis/go-redis/v9/internal/pool
+[2025-08-02T11:25:55.062Z] #12 48.84 golang.org/x/time/rate
+[2025-08-02T11:25:55.315Z] #12 49.04 dario.cat/mergo
+[2025-08-02T11:25:55.315Z] #12 49.06 github.com/ProtonMail/go-crypto/openpgp/errors
+[2025-08-02T11:25:55.316Z] #12 49.07 github.com/ProtonMail/go-crypto/ocb
+[2025-08-02T11:25:55.570Z] #12 49.27 github.com/ProtonMail/go-crypto/openpgp/internal/algorithm
+[2025-08-02T11:25:55.570Z] #12 49.44 github.com/ProtonMail/go-crypto/openpgp/armor
+[2025-08-02T11:25:55.825Z] #12 49.63 github.com/ProtonMail/go-crypto/bitcurves
+[2025-08-02T11:25:55.825Z] #12 49.64 github.com/ProtonMail/go-crypto/brainpool
+[2025-08-02T11:25:56.079Z] #12 49.79 github.com/ProtonMail/go-crypto/openpgp/internal/encoding
+[2025-08-02T11:25:56.079Z] #12 49.85 golang.org/x/crypto/cryptobyte
+[2025-08-02T11:25:56.079Z] #12 49.87 github.com/cloudflare/circl/math
+[2025-08-02T11:25:56.079Z] #12 49.90 github.com/redis/go-redis/v9
+[2025-08-02T11:25:56.079Z] #12 49.91 github.com/ProtonMail/go-crypto/openpgp/elgamal
+[2025-08-02T11:25:56.079Z] #12 50.04 github.com/cyphar/filepath-securejoin
+[2025-08-02T11:25:56.334Z] #12 50.10 golang.org/x/crypto/argon2
+[2025-08-02T11:25:56.334Z] #12 50.10 github.com/pjbgf/sha1cd
+[2025-08-02T11:25:56.334Z] #12 50.14 github.com/go-git/gcfg/token
+[2025-08-02T11:25:56.334Z] #12 50.25 github.com/ProtonMail/go-crypto/openpgp/s2k
+[2025-08-02T11:25:56.588Z] #12 50.53 github.com/go-git/gcfg/scanner
+[2025-08-02T11:25:56.843Z] #12 50.57 github.com/go-git/go-git/v5/plumbing/hash
+[2025-08-02T11:25:56.843Z] #12 50.64 github.com/magiconair/properties
+[2025-08-02T11:25:56.843Z] #12 50.66 github.com/spf13/afero
+[2025-08-02T11:25:57.097Z] #12 50.83 github.com/Meesho/go-core/api/http
+[2025-08-02T11:25:57.097Z] #12 50.93 golang.org/x/net/trace
+[2025-08-02T11:25:57.351Z] #12 50.95 google.golang.org/grpc/internal/resolver/delegatingresolver
+[2025-08-02T11:25:57.351Z] #12 51.18 golang.org/x/net/http2
+[2025-08-02T11:25:57.351Z] #12 51.21 net/http/httputil
+[2025-08-02T11:25:57.910Z] #12 51.59 net/http/httptest
+[2025-08-02T11:25:58.164Z] #12 52.10 github.com/spf13/viper/internal/encoding/javaproperties
+[2025-08-02T11:25:58.723Z] #12 52.46 github.com/gin-contrib/sse
+[2025-08-02T11:25:58.723Z] #12 52.53 net/rpc
+[2025-08-02T11:25:58.978Z] #12 52.77 github.com/stretchr/testify/assert
+[2025-08-02T11:25:58.978Z] #12 52.78 go.mongodb.org/mongo-driver/internal/httputil
+[2025-08-02T11:25:59.233Z] #12 52.92 go.mongodb.org/mongo-driver/x/mongo/driver/mongocrypt/options
+[2025-08-02T11:25:59.487Z] #12 53.18 go.mongodb.org/mongo-driver/internal/aws/signer/v4
+[2025-08-02T11:25:59.487Z] #12 53.32 github.com/spf13/viper
+[2025-08-02T11:25:59.487Z] #12 53.36 go.mongodb.org/mongo-driver/x/mongo/driver/mongocrypt
+[2025-08-02T11:25:59.741Z] #12 53.48 go.mongodb.org/mongo-driver/internal/credproviders
+[2025-08-02T11:25:59.996Z] #12 53.59 go.mongodb.org/mongo-driver/x/mongo/driver
+[2025-08-02T11:26:00.555Z] #12 54.24 go.mongodb.org/mongo-driver/x/mongo/driver/auth/creds
+[2025-08-02T11:26:00.555Z] #12 54.40 github.com/ugorji/go/codec
+[2025-08-02T11:26:01.114Z] #12 54.69 go.mongodb.org/mongo-driver/x/mongo/driver/ocsp
+[2025-08-02T11:26:01.369Z] #12 55.07 github.com/Meesho/go-core/metric
+[2025-08-02T11:26:01.928Z] #12 55.67 github.com/google/go-github/v33/github
+[2025-08-02T11:26:02.183Z] #12 56.08 github.com/Meesho/go-core/circuitbreaker/manualcb
+[2025-08-02T11:26:03.543Z] #12 57.24 go.mongodb.org/mongo-driver/x/mongo/driver/operation
+[2025-08-02T11:26:04.466Z] #12 58.10 github.com/stretchr/testify/mock
+[2025-08-02T11:26:04.720Z] #12 58.42 google.golang.org/grpc/internal/transport
+[2025-08-02T11:26:04.720Z] #12 58.54 golang.org/x/net/http2/h2c
+[2025-08-02T11:26:05.279Z] #12 59.04 github.com/andygrunwald/go-jira
+[2025-08-02T11:26:05.279Z] #12 59.11 github.com/cloudflare/circl/internal/conv
+[2025-08-02T11:26:06.202Z] #12 59.80 github.com/cloudflare/circl/math/fp25519
+[2025-08-02T11:26:07.125Z] #12 60.73 go.mongodb.org/mongo-driver/x/mongo/driver/auth
+[2025-08-02T11:26:07.380Z] #12 61.27 github.com/cloudflare/circl/dh/x25519
+[2025-08-02T11:26:08.740Z] #12 62.48 github.com/cloudflare/circl/math/fp448
+[2025-08-02T11:26:08.740Z] #12 62.57 github.com/cloudflare/circl/sign/ed25519
+[2025-08-02T11:26:08.994Z] #12 62.69 go.mongodb.org/mongo-driver/x/mongo/driver/connstring
+[2025-08-02T11:26:09.249Z] #12 63.13 google.golang.org/grpc
+[2025-08-02T11:26:09.503Z] #12 63.31 github.com/cloudflare/circl/dh/x448
+[2025-08-02T11:26:09.758Z] #12 63.55 go.mongodb.org/mongo-driver/mongo/options
+[2025-08-02T11:26:10.317Z] #12 64.03 github.com/cloudflare/circl/math/mlsbset
+[2025-08-02T11:26:10.571Z] #12 64.40 github.com/cloudflare/circl/ecc/goldilocks
+[2025-08-02T11:26:11.931Z] #12 65.69 github.com/ProtonMail/go-crypto/openpgp/ed25519
+[2025-08-02T11:26:11.931Z] #12 65.75 github.com/cloudflare/circl/sign/ed448
+[2025-08-02T11:26:11.931Z] #12 65.77 github.com/ProtonMail/go-crypto/openpgp/x25519
+[2025-08-02T11:26:12.490Z] #12 66.13 github.com/ProtonMail/go-crypto/openpgp/internal/ecc
+[2025-08-02T11:26:12.490Z] #12 66.14 github.com/ProtonMail/go-crypto/openpgp/ed448
+[2025-08-02T11:26:12.745Z] #12 66.37 github.com/ProtonMail/go-crypto/openpgp/x448
+[2025-08-02T11:26:12.745Z] #12 66.38 go.mongodb.org/mongo-driver/x/mongo/driver/topology
+[2025-08-02T11:26:12.999Z] #12 66.71 github.com/go-git/go-billy/v5/osfs
+[2025-08-02T11:26:13.559Z] #12 67.14 github.com/go-git/go-git/v5/plumbing
+[2025-08-02T11:26:13.813Z] #12 67.60 github.com/ProtonMail/go-crypto/openpgp/ecdh
+[2025-08-02T11:26:14.372Z] #12 67.89 github.com/ProtonMail/go-crypto/openpgp/ecdsa
+[2025-08-02T11:26:14.372Z] #12 67.93 github.com/ProtonMail/go-crypto/openpgp/eddsa
+[2025-08-02T11:26:14.372Z] #12 68.13 github.com/go-git/gcfg/types
+[2025-08-02T11:26:14.626Z] #12 68.36 github.com/ProtonMail/go-crypto/openpgp/packet
+[2025-08-02T11:26:14.880Z] #12 68.58 gopkg.in/warnings.v0
+[2025-08-02T11:26:15.135Z] #12 69.03 github.com/go-git/gcfg
+[2025-08-02T11:26:16.495Z] #12 69.99 github.com/go-git/go-git/v5/plumbing/format/config
+[2025-08-02T11:26:16.495Z] #12 70.00 github.com/Meesho/go-core/circuitbreaker/failsafecb
+[2025-08-02T11:26:16.749Z] #12 70.51 github.com/Meesho/go-core/circuitbreaker
+[2025-08-02T11:26:17.003Z] #12 70.67 github.com/go-git/go-git/v5/config
+[2025-08-02T11:26:17.003Z] #12 70.78 github.com/go-redsync/redsync/v4/redis/goredis/v8
+[2025-08-02T11:26:17.258Z] #12 71.01 os/user
+[2025-08-02T11:26:17.512Z] #12 71.11 github.com/Meesho/go-core/httpclient
+[2025-08-02T11:26:17.767Z] #12 71.39 github.com/go-git/go-git/v5/internal/revision
+[2025-08-02T11:26:17.767Z] #12 71.50 go.mongodb.org/mongo-driver/mongo
+[2025-08-02T11:26:17.768Z] #12 71.60 github.com/go-git/go-git/v5/internal/path_util
+[2025-08-02T11:26:18.022Z] #12 71.75 github.com/go-git/go-git/v5/plumbing/cache
+[2025-08-02T11:26:18.022Z] #12 71.81 github.com/go-git/go-git/v5/plumbing/filemode
+[2025-08-02T11:26:18.277Z] #12 71.95 github.com/go-git/go-git/v5/plumbing/format/gitignore
+[2025-08-02T11:26:18.277Z] #12 72.20 github.com/go-git/go-git/v5/utils/binary
+[2025-08-02T11:26:18.531Z] #12 72.25 github.com/go-git/go-git/v5/utils/sync
+[2025-08-02T11:26:18.806Z] #12 72.38 github.com/emirpasic/gods/utils
+[2025-08-02T11:26:18.806Z] #12 72.56 github.com/go-git/go-git/v5/plumbing/format/diff
+[2025-08-02T11:26:19.060Z] #12 72.67 github.com/go-git/go-git/v5/plumbing/format/index
+[2025-08-02T11:26:19.060Z] #12 72.73 github.com/go-git/go-git/v5/plumbing/format/idxfile
+[2025-08-02T11:26:19.315Z] #12 73.00 github.com/emirpasic/gods/containers
+[2025-08-02T11:26:19.569Z] #12 73.36 github.com/emirpasic/gods/lists
+[2025-08-02T11:26:19.823Z] #12 73.52 github.com/emirpasic/gods/lists/arraylist
+[2025-08-02T11:26:19.823Z] #12 73.59 github.com/emirpasic/gods/trees
+[2025-08-02T11:26:19.823Z] #12 73.62 github.com/go-git/go-git/v5/plumbing/storer
+[2025-08-02T11:26:19.823Z] #12 73.74 github.com/sergi/go-diff/diffmatchpatch
+[2025-08-02T11:26:20.077Z] #12 73.93 github.com/go-git/go-git/v5/plumbing/format/packfile
+[2025-08-02T11:26:20.077Z] #12 73.94 github.com/emirpasic/gods/trees/binaryheap
+[2025-08-02T11:26:20.077Z] #12 73.98 github.com/ProtonMail/go-crypto/openpgp
+[2025-08-02T11:26:20.077Z] #12 74.02 github.com/gin-gonic/gin/binding
+[2025-08-02T11:26:20.641Z] #12 74.18 github.com/Meesho/go-core/slacknotification
+[2025-08-02T11:26:20.895Z] #12 74.47 github.com/gin-gonic/gin/render
+[2025-08-02T11:26:20.895Z] #12 74.63 github.com/go-git/go-git/v5/storage
+[2025-08-02T11:26:21.150Z] #12 74.94 github.com/go-git/go-git/v5/utils/diff
+[2025-08-02T11:26:21.150Z] #12 75.07 github.com/go-git/go-git/v5/utils/merkletrie/noder
+[2025-08-02T11:26:21.405Z] #12 75.08 github.com/go-git/go-git/v5/utils/trace
+[2025-08-02T11:26:21.405Z] #12 75.13 github.com/go-git/go-git/v5/plumbing/protocol/packp/capability
+[2025-08-02T11:26:21.659Z] #12 75.46 github.com/gin-gonic/gin
+[2025-08-02T11:26:21.914Z] #12 75.54 github.com/Meesho/go-core/zookeeper
+[2025-08-02T11:26:21.914Z] #12 75.60 github.com/go-git/go-git/v5/storage/memory
+[2025-08-02T11:26:21.914Z] #12 75.67 github.com/go-git/go-git/v5/plumbing/format/pktline
+[2025-08-02T11:26:21.914Z] #12 75.72 github.com/go-git/go-git/v5/utils/merkletrie/internal/frame
+[2025-08-02T11:26:21.914Z] #12 75.80 github.com/go-git/go-git/v5/utils/merkletrie
+[2025-08-02T11:26:22.168Z] #12 75.81 github.com/go-git/go-git/v5/plumbing/protocol/packp/sideband
+[2025-08-02T11:26:22.168Z] #12 75.92 golang.org/x/sys/execabs
+[2025-08-02T11:26:22.168Z] #12 76.03 github.com/go-git/go-git/v5/plumbing/format/objfile
+[2025-08-02T11:26:22.426Z] #12 76.16 github.com/go-git/go-git/v5/plumbing/object
+[2025-08-02T11:26:22.426Z] #12 76.18 github.com/go-git/go-git/v5/plumbing/protocol/packp
+[2025-08-02T11:26:22.426Z] #12 76.29 github.com/kevinburke/ssh_config
+[2025-08-02T11:26:22.680Z] #12 76.38 github.com/go-git/go-git/v5/storage/filesystem/dotgit
+[2025-08-02T11:26:24.041Z] #12 77.53 golang.org/x/crypto/ssh
+[2025-08-02T11:26:24.041Z] #12 77.78 github.com/go-git/go-git/v5/storage/filesystem
+[2025-08-02T11:26:24.041Z] #12 77.84 github.com/go-git/go-git/v5/plumbing/transport
+[2025-08-02T11:26:24.295Z] #12 78.20 github.com/go-git/go-git/v5/plumbing/transport/internal/common
+[2025-08-02T11:26:24.550Z] #12 78.23 golang.org/x/net/internal/socks
+[2025-08-02T11:26:24.805Z] #12 78.52 github.com/Meesho/go-core/config
+[2025-08-02T11:26:24.805Z] #12 78.54 github.com/go-git/go-git/v5/plumbing/transport/git
+[2025-08-02T11:26:24.805Z] #12 78.57 github.com/go-git/go-git/v5/plumbing/transport/http
+[2025-08-02T11:26:24.805Z] #12 78.57 github.com/go-git/go-git/v5/utils/merkletrie/filesystem
+[2025-08-02T11:26:25.059Z] #12 78.68 github.com/go-git/go-git/v5/utils/merkletrie/index
+[2025-08-02T11:26:25.059Z] #12 78.77 golang.org/x/oauth2/internal
+[2025-08-02T11:26:25.059Z] #12 78.78 golang.org/x/net/proxy
+[2025-08-02T11:26:25.314Z] #12 79.08 github.com/googleapis/gax-go/v2/internallog/internal
+[2025-08-02T11:26:25.314Z] #12 79.11 github.com/go-git/go-git/v5/plumbing/revlist
+[2025-08-02T11:26:25.314Z] #12 79.11 golang.org/x/oauth2
+[2025-08-02T11:26:25.314Z] #12 79.15 google.golang.org/api/googleapi
+[2025-08-02T11:26:25.315Z] #12 79.20 github.com/googleapis/gax-go/v2/internallog
+[2025-08-02T11:26:25.569Z] #12 79.22 buddy/pkg/config
+[2025-08-02T11:26:25.569Z] #12 79.22 cloud.google.com/go/compute/metadata
+[2025-08-02T11:26:25.569Z] #12 79.29 github.com/go-git/go-git/v5/plumbing/transport/server
+[2025-08-02T11:26:25.569Z] #12 79.42 cloud.google.com/go/auth/internal/jwt
+[2025-08-02T11:26:25.824Z] #12 79.61 buddy/pkg/db
+[2025-08-02T11:26:25.824Z] #12 79.70 buddy/pkg/redisclient
+[2025-08-02T11:26:25.824Z] #12 79.76 buddy/utils
+[2025-08-02T11:26:26.079Z] #12 79.77 github.com/go-git/go-git/v5/plumbing/transport/file
+[2025-08-02T11:26:26.332Z] #12 79.93 cloud.google.com/go/auth/internal
+[2025-08-02T11:26:26.332Z] #12 79.93 cloud.google.com/go/auth/internal/credsfile
+[2025-08-02T11:26:26.332Z] #12 79.96 github.com/googleapis/enterprise-certificate-proxy/client/util
+[2025-08-02T11:26:26.332Z] #12 80.12 golang.org/x/oauth2/authhandler
+[2025-08-02T11:26:26.332Z] #12 80.13 github.com/googleapis/enterprise-certificate-proxy/client
+[2025-08-02T11:26:26.332Z] #12 80.13 buddy/pkg/assignment
+[2025-08-02T11:26:26.332Z] #12 80.17 buddy/pkg/slack
+[2025-08-02T11:26:26.332Z] #12 80.19 golang.org/x/oauth2/google/internal/impersonate
+[2025-08-02T11:26:26.332Z] #12 80.20 cloud.google.com/go/auth
+[2025-08-02T11:26:26.332Z] #12 80.29 golang.org/x/oauth2/google/internal/stsexchange
+[2025-08-02T11:26:26.587Z] #12 80.31 golang.org/x/oauth2/jws
+[2025-08-02T11:26:26.587Z] #12 80.42 github.com/google/s2a-go/fallback
+[2025-08-02T11:26:26.587Z] #12 80.47 cloud.google.com/go/auth/internal/transport/cert
+[2025-08-02T11:26:26.587Z] #12 80.53 github.com/google/s2a-go/internal/proto/common_go_proto
+[2025-08-02T11:26:26.842Z] #12 80.53 github.com/google/s2a-go/internal/handshaker/service
+[2025-08-02T11:26:26.842Z] #12 80.62 golang.org/x/oauth2/jwt
+[2025-08-02T11:26:27.097Z] #12 80.70 cloud.google.com/go/auth/credentials/internal/impersonate
+[2025-08-02T11:26:27.097Z] #12 80.72 cloud.google.com/go/auth/credentials/internal/stsexchange
+[2025-08-02T11:26:27.097Z] #12 80.77 cloud.google.com/go/auth/credentials/internal/gdch
+[2025-08-02T11:26:27.097Z] #12 80.82 github.com/google/s2a-go/internal/proto/s2a_context_go_proto
+[2025-08-02T11:26:27.097Z] #12 80.83 cloud.google.com/go/auth/credentials/internal/externalaccountuser
+[2025-08-02T11:26:27.097Z] #12 80.84 golang.org/x/oauth2/google/externalaccount
+[2025-08-02T11:26:27.097Z] #12 80.94 golang.org/x/oauth2/google/internal/externalaccountauthorizeduser
+[2025-08-02T11:26:27.351Z] #12 80.99 github.com/google/s2a-go/internal/proto/s2a_go_proto
+[2025-08-02T11:26:27.351Z] #12 81.06 github.com/google/s2a-go/internal/record/internal/aeadcrypter
+[2025-08-02T11:26:27.351Z] #12 81.06 github.com/google/s2a-go/internal/proto/v2/common_go_proto
+[2025-08-02T11:26:27.352Z] #12 81.17 cloud.google.com/go/auth/credentials/internal/externalaccount
+[2025-08-02T11:26:27.606Z] #12 81.19 github.com/google/s2a-go/internal/record/internal/halfconn
+[2025-08-02T11:26:27.606Z] #12 81.20 buddy/pkg/jira
+[2025-08-02T11:26:27.606Z] #12 81.31 golang.org/x/oauth2/google
+[2025-08-02T11:26:27.606Z] #12 81.38 github.com/google/s2a-go/retry
+[2025-08-02T11:26:27.861Z] #12 81.49 github.com/google/s2a-go/internal/tokenmanager
+[2025-08-02T11:26:27.861Z] #12 81.58 github.com/google/s2a-go/internal/proto/v2/s2a_context_go_proto
+[2025-08-02T11:26:27.861Z] #12 81.62 google.golang.org/api/internal/cert
+[2025-08-02T11:26:27.861Z] #12 81.63 github.com/google/s2a-go/internal/authinfo
+[2025-08-02T11:26:28.116Z] #12 81.80 github.com/google/s2a-go/internal/record
+[2025-08-02T11:26:28.116Z] #12 81.91 google.golang.org/api/internal/impersonate
+[2025-08-02T11:26:28.116Z] #12 81.91 github.com/google/s2a-go/internal/proto/v2/s2a_go_proto
+[2025-08-02T11:26:28.116Z] #12 81.99 google.golang.org/genproto/googleapis/rpc/code
+[2025-08-02T11:26:28.371Z] #12 82.05 cloud.google.com/go/auth/oauth2adapt
+[2025-08-02T11:26:28.371Z] #12 82.22 github.com/google/s2a-go/internal/handshaker
+[2025-08-02T11:26:28.371Z] #12 82.25 google.golang.org/genproto/googleapis/rpc/errdetails
+[2025-08-02T11:26:28.625Z] #12 82.26 github.com/googleapis/gax-go/v2/apierror/internal/proto
+[2025-08-02T11:26:28.625Z] #12 82.30 cloud.google.com/go/auth/credentials
+[2025-08-02T11:26:28.625Z] #12 82.35 github.com/googleapis/gax-go/v2/callctx
+[2025-08-02T11:26:28.625Z] #12 82.49 github.com/felixge/httpsnoop
+[2025-08-02T11:26:28.625Z] #12 82.49 go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/internal/request
+[2025-08-02T11:26:28.880Z] #12 82.65 golang.org/x/crypto/ssh/knownhosts
+[2025-08-02T11:26:28.880Z] #12 82.68 github.com/google/s2a-go/stream
+[2025-08-02T11:26:28.880Z] #12 82.70 golang.org/x/crypto/ssh/agent
+[2025-08-02T11:26:28.880Z] #12 82.75 github.com/googleapis/gax-go/v2/apierror
+[2025-08-02T11:26:28.880Z] #12 82.77 go.opentelemetry.io/otel/attribute
+[2025-08-02T11:26:29.135Z] #12 82.89 github.com/google/s2a-go/internal/v2/certverifier
+[2025-08-02T11:26:29.135Z] #12 82.90 github.com/skeema/knownhosts
+[2025-08-02T11:26:29.390Z] #12 82.99 github.com/google/s2a-go/internal/v2/remotesigner
+[2025-08-02T11:26:29.390Z] #12 83.00 go.opentelemetry.io/otel/codes
+[2025-08-02T11:26:29.390Z] #12 83.03 github.com/googleapis/gax-go/v2
+[2025-08-02T11:26:29.390Z] #12 83.07 github.com/go-logr/logr
+[2025-08-02T11:26:29.390Z] #12 83.17 go.opentelemetry.io/auto/sdk/internal/telemetry
+[2025-08-02T11:26:29.645Z] #12 83.32 github.com/google/s2a-go/internal/v2/tlsconfigstore
+[2025-08-02T11:26:29.645Z] #12 83.32 github.com/xanzy/ssh-agent
+[2025-08-02T11:26:29.645Z] #12 83.34 go.opentelemetry.io/otel/baggage
+[2025-08-02T11:26:29.645Z] #12 83.34 github.com/go-logr/logr/funcr
+[2025-08-02T11:26:29.645Z] #12 83.41 github.com/go-git/go-git/v5/plumbing/transport/ssh
+[2025-08-02T11:26:29.645Z] #12 83.41 go.opentelemetry.io/otel/semconv/v1.20.0
+[2025-08-02T11:26:29.645Z] #12 83.44 go.opentelemetry.io/otel/semconv/v1.26.0
+[2025-08-02T11:26:29.645Z] #12 83.49 github.com/google/s2a-go/internal/v2
+[2025-08-02T11:26:29.900Z] #12 83.63 go.opentelemetry.io/otel/trace
+[2025-08-02T11:26:29.900Z] #12 83.66 go.opentelemetry.io/otel/metric
+[2025-08-02T11:26:29.900Z] #12 83.73 go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/internal/semconvutil
+[2025-08-02T11:26:29.900Z] #12 83.77 github.com/go-git/go-git/v5/plumbing/transport/client
+[2025-08-02T11:26:30.155Z] #12 83.95 github.com/go-logr/stdr
+[2025-08-02T11:26:30.155Z] #12 83.98 github.com/go-git/go-git/v5
+[2025-08-02T11:26:30.155Z] #12 84.02 github.com/google/s2a-go
+[2025-08-02T11:26:30.410Z] #12 84.12 google.golang.org/api/googleapi/transport
+[2025-08-02T11:26:30.410Z] #12 84.21 go.opentelemetry.io/otel/metric/noop
+[2025-08-02T11:26:30.410Z] #12 84.25 github.com/PagerDuty/go-pagerduty
+[2025-08-02T11:26:30.665Z] #12 84.25 go.opentelemetry.io/otel/trace/noop
+[2025-08-02T11:26:30.665Z] #12 84.30 go.opentelemetry.io/otel/propagation
+[2025-08-02T11:26:30.665Z] #12 84.32 buddy/pkg/users
+[2025-08-02T11:26:30.665Z] #12 84.44 google.golang.org/api/internal
+[2025-08-02T11:26:30.665Z] #12 84.46 cloud.google.com/go/auth/internal/transport
+[2025-08-02T11:26:30.665Z] #12 84.54 go.opentelemetry.io/auto/sdk
+[2025-08-02T11:26:30.920Z] #12 84.54 github.com/gorilla/mux
+[2025-08-02T11:26:31.175Z] #12 84.85 go.opentelemetry.io/otel/internal/global
+[2025-08-02T11:26:31.175Z] #12 84.90 google.golang.org/api/option
+[2025-08-02T11:26:31.175Z] #12 84.90 google.golang.org/api/internal/gensupport
+[2025-08-02T11:26:31.430Z] #12 85.19 google.golang.org/api/option/internaloption
+[2025-08-02T11:26:31.685Z] #12 85.38 github.com/hibiken/asynq/internal/base
+[2025-08-02T11:26:31.685Z] #12 85.39 go.opentelemetry.io/otel
+[2025-08-02T11:26:31.685Z] #12 85.46 go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp/internal/semconv
+[2025-08-02T11:26:31.940Z] #12 85.61 github.com/hibiken/asynq/internal/context
+[2025-08-02T11:26:31.940Z] #12 85.61 github.com/hibiken/asynq/internal/rdb
+[2025-08-02T11:26:31.940Z] #12 85.66 buddy/pkg/github
+[2025-08-02T11:26:31.940Z] #12 85.79 buddy/pkg/pagerduty
+[2025-08-02T11:26:31.940Z] #12 85.83 go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp
+[2025-08-02T11:26:31.940Z] #12 85.89 buddy/pkg/startup
+[2025-08-02T11:26:32.499Z] #12 86.08 cloud.google.com/go/auth/httptransport
+[2025-08-02T11:26:32.499Z] #12 86.26 google.golang.org/api/transport/http
+[2025-08-02T11:26:32.499Z] #12 86.28 github.com/hibiken/asynq
+[2025-08-02T11:26:32.754Z] #12 86.43 google.golang.org/api/oauth2/v2
+[2025-08-02T11:26:32.754Z] #12 86.54 buddy/pkg/middleware
+[2025-08-02T11:26:33.009Z] #12 86.68 buddy/pkg/sla
+[2025-08-02T11:26:33.009Z] #12 86.82 buddy/pkg/webhook
+[2025-08-02T11:26:33.009Z] #12 86.82 buddy/pkg/leave
+[2025-08-02T11:26:33.264Z] #12 86.97 buddy/handlers
+[2025-08-02T11:26:33.264Z] #12 87.17 buddy/pkg/routes
+[2025-08-02T11:26:33.264Z] #12 87.20 command-line-arguments
+[2025-08-02T11:26:36.520Z] #12 DONE 89.7s
+[2025-08-02T11:26:36.520Z] 
+[2025-08-02T11:26:36.520Z] #13 exporting to image
+[2025-08-02T11:26:36.520Z] #13 exporting layers done
+[2025-08-02T11:26:36.520Z] #13 writing image sha256:45fbd1aaf0bfa1e091320f5beecb53391d8c8b5fde079ff377037df7f52ea084 done
+[2025-08-02T11:26:36.520Z] #13 naming to asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/stg/devop/dev-ops-buddy-backend/buddy:v1.0-41a4eeb-1754133858248 done
+[2025-08-02T11:26:36.520Z] #13 DONE 0.0s
+[2025-08-02T11:26:39.033Z] The push refers to repository [asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/stg/devop/dev-ops-buddy-backend/buddy]
+[2025-08-02T11:26:39.033Z] 8cb17e62f7f9: Preparing
+[2025-08-02T11:26:39.033Z] 355736681268: Preparing
+[2025-08-02T11:26:39.033Z] c482db1d72a2: Preparing
+[2025-08-02T11:26:39.033Z] f37b8219d4d2: Preparing
+[2025-08-02T11:26:39.033Z] a8d569091855: Preparing
+[2025-08-02T11:26:39.033Z] bea38dae1f01: Preparing
+[2025-08-02T11:26:39.033Z] d2897ab29b0e: Preparing
+[2025-08-02T11:26:39.033Z] d2897ab29b0e: Waiting
+[2025-08-02T11:26:39.033Z] bea38dae1f01: Waiting
+[2025-08-02T11:26:39.033Z] 355736681268: Layer already exists
+[2025-08-02T11:26:39.033Z] c482db1d72a2: Layer already exists
+[2025-08-02T11:26:39.033Z] 8cb17e62f7f9: Layer already exists
+[2025-08-02T11:26:39.033Z] f37b8219d4d2: Layer already exists
+[2025-08-02T11:26:39.033Z] a8d569091855: Layer already exists
+[2025-08-02T11:26:39.033Z] d2897ab29b0e: Layer already exists
+[2025-08-02T11:26:39.033Z] bea38dae1f01: Layer already exists
+[2025-08-02T11:26:39.033Z] v1.0-41a4eeb-1754133858248: digest: sha256:a545851160a89c172c74c5026a5f5a4b798d16db694d5442c08043b1bbf45ea6 size: 1784
+[Pipeline] sh
+[2025-08-02T11:26:39.538Z] + rm -rf Dockerfile-buddy
+[Pipeline] libraryResource
+[Pipeline] writeFile
+[Pipeline] sh
+[2025-08-02T11:26:40.098Z] + cat Dockerfile-sync
+[2025-08-02T11:26:40.099Z] # tools and packages from base image
+[2025-08-02T11:26:40.099Z] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/golang:1.23.2-alpine3.18 as builder
+[2025-08-02T11:26:40.099Z] 
+[2025-08-02T11:26:40.099Z] ENV CGO_ENABLED=0 GOOS=linux
+[2025-08-02T11:26:40.099Z] 
+[2025-08-02T11:26:40.099Z] # Following steps will help in downloading dependencies for the project
+[2025-08-02T11:26:40.099Z] COPY id_github_jenkins /root/.ssh/id_rsa
+[2025-08-02T11:26:40.099Z] 
+[2025-08-02T11:26:40.099Z] # directory inside container and default destination for all subsequent commands
+[2025-08-02T11:26:40.099Z] WORKDIR /app/
+[2025-08-02T11:26:40.099Z] 
+[2025-08-02T11:26:40.099Z] # copying the source code
+[2025-08-02T11:26:40.099Z] COPY . ./
+[2025-08-02T11:26:40.099Z] 
+[2025-08-02T11:26:40.099Z] # downloading all the dependencies
+[2025-08-02T11:26:40.099Z] RUN go env -w GOPRIVATE=github.com/Meesho/* && go mod download && go mod tidy
+[2025-08-02T11:26:40.099Z] 
+[2025-08-02T11:26:40.099Z] 
+[2025-08-02T11:26:40.099Z] # building the code for linux OS
+[2025-08-02T11:26:40.099Z] RUN go build -tags musl --ldflags "-extldflags -static" -v -o /app/server cmd/sync/main.go
+[2025-08-02T11:26:40.099Z] 
+[2025-08-02T11:26:40.099Z] # deploy multistage 
+[2025-08-02T11:26:40.099Z] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/debian:10-slim-v1
+[2025-08-02T11:26:40.099Z] 
+[2025-08-02T11:26:40.099Z] # copy the binary to the production image from the builder stage.
+[2025-08-02T11:26:40.099Z] COPY --from=builder /app/server /app/server
+[2025-08-02T11:26:40.099Z] COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+[2025-08-02T11:26:40.099Z] 
+[2025-08-02T11:26:40.099Z] # running the binary
+[2025-08-02T11:26:40.099Z] CMD ["/app/server"]
+[Pipeline] echo
+[2025-08-02T11:26:40.114Z] Skipping - Registry Creation in GCP.
+[Pipeline] sh
+[2025-08-02T11:26:40.613Z] + set +x
+[2025-08-02T11:26:40.869Z] #0 building with "default" instance using docker driver
+[2025-08-02T11:26:40.869Z] 
+[2025-08-02T11:26:40.869Z] #1 [internal] load .dockerignore
+[2025-08-02T11:26:40.869Z] #1 transferring context: 2B done
+[2025-08-02T11:26:40.869Z] #1 DONE 0.1s
+[2025-08-02T11:26:40.869Z] 
+[2025-08-02T11:26:40.869Z] #2 [internal] load build definition from Dockerfile-sync
+[2025-08-02T11:26:40.869Z] #2 transferring dockerfile: 1.04kB done
+[2025-08-02T11:26:40.869Z] #2 DONE 0.1s
+[2025-08-02T11:26:40.869Z] 
+[2025-08-02T11:26:40.869Z] #3 [internal] load metadata for asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/golang:1.23.2-alpine3.18
+[2025-08-02T11:26:41.793Z] #3 ...
+[2025-08-02T11:26:41.793Z] 
+[2025-08-02T11:26:41.793Z] #4 [internal] load metadata for asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/debian:10-slim-v1
+[2025-08-02T11:26:41.793Z] #4 DONE 0.7s
+[2025-08-02T11:26:41.793Z] 
+[2025-08-02T11:26:41.793Z] #5 [stage-1 1/3] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/debian:10-slim-v1@sha256:9dde01ac2121d9b2d94c4d7966d1855945d840cc9ece267f0cc6250b2d439fab
+[2025-08-02T11:26:41.793Z] #5 DONE 0.0s
+[2025-08-02T11:26:41.793Z] 
+[2025-08-02T11:26:41.793Z] #6 [builder 1/6] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/golang:1.23.2-alpine3.18@sha256:b7a1a3a3c57bb4d81937cddbd3219acd72f1122ce6c8a46b2c9c633077f26c35
+[2025-08-02T11:26:41.793Z] #6 DONE 0.0s
+[2025-08-02T11:26:41.793Z] 
+[2025-08-02T11:26:41.793Z] #3 [internal] load metadata for asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/golang:1.23.2-alpine3.18
+[2025-08-02T11:26:41.793Z] #3 DONE 0.7s
+[2025-08-02T11:26:41.793Z] 
+[2025-08-02T11:26:41.793Z] #7 [internal] load build context
+[2025-08-02T11:26:41.793Z] #7 transferring context: 1.03MB 0.0s done
+[2025-08-02T11:26:41.793Z] #7 DONE 0.0s
+[2025-08-02T11:26:41.793Z] 
+[2025-08-02T11:26:41.793Z] #8 [builder 2/6] COPY id_github_jenkins /root/.ssh/id_rsa
+[2025-08-02T11:26:41.793Z] #8 CACHED
+[2025-08-02T11:26:41.793Z] 
+[2025-08-02T11:26:41.793Z] #9 [builder 3/6] WORKDIR /app/
+[2025-08-02T11:26:41.793Z] #9 CACHED
+[2025-08-02T11:26:41.793Z] 
+[2025-08-02T11:26:41.793Z] #10 [builder 4/6] COPY . ./
+[2025-08-02T11:26:41.793Z] #10 DONE 0.1s
+[2025-08-02T11:26:41.793Z] 
+[2025-08-02T11:26:41.793Z] #11 [builder 5/6] RUN go env -w GOPRIVATE=github.com/Meesho/* && go mod download && go mod tidy
+[2025-08-02T11:27:03.660Z] #11 19.72 go: downloading gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c
+[2025-08-02T11:27:03.660Z] #11 19.72 go: downloading github.com/elazarl/goproxy v1.7.2
+[2025-08-02T11:27:03.660Z] #11 19.72 go: downloading github.com/google/go-cmp v0.7.0
+[2025-08-02T11:27:03.660Z] #11 19.72 go: downloading github.com/go-git/go-git-fixtures/v4 v4.3.2-0.20231010084843-55a94097c399
+[2025-08-02T11:27:03.660Z] #11 19.90 go: downloading github.com/onsi/ginkgo v1.16.5
+[2025-08-02T11:27:03.660Z] #11 19.90 go: downloading github.com/onsi/gomega v1.34.1
+[2025-08-02T11:27:03.660Z] #11 19.91 go: downloading github.com/go-redis/redis v6.15.9+incompatible
+[2025-08-02T11:27:03.660Z] #11 19.91 go: downloading github.com/go-redis/redis/v7 v7.4.1
+[2025-08-02T11:27:03.660Z] #11 19.95 go: downloading github.com/gomodule/redigo v1.8.9
+[2025-08-02T11:27:03.660Z] #11 19.96 go: downloading github.com/redis/rueidis v1.0.19
+[2025-08-02T11:27:03.660Z] #11 20.02 go: downloading github.com/stvp/tempredis v0.0.0-20181119212430-b82af8480203
+[2025-08-02T11:27:03.660Z] #11 20.04 go: downloading go.uber.org/goleak v1.3.0
+[2025-08-02T11:27:03.660Z] #11 20.09 go: downloading github.com/frankban/quicktest v1.14.6
+[2025-08-02T11:27:03.660Z] #11 20.14 go: downloading github.com/kr/pretty v0.3.1
+[2025-08-02T11:27:03.660Z] #11 20.15 go: downloading github.com/bsm/ginkgo/v2 v2.12.0
+[2025-08-02T11:27:03.660Z] #11 20.16 go: downloading github.com/bsm/gomega v1.27.10
+[2025-08-02T11:27:03.660Z] #11 20.19 go: downloading github.com/testcontainers/testcontainers-go v0.29.1
+[2025-08-02T11:27:03.660Z] #11 20.23 go: downloading github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5
+[2025-08-02T11:27:03.660Z] #11 20.24 go: downloading github.com/gliderlabs/ssh v0.3.8
+[2025-08-02T11:27:03.660Z] #11 20.28 go: downloading github.com/kr/text v0.2.0
+[2025-08-02T11:27:03.660Z] #11 20.28 go: downloading github.com/rogpeppe/go-internal v1.14.1
+[2025-08-02T11:27:03.660Z] #11 20.29 go: downloading github.com/nxadm/tail v1.4.8
+[2025-08-02T11:27:03.660Z] #11 20.31 go: downloading google.golang.org/genproto/googleapis/api v0.0.0-20250106144421-5f5ef82da422
+[2025-08-02T11:27:03.660Z] #11 20.33 go: downloading github.com/anmitsu/go-shlex v0.0.0-20200514113438-38f4b401e2be
+[2025-08-02T11:27:03.660Z] #11 20.34 go: downloading google.golang.org/genproto v0.0.0-20240325203815-454cdb8f5daa
+[2025-08-02T11:27:03.660Z] #11 20.34 go: downloading github.com/go-playground/assert/v2 v2.2.0
+[2025-08-02T11:27:03.660Z] #11 20.43 go: downloading gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7
+[2025-08-02T11:27:03.660Z] #11 20.44 go: downloading golang.org/x/term v0.32.0
+[2025-08-02T11:27:03.660Z] #11 20.44 go: downloading go.opentelemetry.io/otel/sdk/metric v1.34.0
+[2025-08-02T11:27:03.660Z] #11 20.47 go: downloading go.opentelemetry.io/otel/sdk v1.34.0
+[2025-08-02T11:27:03.660Z] #11 20.47 go: downloading github.com/golang/protobuf v1.5.4
+[2025-08-02T11:27:03.660Z] #11 20.50 go: downloading github.com/cenkalti/backoff/v4 v4.2.1
+[2025-08-02T11:27:03.660Z] #11 20.50 go: downloading github.com/containerd/containerd v1.7.18
+[2025-08-02T11:27:03.660Z] #11 20.50 go: downloading github.com/cpuguy83/dockercfg v0.3.2
+[2025-08-02T11:27:03.660Z] #11 20.50 go: downloading github.com/docker/docker v25.0.3+incompatible
+[2025-08-02T11:27:03.660Z] #11 21.26 go: downloading github.com/docker/go-connections v0.5.0
+[2025-08-02T11:27:03.660Z] #11 21.26 go: downloading github.com/opencontainers/image-spec v1.1.0
+[2025-08-02T11:27:03.660Z] #11 21.26 go: downloading github.com/moby/patternmatcher v0.6.0
+[2025-08-02T11:27:03.660Z] #11 21.26 go: downloading github.com/moby/term v0.5.0
+[2025-08-02T11:27:03.660Z] #11 21.26 go: downloading github.com/Microsoft/hcsshim v0.11.5
+[2025-08-02T11:27:03.660Z] #11 21.27 go: downloading github.com/containerd/errdefs v0.1.0
+[2025-08-02T11:27:03.660Z] #11 21.27 go: downloading github.com/containerd/log v0.1.0
+[2025-08-02T11:27:03.660Z] #11 21.27 go: downloading github.com/docker/go-units v0.5.0
+[2025-08-02T11:27:03.660Z] #11 21.27 go: downloading github.com/morikuni/aec v1.0.0
+[2025-08-02T11:27:03.660Z] #11 21.27 go: downloading github.com/moby/sys/sequential v0.5.0
+[2025-08-02T11:27:03.660Z] #11 21.27 go: downloading github.com/distribution/reference v0.6.0
+[2025-08-02T11:27:03.660Z] #11 21.27 go: downloading github.com/opencontainers/go-digest v1.0.0
+[2025-08-02T11:27:03.660Z] #11 21.27 go: downloading github.com/shirou/gopsutil/v3 v3.23.12
+[2025-08-02T11:27:03.660Z] #11 21.27 go: downloading github.com/moby/sys/user v0.1.0
+[2025-08-02T11:27:03.660Z] #11 21.28 go: downloading github.com/sirupsen/logrus v1.9.3
+[2025-08-02T11:27:03.660Z] #11 21.28 go: downloading github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1
+[2025-08-02T11:27:03.660Z] #11 21.29 go: downloading github.com/gogo/protobuf v1.3.2
+[2025-08-02T11:27:03.660Z] #11 21.34 go: downloading github.com/tklauser/go-sysconf v0.3.12
+[2025-08-02T11:27:03.660Z] #11 21.34 go: downloading github.com/shoenig/go-m1cpu v0.1.6
+[2025-08-02T11:27:03.660Z] #11 21.34 go: downloading github.com/yusufpapurcu/wmi v1.2.3
+[2025-08-02T11:27:03.660Z] #11 21.34 go: downloading github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0
+[2025-08-02T11:27:03.660Z] #11 21.34 go: downloading github.com/power-devops/perfstat v0.0.0-20210106213030-5aafc221ea8c
+[2025-08-02T11:27:03.660Z] #11 21.34 go: downloading github.com/go-ole/go-ole v1.2.6
+[2025-08-02T11:27:03.660Z] #11 21.36 go: downloading github.com/tklauser/numcpus v0.6.1
+[2025-08-02T11:27:15.826Z] #11 DONE 32.3s
+[2025-08-02T11:27:15.826Z] 
+[2025-08-02T11:27:15.826Z] #12 [builder 6/6] RUN go build -tags musl --ldflags "-extldflags -static" -v -o /app/server cmd/sync/main.go
+[2025-08-02T11:27:15.826Z] #12 0.519 internal/coverage/rtcov
+[2025-08-02T11:27:15.826Z] #12 0.519 internal/goarch
+[2025-08-02T11:27:15.826Z] #12 0.520 internal/unsafeheader
+[2025-08-02T11:27:15.826Z] #12 0.521 internal/goexperiment
+[2025-08-02T11:27:15.826Z] #12 0.522 internal/godebugs
+[2025-08-02T11:27:15.826Z] #12 0.523 internal/goos
+[2025-08-02T11:27:15.826Z] #12 0.524 internal/cpu
+[2025-08-02T11:27:15.826Z] #12 0.524 internal/byteorder
+[2025-08-02T11:27:15.826Z] #12 0.528 internal/profilerecord
+[2025-08-02T11:27:15.826Z] #12 0.529 internal/runtime/atomic
+[2025-08-02T11:27:15.826Z] #12 0.538 internal/runtime/syscall
+[2025-08-02T11:27:15.826Z] #12 0.539 runtime/internal/math
+[2025-08-02T11:27:15.826Z] #12 0.540 runtime/internal/sys
+[2025-08-02T11:27:15.826Z] #12 0.540 internal/abi
+[2025-08-02T11:27:15.826Z] #12 0.548 cmp
+[2025-08-02T11:27:15.826Z] #12 0.555 internal/itoa
+[2025-08-02T11:27:15.826Z] #12 0.557 internal/race
+[2025-08-02T11:27:15.826Z] #12 0.579 math/bits
+[2025-08-02T11:27:15.826Z] #12 0.584 unicode/utf8
+[2025-08-02T11:27:15.826Z] #12 0.591 internal/chacha8rand
+[2025-08-02T11:27:15.826Z] #12 0.594 sync/atomic
+[2025-08-02T11:27:15.826Z] #12 0.597 unicode
+[2025-08-02T11:27:15.826Z] #12 0.618 internal/runtime/exithook
+[2025-08-02T11:27:15.826Z] #12 0.621 internal/asan
+[2025-08-02T11:27:15.826Z] #12 0.657 internal/msan
+[2025-08-02T11:27:15.826Z] #12 0.659 internal/bytealg
+[2025-08-02T11:27:15.826Z] #12 0.669 encoding
+[2025-08-02T11:27:15.826Z] #12 0.670 math
+[2025-08-02T11:27:15.826Z] #12 0.686 unicode/utf16
+[2025-08-02T11:27:15.826Z] #12 0.688 internal/nettrace
+[2025-08-02T11:27:15.826Z] #12 0.704 log/internal
+[2025-08-02T11:27:15.826Z] #12 0.714 log/slog/internal
+[2025-08-02T11:27:15.826Z] #12 0.727 container/list
+[2025-08-02T11:27:15.826Z] #12 0.734 crypto/internal/alias
+[2025-08-02T11:27:15.826Z] #12 0.742 crypto/subtle
+[2025-08-02T11:27:15.826Z] #12 0.775 crypto/internal/boring/sig
+[2025-08-02T11:27:15.826Z] #12 0.784 vendor/golang.org/x/crypto/cryptobyte/asn1
+[2025-08-02T11:27:15.826Z] #12 0.791 vendor/golang.org/x/crypto/internal/alias
+[2025-08-02T11:27:15.826Z] #12 0.798 golang.org/x/text/encoding/internal/identifier
+[2025-08-02T11:27:15.826Z] #12 0.807 golang.org/x/text/internal/utf8internal
+[2025-08-02T11:27:15.826Z] #12 0.822 github.com/pelletier/go-toml/v2/internal/characters
+[2025-08-02T11:27:15.826Z] #12 0.830 github.com/spf13/viper/internal/features
+[2025-08-02T11:27:15.826Z] #12 0.838 internal/stringslite
+[2025-08-02T11:27:15.826Z] #12 0.840 github.com/failsafe-go/failsafe-go/common
+[2025-08-02T11:27:15.826Z] #12 0.847 google.golang.org/protobuf/internal/flags
+[2025-08-02T11:27:15.826Z] #12 0.868 google.golang.org/grpc/serviceconfig
+[2025-08-02T11:27:15.826Z] #12 0.869 google.golang.org/protobuf/internal/set
+[2025-08-02T11:27:15.826Z] #12 0.871 github.com/gin-gonic/gin/internal/bytesconv
+[2025-08-02T11:27:15.826Z] #12 0.881 golang.org/x/net/html/atom
+[2025-08-02T11:27:15.826Z] #12 0.886 github.com/go-playground/locales/currency
+[2025-08-02T11:27:15.826Z] #12 0.890 go.mongodb.org/mongo-driver/bson/bsonoptions
+[2025-08-02T11:27:15.826Z] #12 0.893 go.mongodb.org/mongo-driver/bson/bsontype
+[2025-08-02T11:27:15.826Z] #12 0.903 github.com/failsafe-go/failsafe-go/internal
+[2025-08-02T11:27:15.826Z] #12 0.904 go.mongodb.org/mongo-driver/internal/handshake
+[2025-08-02T11:27:15.826Z] #12 0.927 go.mongodb.org/mongo-driver/internal/ptrutil
+[2025-08-02T11:27:15.826Z] #12 0.948 github.com/klauspost/compress/internal/cpuinfo
+[2025-08-02T11:27:15.826Z] #12 0.950 go.mongodb.org/mongo-driver/version
+[2025-08-02T11:27:15.826Z] #12 0.952 github.com/dgryski/go-rendezvous
+[2025-08-02T11:27:15.826Z] #12 0.952 image/color
+[2025-08-02T11:27:15.826Z] #12 1.003 runtime
+[2025-08-02T11:27:15.826Z] #12 1.102 github.com/klauspost/compress
+[2025-08-02T11:27:17.710Z] #12 3.414 iter
+[2025-08-02T11:27:17.710Z] #12 3.414 internal/reflectlite
+[2025-08-02T11:27:17.710Z] #12 3.414 internal/weak
+[2025-08-02T11:27:17.710Z] #12 3.414 sync
+[2025-08-02T11:27:17.710Z] #12 3.424 slices
+[2025-08-02T11:27:17.710Z] #12 3.424 maps
+[2025-08-02T11:27:17.710Z] #12 3.540 errors
+[2025-08-02T11:27:17.710Z] #12 3.540 sort
+[2025-08-02T11:27:17.710Z] #12 3.544 internal/bisect
+[2025-08-02T11:27:17.710Z] #12 3.545 internal/testlog
+[2025-08-02T11:27:17.710Z] #12 3.545 internal/singleflight
+[2025-08-02T11:27:17.710Z] #12 3.545 log/slog/internal/buffer
+[2025-08-02T11:27:17.710Z] #12 3.546 github.com/spf13/viper/internal/encoding
+[2025-08-02T11:27:17.710Z] #12 3.546 google.golang.org/protobuf/internal/pragma
+[2025-08-02T11:27:17.710Z] #12 3.595 internal/oserror
+[2025-08-02T11:27:17.710Z] #12 3.595 vendor/golang.org/x/net/dns/dnsmessage
+[2025-08-02T11:27:17.710Z] #12 3.596 math/rand/v2
+[2025-08-02T11:27:17.710Z] #12 3.596 strconv
+[2025-08-02T11:27:17.710Z] #12 3.596 path
+[2025-08-02T11:27:17.710Z] #12 3.596 io
+[2025-08-02T11:27:17.710Z] #12 3.629 syscall
+[2025-08-02T11:27:17.710Z] #12 3.651 crypto/internal/edwards25519/field
+[2025-08-02T11:27:17.710Z] #12 3.680 internal/godebug
+[2025-08-02T11:27:17.710Z] #12 3.761 internal/concurrent
+[2025-08-02T11:27:17.965Z] #12 3.805 bytes
+[2025-08-02T11:27:17.965Z] #12 3.821 strings
+[2025-08-02T11:27:17.965Z] #12 3.837 unique
+[2025-08-02T11:27:17.965Z] #12 3.964 math/rand
+[2025-08-02T11:27:17.965Z] #12 4.033 reflect
+[2025-08-02T11:27:18.219Z] #12 4.060 hash
+[2025-08-02T11:27:18.219Z] #12 4.087 net/netip
+[2025-08-02T11:27:18.219Z] #12 4.132 hash/crc32
+[2025-08-02T11:27:18.219Z] #12 4.170 regexp/syntax
+[2025-08-02T11:27:18.219Z] #12 4.207 bufio
+[2025-08-02T11:27:18.219Z] #12 4.275 golang.org/x/text/transform
+[2025-08-02T11:27:18.474Z] #12 4.473 crypto
+[2025-08-02T11:27:18.474Z] #12 4.475 crypto/cipher
+[2025-08-02T11:27:18.474Z] #12 4.478 crypto/internal/randutil
+[2025-08-02T11:27:18.474Z] #12 4.520 golang.org/x/text/runes
+[2025-08-02T11:27:18.474Z] #12 4.542 crypto/internal/nistec/fiat
+[2025-08-02T11:27:18.729Z] #12 4.609 crypto/internal/edwards25519
+[2025-08-02T11:27:18.729Z] #12 4.692 crypto/md5
+[2025-08-02T11:27:18.729Z] #12 4.838 crypto/internal/boring
+[2025-08-02T11:27:18.997Z] #12 4.855 regexp
+[2025-08-02T11:27:18.997Z] #12 4.932 crypto/des
+[2025-08-02T11:27:18.997Z] #12 4.937 crypto/aes
+[2025-08-02T11:27:19.278Z] #12 5.028 crypto/sha512
+[2025-08-02T11:27:19.278Z] #12 5.056 crypto/hmac
+[2025-08-02T11:27:19.278Z] #12 5.086 time
+[2025-08-02T11:27:19.278Z] #12 5.088 internal/syscall/unix
+[2025-08-02T11:27:19.278Z] #12 5.116 internal/syscall/execenv
+[2025-08-02T11:27:19.278Z] #12 5.162 vendor/golang.org/x/crypto/hkdf
+[2025-08-02T11:27:19.278Z] #12 5.175 crypto/rc4
+[2025-08-02T11:27:19.278Z] #12 5.246 crypto/sha1
+[2025-08-02T11:27:19.278Z] #12 5.255 crypto/sha256
+[2025-08-02T11:27:19.278Z] #12 5.359 vendor/golang.org/x/text/transform
+[2025-08-02T11:27:19.547Z] #12 5.365 net/http/internal/ascii
+[2025-08-02T11:27:19.547Z] #12 5.381 html
+[2025-08-02T11:27:19.547Z] #12 5.499 golang.org/x/text/encoding
+[2025-08-02T11:27:19.547Z] #12 5.501 github.com/hashicorp/hcl/hcl/strconv
+[2025-08-02T11:27:19.547Z] #12 5.522 hash/fnv
+[2025-08-02T11:27:19.547Z] #12 5.627 google.golang.org/grpc/internal/buffer
+[2025-08-02T11:27:19.824Z] #12 5.628 net/http/internal/testcert
+[2025-08-02T11:27:19.824Z] #12 5.635 hash/adler32
+[2025-08-02T11:27:19.824Z] #12 5.661 internal/saferio
+[2025-08-02T11:27:19.824Z] #12 5.689 golang.org/x/text/internal/tag
+[2025-08-02T11:27:19.824Z] #12 5.703 golang.org/x/crypto/pbkdf2
+[2025-08-02T11:27:19.824Z] #12 5.707 go.mongodb.org/mongo-driver/internal/aws
+[2025-08-02T11:27:19.824Z] #12 5.713 github.com/go-redis/redis/v8/internal/rand
+[2025-08-02T11:27:19.824Z] #12 5.715 github.com/go-redis/redis/v8/internal/util
+[2025-08-02T11:27:19.824Z] #12 5.743 golang.org/x/crypto/openpgp/errors
+[2025-08-02T11:27:19.824Z] #12 5.763 golang.org/x/text/encoding/internal
+[2025-08-02T11:27:19.824Z] #12 5.779 compress/bzip2
+[2025-08-02T11:27:19.824Z] #12 5.782 golang.org/x/crypto/cast5
+[2025-08-02T11:27:19.824Z] #12 5.792 image
+[2025-08-02T11:27:19.824Z] #12 5.807 github.com/go-redis/redis/v8/internal/hashtag
+[2025-08-02T11:27:19.824Z] #12 5.827 golang.org/x/crypto/openpgp/s2k
+[2025-08-02T11:27:19.824Z] #12 5.879 golang.org/x/text/encoding/unicode
+[2025-08-02T11:27:20.093Z] #12 5.892 github.com/redis/go-redis/v9/internal/rand
+[2025-08-02T11:27:20.093Z] #12 5.942 github.com/redis/go-redis/v9/internal/util
+[2025-08-02T11:27:20.093Z] #12 5.950 github.com/redis/go-redis/v9/internal/hashtag
+[2025-08-02T11:27:20.093Z] #12 6.162 io/fs
+[2025-08-02T11:27:20.346Z] #12 6.172 internal/poll
+[2025-08-02T11:27:20.346Z] #12 6.177 google.golang.org/grpc/backoff
+[2025-08-02T11:27:20.346Z] #12 6.178 context
+[2025-08-02T11:27:20.346Z] #12 6.179 google.golang.org/grpc/keepalive
+[2025-08-02T11:27:20.347Z] #12 6.180 google.golang.org/grpc/balancer/pickfirst/internal
+[2025-08-02T11:27:20.347Z] #12 6.212 github.com/go-playground/locales
+[2025-08-02T11:27:20.347Z] #12 6.220 github.com/hibiken/asynq/internal/timeutil
+[2025-08-02T11:27:20.347Z] #12 6.221 internal/fmtsort
+[2025-08-02T11:27:20.347Z] #12 6.222 encoding/binary
+[2025-08-02T11:27:20.347Z] #12 6.283 github.com/hashicorp/errwrap
+[2025-08-02T11:27:20.347Z] #12 6.335 image/internal/imageutil
+[2025-08-02T11:27:20.347Z] #12 6.347 github.com/failsafe-go/failsafe-go
+[2025-08-02T11:27:20.347Z] #12 6.367 github.com/failsafe-go/failsafe-go/internal/util
+[2025-08-02T11:27:20.347Z] #12 6.368 google.golang.org/grpc/internal/backoff
+[2025-08-02T11:27:20.347Z] #12 6.406 google.golang.org/grpc/internal/grpcsync
+[2025-08-02T11:27:20.601Z] #12 6.424 go.mongodb.org/mongo-driver/internal/csot
+[2025-08-02T11:27:20.601Z] #12 6.445 internal/filepathlite
+[2025-08-02T11:27:20.601Z] #12 6.445 github.com/spf13/afero/internal/common
+[2025-08-02T11:27:20.601Z] #12 6.477 embed
+[2025-08-02T11:27:20.601Z] #12 6.478 image/jpeg
+[2025-08-02T11:27:20.601Z] #12 6.567 encoding/base64
+[2025-08-02T11:27:20.601Z] #12 6.570 golang.org/x/sys/unix
+[2025-08-02T11:27:20.601Z] #12 6.570 vendor/golang.org/x/crypto/chacha20
+[2025-08-02T11:27:20.601Z] #12 6.573 vendor/golang.org/x/crypto/internal/poly1305
+[2025-08-02T11:27:20.601Z] #12 6.608 crypto/internal/nistec
+[2025-08-02T11:27:20.601Z] #12 6.698 github.com/failsafe-go/failsafe-go/policy
+[2025-08-02T11:27:20.855Z] #12 6.699 os
+[2025-08-02T11:27:20.855Z] #12 6.720 encoding/pem
+[2025-08-02T11:27:20.855Z] #12 6.808 go.mongodb.org/mongo-driver/internal/rand
+[2025-08-02T11:27:20.855Z] #12 6.816 google.golang.org/protobuf/internal/editiondefaults
+[2025-08-02T11:27:20.855Z] #12 6.839 golang.org/x/crypto/scrypt
+[2025-08-02T11:27:20.855Z] #12 6.888 github.com/golang/snappy
+[2025-08-02T11:27:20.855Z] #12 6.925 github.com/klauspost/compress/internal/snapref
+[2025-08-02T11:27:21.109Z] #12 6.929 github.com/klauspost/compress/zstd/internal/xxhash
+[2025-08-02T11:27:21.109Z] #12 6.971 github.com/xdg-go/pbkdf2
+[2025-08-02T11:27:21.109Z] #12 6.972 github.com/cespare/xxhash/v2
+[2025-08-02T11:27:21.109Z] #12 7.006 golang.org/x/crypto/openpgp/armor
+[2025-08-02T11:27:21.109Z] #12 7.142 crypto/ecdh
+[2025-08-02T11:27:21.668Z] #12 7.449 net
+[2025-08-02T11:27:21.668Z] #12 7.453 google.golang.org/protobuf/internal/detrand
+[2025-08-02T11:27:21.668Z] #12 7.453 path/filepath
+[2025-08-02T11:27:21.668Z] #12 7.453 vendor/golang.org/x/sys/cpu
+[2025-08-02T11:27:21.668Z] #12 7.453 io/ioutil
+[2025-08-02T11:27:21.668Z] #12 7.453 google.golang.org/grpc/internal/envconfig
+[2025-08-02T11:27:21.668Z] #12 7.457 fmt
+[2025-08-02T11:27:21.668Z] #12 7.527 golang.org/x/sys/cpu
+[2025-08-02T11:27:21.668Z] #12 7.599 go.mongodb.org/mongo-driver/internal/driverutil
+[2025-08-02T11:27:21.668Z] #12 7.601 os/signal
+[2025-08-02T11:27:21.668Z] #12 7.641 vendor/golang.org/x/crypto/chacha20poly1305
+[2025-08-02T11:27:21.668Z] #12 7.665 vendor/golang.org/x/crypto/sha3
+[2025-08-02T11:27:21.668Z] #12 7.767 golang.org/x/crypto/sha3
+[2025-08-02T11:27:21.923Z] #12 7.789 github.com/spf13/afero/mem
+[2025-08-02T11:27:21.923Z] #12 7.866 os/exec
+[2025-08-02T11:27:22.178Z] #12 8.180 encoding/json
+[2025-08-02T11:27:22.433Z] #12 8.181 log
+[2025-08-02T11:27:22.433Z] #12 8.190 net/url
+[2025-08-02T11:27:22.433Z] #12 8.191 compress/flate
+[2025-08-02T11:27:22.433Z] #12 8.191 golang.org/x/text/unicode/norm
+[2025-08-02T11:27:22.433Z] #12 8.191 encoding/csv
+[2025-08-02T11:27:22.433Z] #12 8.423 math/big
+[2025-08-02T11:27:22.687Z] #12 8.547 encoding/hex
+[2025-08-02T11:27:22.687Z] #12 8.660 vendor/golang.org/x/text/unicode/bidi
+[2025-08-02T11:27:22.687Z] #12 8.660 vendor/golang.org/x/text/unicode/norm
+[2025-08-02T11:27:22.687Z] #12 8.679 compress/gzip
+[2025-08-02T11:27:22.687Z] #12 8.737 github.com/mattn/go-isatty
+[2025-08-02T11:27:22.942Z] #12 9.005 github.com/mattn/go-colorable
+[2025-08-02T11:27:23.197Z] #12 9.011 github.com/fsnotify/fsnotify
+[2025-08-02T11:27:23.197Z] #12 9.132 vendor/golang.org/x/net/http2/hpack
+[2025-08-02T11:27:23.197Z] #12 9.159 mime/quotedprintable
+[2025-08-02T11:27:23.197Z] #12 9.160 mime
+[2025-08-02T11:27:23.197Z] #12 9.259 net/http/internal
+[2025-08-02T11:27:23.452Z] #12 9.446 log/slog
+[2025-08-02T11:27:23.452Z] #12 9.456 text/template/parse
+[2025-08-02T11:27:23.452Z] #12 9.462 flag
+[2025-08-02T11:27:23.452Z] #12 9.498 vendor/golang.org/x/text/secure/bidirule
+[2025-08-02T11:27:23.706Z] #12 9.664 github.com/subosito/gotenv
+[2025-08-02T11:27:23.706Z] #12 9.751 github.com/hashicorp/hcl/hcl/token
+[2025-08-02T11:27:23.961Z] #12 9.859 github.com/hashicorp/hcl/hcl/ast
+[2025-08-02T11:27:24.216Z] #12 9.973 vendor/golang.org/x/net/idna
+[2025-08-02T11:27:24.216Z] #12 10.05 github.com/hashicorp/hcl/hcl/scanner
+[2025-08-02T11:27:24.216Z] #12 10.06 github.com/hashicorp/hcl/json/token
+[2025-08-02T11:27:24.216Z] #12 10.11 text/tabwriter
+[2025-08-02T11:27:24.216Z] #12 10.19 github.com/hashicorp/hcl/json/scanner
+[2025-08-02T11:27:24.471Z] #12 10.27 github.com/hashicorp/hcl/hcl/parser
+[2025-08-02T11:27:24.471Z] #12 10.33 github.com/hashicorp/hcl/json/parser
+[2025-08-02T11:27:24.471Z] #12 10.37 gopkg.in/ini.v1
+[2025-08-02T11:27:24.471Z] #12 10.42 github.com/sagikazarmark/slog-shim
+[2025-08-02T11:27:24.471Z] #12 10.50 text/template
+[2025-08-02T11:27:24.725Z] #12 10.50 github.com/spf13/viper/internal/encoding/json
+[2025-08-02T11:27:24.725Z] #12 10.52 github.com/rs/zerolog/internal/json
+[2025-08-02T11:27:24.725Z] #12 10.52 github.com/DataDog/datadog-go/v5/statsd
+[2025-08-02T11:27:24.725Z] #12 10.56 github.com/mitchellh/mapstructure
+[2025-08-02T11:27:24.725Z] #12 10.58 net/textproto
+[2025-08-02T11:27:24.725Z] #12 10.67 vendor/golang.org/x/net/http/httpproxy
+[2025-08-02T11:27:24.980Z] #12 10.83 crypto/rand
+[2025-08-02T11:27:24.980Z] #12 10.89 github.com/rs/zerolog
+[2025-08-02T11:27:24.980Z] #12 10.90 crypto/elliptic
+[2025-08-02T11:27:25.235Z] #12 11.01 crypto/internal/bigmod
+[2025-08-02T11:27:25.235Z] #12 11.02 crypto/internal/boring/bbig
+[2025-08-02T11:27:25.235Z] #12 11.11 encoding/asn1
+[2025-08-02T11:27:25.235Z] #12 11.15 crypto/ed25519
+[2025-08-02T11:27:25.235Z] #12 11.19 crypto/internal/hpke
+[2025-08-02T11:27:25.489Z] #12 11.32 crypto/internal/mlkem768
+[2025-08-02T11:27:25.489Z] #12 11.34 crypto/dsa
+[2025-08-02T11:27:25.489Z] #12 11.42 vendor/golang.org/x/net/http/httpguts
+[2025-08-02T11:27:25.489Z] #12 11.51 crypto/rsa
+[2025-08-02T11:27:25.744Z] #12 11.63 github.com/spf13/pflag
+[2025-08-02T11:27:25.744Z] #12 11.65 mime/multipart
+[2025-08-02T11:27:25.744Z] #12 11.67 github.com/hashicorp/hcl
+[2025-08-02T11:27:25.744Z] #12 11.73 vendor/golang.org/x/crypto/cryptobyte
+[2025-08-02T11:27:25.744Z] #12 11.73 crypto/x509/pkix
+[2025-08-02T11:27:25.998Z] #12 11.82 html/template
+[2025-08-02T11:27:25.998Z] #12 11.90 github.com/hashicorp/hcl/hcl/printer
+[2025-08-02T11:27:25.998Z] #12 11.93 github.com/pelletier/go-toml/v2/internal/danger
+[2025-08-02T11:27:25.998Z] #12 12.00 gopkg.in/yaml.v3
+[2025-08-02T11:27:25.998Z] #12 12.05 github.com/pelletier/go-toml/v2/unstable
+[2025-08-02T11:27:25.998Z] #12 12.10 github.com/bits-and-blooms/bitset
+[2025-08-02T11:27:26.252Z] #12 12.15 crypto/ecdsa
+[2025-08-02T11:27:26.252Z] #12 12.16 github.com/rs/zerolog/log
+[2025-08-02T11:27:26.252Z] #12 12.22 github.com/spf13/viper/internal/encoding/hcl
+[2025-08-02T11:27:26.252Z] #12 12.32 golang.org/x/net/internal/timeseries
+[2025-08-02T11:27:26.252Z] #12 12.32 github.com/pelletier/go-toml/v2/internal/tracker
+[2025-08-02T11:27:26.252Z] #12 12.33 github.com/Meesho/go-core/config/configutils
+[2025-08-02T11:27:26.812Z] #12 12.52 github.com/failsafe-go/failsafe-go/circuitbreaker
+[2025-08-02T11:27:26.812Z] #12 12.65 google.golang.org/grpc/grpclog/internal
+[2025-08-02T11:27:26.812Z] #12 12.69 github.com/pelletier/go-toml/v2
+[2025-08-02T11:27:26.812Z] #12 12.73 google.golang.org/grpc/attributes
+[2025-08-02T11:27:26.812Z] #12 12.76 crypto/x509
+[2025-08-02T11:27:26.812Z] #12 12.79 google.golang.org/protobuf/internal/errors
+[2025-08-02T11:27:26.812Z] #12 12.80 github.com/spf13/cast
+[2025-08-02T11:27:26.812Z] #12 12.88 google.golang.org/protobuf/encoding/protowire
+[2025-08-02T11:27:27.066Z] #12 12.90 google.golang.org/grpc/grpclog
+[2025-08-02T11:27:27.066Z] #12 12.99 google.golang.org/protobuf/reflect/protoreflect
+[2025-08-02T11:27:27.321Z] #12 13.20 google.golang.org/grpc/connectivity
+[2025-08-02T11:27:27.321Z] #12 13.26 go/token
+[2025-08-02T11:27:27.321Z] #12 13.32 github.com/spf13/viper/internal/encoding/dotenv
+[2025-08-02T11:27:27.576Z] #12 13.50 github.com/spf13/viper/internal/encoding/ini
+[2025-08-02T11:27:27.576Z] #12 13.51 github.com/spf13/viper/internal/encoding/toml
+[2025-08-02T11:27:27.576Z] #12 13.51 google.golang.org/grpc/internal
+[2025-08-02T11:27:27.576Z] #12 13.51 google.golang.org/grpc/internal/grpclog
+[2025-08-02T11:27:27.576Z] #12 13.60 google.golang.org/protobuf/internal/version
+[2025-08-02T11:27:27.576Z] #12 13.61 google.golang.org/grpc/internal/idle
+[2025-08-02T11:27:27.831Z] #12 13.64 golang.org/x/text/unicode/bidi
+[2025-08-02T11:27:27.831Z] #12 13.70 google.golang.org/protobuf/internal/encoding/messageset
+[2025-08-02T11:27:27.831Z] #12 13.73 google.golang.org/protobuf/internal/genid
+[2025-08-02T11:27:27.831Z] #12 13.76 google.golang.org/protobuf/internal/order
+[2025-08-02T11:27:27.831Z] #12 13.79 google.golang.org/protobuf/internal/strs
+[2025-08-02T11:27:28.085Z] #12 13.91 google.golang.org/protobuf/runtime/protoiface
+[2025-08-02T11:27:28.085Z] #12 13.93 google.golang.org/grpc/metadata
+[2025-08-02T11:27:28.085Z] #12 13.95 google.golang.org/protobuf/internal/encoding/json
+[2025-08-02T11:27:28.085Z] #12 13.97 google.golang.org/protobuf/reflect/protoregistry
+[2025-08-02T11:27:28.085Z] #12 14.00 google.golang.org/grpc/stats
+[2025-08-02T11:27:28.085Z] #12 14.00 google.golang.org/protobuf/internal/descfmt
+[2025-08-02T11:27:28.339Z] #12 14.15 google.golang.org/protobuf/internal/descopts
+[2025-08-02T11:27:28.339Z] #12 14.20 google.golang.org/protobuf/internal/encoding/text
+[2025-08-02T11:27:28.339Z] #12 14.25 google.golang.org/grpc/experimental/stats
+[2025-08-02T11:27:28.339Z] #12 14.32 google.golang.org/protobuf/internal/protolazy
+[2025-08-02T11:27:28.339Z] #12 14.34 crypto/tls
+[2025-08-02T11:27:28.339Z] #12 14.36 google.golang.org/protobuf/proto
+[2025-08-02T11:27:28.339Z] #12 14.43 google.golang.org/grpc/codes
+[2025-08-02T11:27:28.593Z] #12 14.44 google.golang.org/grpc/internal/grpcutil
+[2025-08-02T11:27:28.593Z] #12 14.44 google.golang.org/grpc/mem
+[2025-08-02T11:27:28.593Z] #12 14.45 google.golang.org/grpc/internal/balancerload
+[2025-08-02T11:27:28.593Z] #12 14.51 google.golang.org/grpc/internal/stats
+[2025-08-02T11:27:28.593Z] #12 14.53 golang.org/x/text/secure/bidirule
+[2025-08-02T11:27:28.593Z] #12 14.56 golang.org/x/net/http2/hpack
+[2025-08-02T11:27:28.593Z] #12 14.59 google.golang.org/grpc/internal/syscall
+[2025-08-02T11:27:28.593Z] #12 14.64 google.golang.org/protobuf/internal/encoding/defval
+[2025-08-02T11:27:28.848Z] #12 14.64 google.golang.org/grpc/encoding
+[2025-08-02T11:27:28.848Z] #12 14.66 golang.org/x/net/idna
+[2025-08-02T11:27:28.848Z] #12 14.73 google.golang.org/grpc/tap
+[2025-08-02T11:27:28.848Z] #12 14.74 github.com/spf13/viper/internal/encoding/yaml
+[2025-08-02T11:27:28.848Z] #12 14.74 google.golang.org/grpc/internal/resolver/dns/internal
+[2025-08-02T11:27:28.848Z] #12 14.77 github.com/davecgh/go-spew/spew
+[2025-08-02T11:27:28.848Z] #12 14.77 github.com/pmezard/go-difflib/difflib
+[2025-08-02T11:27:28.848Z] #12 14.78 github.com/stretchr/objx
+[2025-08-02T11:27:28.848Z] #12 14.80 github.com/stretchr/testify/assert/yaml
+[2025-08-02T11:27:28.848Z] #12 14.80 runtime/debug
+[2025-08-02T11:27:28.848Z] #12 14.83 google.golang.org/protobuf/internal/filedesc
+[2025-08-02T11:27:28.848Z] #12 14.87 google.golang.org/protobuf/encoding/prototext
+[2025-08-02T11:27:28.848Z] #12 14.91 github.com/go-zookeeper/zk
+[2025-08-02T11:27:29.103Z] #12 15.14 encoding/xml
+[2025-08-02T11:27:29.103Z] #12 15.17 github.com/gin-gonic/gin/internal/json
+[2025-08-02T11:27:29.357Z] #12 15.24 golang.org/x/net/html
+[2025-08-02T11:27:29.357Z] #12 15.29 compress/zlib
+[2025-08-02T11:27:29.357Z] #12 15.33 golang.org/x/net/http/httpguts
+[2025-08-02T11:27:29.610Z] #12 15.46 debug/dwarf
+[2025-08-02T11:27:29.611Z] #12 15.50 github.com/gabriel-vasile/mimetype/internal/json
+[2025-08-02T11:27:29.611Z] #12 15.71 github.com/go-playground/universal-translator
+[2025-08-02T11:27:29.864Z] #12 15.76 github.com/leodido/go-urn
+[2025-08-02T11:27:29.864Z] #12 15.84 golang.org/x/text/internal/language
+[2025-08-02T11:27:30.423Z] #12 16.18 encoding/gob
+[2025-08-02T11:27:30.423Z] #12 16.21 google.golang.org/protobuf/encoding/protojson
+[2025-08-02T11:27:30.423Z] #12 16.22 google.golang.org/protobuf/internal/encoding/tag
+[2025-08-02T11:27:30.423Z] #12 16.43 go.mongodb.org/mongo-driver/bson/primitive
+[2025-08-02T11:27:30.678Z] #12 16.64 google.golang.org/protobuf/internal/impl
+[2025-08-02T11:27:30.678Z] #12 16.72 github.com/gabriel-vasile/mimetype/internal/charset
+[2025-08-02T11:27:30.933Z] #12 16.87 go.mongodb.org/mongo-driver/x/bsonx/bsoncore
+[2025-08-02T11:27:30.933Z] #12 16.89 go.mongodb.org/mongo-driver/mongo/address
+[2025-08-02T11:27:30.933Z] #12 16.91 golang.org/x/text/internal/language/compact
+[2025-08-02T11:27:30.933Z] #12 16.94 go.mongodb.org/mongo-driver/tag
+[2025-08-02T11:27:30.933Z] #12 16.96 go.mongodb.org/mongo-driver/internal/logger
+[2025-08-02T11:27:31.187Z] #12 17.05 go.mongodb.org/mongo-driver/mongo/readpref
+[2025-08-02T11:27:31.187Z] #12 17.11 debug/macho
+[2025-08-02T11:27:31.443Z] #12 17.25 go.mongodb.org/mongo-driver/internal/randutil
+[2025-08-02T11:27:31.443Z] #12 17.37 github.com/gabriel-vasile/mimetype/internal/magic
+[2025-08-02T11:27:31.443Z] #12 17.39 go.mongodb.org/mongo-driver/internal/uuid
+[2025-08-02T11:27:31.443Z] #12 17.40 golang.org/x/text/language
+[2025-08-02T11:27:31.443Z] #12 17.41 github.com/youmark/pkcs8
+[2025-08-02T11:27:31.698Z] #12 17.59 github.com/klauspost/compress/fse
+[2025-08-02T11:27:31.698Z] #12 17.65 github.com/xdg-go/stringprep
+[2025-08-02T11:27:31.953Z] #12 17.83 go.mongodb.org/mongo-driver/internal/aws/awserr
+[2025-08-02T11:27:31.953Z] #12 17.87 net/http/httptrace
+[2025-08-02T11:27:31.953Z] #12 17.94 google.golang.org/grpc/internal/credentials
+[2025-08-02T11:27:32.208Z] #12 18.02 github.com/klauspost/compress/huff0
+[2025-08-02T11:27:32.208Z] #12 18.06 google.golang.org/grpc/credentials
+[2025-08-02T11:27:32.208Z] #12 18.11 net/http
+[2025-08-02T11:27:32.208Z] #12 18.18 golang.org/x/net/internal/httpcommon
+[2025-08-02T11:27:32.208Z] #12 18.19 google.golang.org/grpc/internal/channelz
+[2025-08-02T11:27:32.208Z] #12 18.20 google.golang.org/grpc/resolver
+[2025-08-02T11:27:32.208Z] #12 18.23 google.golang.org/grpc/credentials/insecure
+[2025-08-02T11:27:32.208Z] #12 18.30 google.golang.org/grpc/peer
+[2025-08-02T11:27:32.463Z] #12 18.35 github.com/gabriel-vasile/mimetype
+[2025-08-02T11:27:32.463Z] #12 18.37 go.mongodb.org/mongo-driver/bson/bsonrw
+[2025-08-02T11:27:32.463Z] #12 18.41 google.golang.org/grpc/internal/metadata
+[2025-08-02T11:27:32.463Z] #12 18.52 google.golang.org/grpc/internal/proxyattributes
+[2025-08-02T11:27:32.718Z] #12 18.58 google.golang.org/grpc/internal/resolver/passthrough
+[2025-08-02T11:27:32.718Z] #12 18.67 google.golang.org/grpc/internal/transport/networktype
+[2025-08-02T11:27:32.718Z] #12 18.68 google.golang.org/grpc/channelz
+[2025-08-02T11:27:32.718Z] #12 18.73 google.golang.org/grpc/balancer
+[2025-08-02T11:27:32.718Z] #12 18.73 google.golang.org/grpc/balancer/grpclb/state
+[2025-08-02T11:27:32.718Z] #12 18.74 google.golang.org/grpc/internal/resolver/unix
+[2025-08-02T11:27:32.718Z] #12 18.77 github.com/go-playground/validator/v10
+[2025-08-02T11:27:32.973Z] #12 18.85 google.golang.org/grpc/internal/resolver/dns
+[2025-08-02T11:27:32.973Z] #12 18.86 google.golang.org/grpc/balancer/base
+[2025-08-02T11:27:32.973Z] #12 19.00 google.golang.org/grpc/internal/serviceconfig
+[2025-08-02T11:27:33.228Z] #12 19.10 google.golang.org/grpc/internal/resolver
+[2025-08-02T11:27:33.228Z] #12 19.11 google.golang.org/grpc/resolver/dns
+[2025-08-02T11:27:33.228Z] #12 19.16 google.golang.org/grpc/balancer/endpointsharding
+[2025-08-02T11:27:33.228Z] #12 19.21 google.golang.org/grpc/internal/balancer/gracefulswitch
+[2025-08-02T11:27:33.483Z] #12 19.24 go.mongodb.org/mongo-driver/internal/csfle
+[2025-08-02T11:27:33.483Z] #12 19.37 go.mongodb.org/mongo-driver/mongo/readconcern
+[2025-08-02T11:27:33.483Z] #12 19.41 go.mongodb.org/mongo-driver/x/mongo/driver/wiremessage
+[2025-08-02T11:27:33.483Z] #12 19.43 github.com/klauspost/compress/zstd
+[2025-08-02T11:27:33.738Z] #12 19.51 github.com/xdg-go/scram
+[2025-08-02T11:27:33.738Z] #12 19.55 golang.org/x/sync/singleflight
+[2025-08-02T11:27:33.738Z] #12 19.60 go.mongodb.org/mongo-driver/x/mongo/driver/dns
+[2025-08-02T11:27:33.738Z] #12 19.66 go.mongodb.org/mongo-driver/internal/aws/credentials
+[2025-08-02T11:27:33.738Z] #12 19.80 github.com/montanaflynn/stats
+[2025-08-02T11:27:33.993Z] #12 19.81 golang.org/x/crypto/ocsp
+[2025-08-02T11:27:34.247Z] #12 20.10 golang.org/x/sync/errgroup
+[2025-08-02T11:27:34.502Z] #12 20.26 buddy/pkg/models
+[2025-08-02T11:27:34.502Z] #12 20.32 github.com/go-redis/redis/v8/internal
+[2025-08-02T11:27:34.502Z] #12 20.34 github.com/go-redis/redis/v8/internal/hscan
+[2025-08-02T11:27:34.502Z] #12 20.47 github.com/go-redis/redis/v8/internal/proto
+[2025-08-02T11:27:34.502Z] #12 20.47 github.com/go-redsync/redsync/v4/redis
+[2025-08-02T11:27:34.502Z] #12 20.49 github.com/hashicorp/go-multierror
+[2025-08-02T11:27:34.502Z] #12 20.52 github.com/google/go-querystring/query
+[2025-08-02T11:27:34.756Z] #12 20.62 golang.org/x/crypto/openpgp/elgamal
+[2025-08-02T11:27:34.756Z] #12 20.70 github.com/go-redsync/redsync/v4
+[2025-08-02T11:27:34.756Z] #12 20.70 golang.org/x/crypto/openpgp/packet
+[2025-08-02T11:27:35.010Z] #12 20.82 go.mongodb.org/mongo-driver/bson/bsoncodec
+[2025-08-02T11:27:35.010Z] #12 20.85 github.com/go-redis/redis/v8/internal/pool
+[2025-08-02T11:27:35.010Z] #12 20.86 github.com/fatih/structs
+[2025-08-02T11:27:35.010Z] #12 20.97 github.com/golang-jwt/jwt/v4
+[2025-08-02T11:27:35.265Z] #12 21.21 github.com/pkg/errors
+[2025-08-02T11:27:35.520Z] #12 21.37 github.com/go-redis/redis/v8
+[2025-08-02T11:27:35.520Z] #12 21.45 github.com/trivago/tgo/treflect
+[2025-08-02T11:27:36.079Z] #12 21.83 database/sql/driver
+[2025-08-02T11:27:36.079Z] #12 21.94 github.com/trivago/tgo/tcontainer
+[2025-08-02T11:27:36.079Z] #12 22.01 golang.org/x/crypto/openpgp
+[2025-08-02T11:27:36.334Z] #12 22.21 google.golang.org/protobuf/internal/filetype
+[2025-08-02T11:27:36.334Z] #12 22.25 github.com/google/uuid
+[2025-08-02T11:27:36.589Z] #12 22.43 github.com/hibiken/asynq/internal/errors
+[2025-08-02T11:27:36.589Z] #12 22.51 github.com/redis/go-redis/v9/internal
+[2025-08-02T11:27:36.589Z] #12 22.54 github.com/redis/go-redis/v9/internal/hscan
+[2025-08-02T11:27:36.589Z] #12 22.55 github.com/redis/go-redis/v9/internal/proto
+[2025-08-02T11:27:36.589Z] #12 22.56 google.golang.org/protobuf/runtime/protoimpl
+[2025-08-02T11:27:36.589Z] #12 22.62 google.golang.org/protobuf/protoadapt
+[2025-08-02T11:27:36.844Z] #12 22.65 google.golang.org/protobuf/types/known/durationpb
+[2025-08-02T11:27:36.844Z] #12 22.77 google.golang.org/grpc/internal/pretty
+[2025-08-02T11:27:36.844Z] #12 22.82 google.golang.org/grpc/encoding/proto
+[2025-08-02T11:27:36.844Z] #12 22.89 google.golang.org/protobuf/types/known/timestamppb
+[2025-08-02T11:27:37.099Z] #12 22.91 google.golang.org/protobuf/types/known/anypb
+[2025-08-02T11:27:37.099Z] #12 22.93 google.golang.org/grpc/balancer/pickfirst/pickfirstleaf
+[2025-08-02T11:27:37.099Z] #12 22.99 github.com/hibiken/asynq/internal/log
+[2025-08-02T11:27:37.099Z] #12 23.02 github.com/redis/go-redis/v9/internal/pool
+[2025-08-02T11:27:37.099Z] #12 23.07 go.mongodb.org/mongo-driver/bson
+[2025-08-02T11:27:37.099Z] #12 23.11 google.golang.org/grpc/binarylog/grpc_binarylog_v1
+[2025-08-02T11:27:37.099Z] #12 23.13 github.com/hibiken/asynq/internal/proto
+[2025-08-02T11:27:37.354Z] #12 23.20 google.golang.org/genproto/googleapis/rpc/status
+[2025-08-02T11:27:37.354Z] #12 23.22 google.golang.org/grpc/balancer/pickfirst
+[2025-08-02T11:27:37.354Z] #12 23.29 google.golang.org/grpc/balancer/roundrobin
+[2025-08-02T11:27:37.354Z] #12 23.38 google.golang.org/grpc/internal/status
+[2025-08-02T11:27:37.354Z] #12 23.40 github.com/robfig/cron/v3
+[2025-08-02T11:27:37.609Z] #12 23.41 github.com/redis/go-redis/v9
+[2025-08-02T11:27:37.609Z] #12 23.45 golang.org/x/time/rate
+[2025-08-02T11:27:37.609Z] #12 23.56 google.golang.org/grpc/status
+[2025-08-02T11:27:37.864Z] #12 23.73 go.mongodb.org/mongo-driver/mongo/writeconcern
+[2025-08-02T11:27:37.864Z] #12 23.73 google.golang.org/grpc/internal/binarylog
+[2025-08-02T11:27:37.864Z] #12 23.73 go.mongodb.org/mongo-driver/internal/bsonutil
+[2025-08-02T11:27:37.864Z] #12 23.73 go.mongodb.org/mongo-driver/internal/codecutil
+[2025-08-02T11:27:38.119Z] #12 23.86 go.mongodb.org/mongo-driver/mongo/description
+[2025-08-02T11:27:38.373Z] #12 24.20 go.mongodb.org/mongo-driver/x/mongo/driver/session
+[2025-08-02T11:27:38.373Z] #12 24.20 go.mongodb.org/mongo-driver/event
+[2025-08-02T11:27:38.932Z] #12 24.94 github.com/magiconair/properties
+[2025-08-02T11:27:38.932Z] #12 24.94 golang.org/x/net/trace
+[2025-08-02T11:27:38.932Z] #12 24.95 golang.org/x/net/http2
+[2025-08-02T11:27:38.932Z] #12 24.95 github.com/Meesho/go-core/api/http
+[2025-08-02T11:27:38.932Z] #12 24.95 google.golang.org/grpc/internal/resolver/delegatingresolver
+[2025-08-02T11:27:38.932Z] #12 24.95 github.com/spf13/afero
+[2025-08-02T11:27:38.932Z] #12 25.04 net/http/httputil
+[2025-08-02T11:27:39.187Z] #12 25.17 net/http/httptest
+[2025-08-02T11:27:39.442Z] #12 25.41 github.com/stretchr/testify/assert
+[2025-08-02T11:27:39.442Z] #12 25.45 github.com/spf13/viper/internal/encoding/javaproperties
+[2025-08-02T11:27:39.696Z] #12 25.62 github.com/gin-contrib/sse
+[2025-08-02T11:27:39.696Z] #12 25.65 net/rpc
+[2025-08-02T11:27:39.696Z] #12 25.71 go.mongodb.org/mongo-driver/internal/httputil
+[2025-08-02T11:27:39.950Z] #12 25.75 go.mongodb.org/mongo-driver/x/mongo/driver/mongocrypt/options
+[2025-08-02T11:27:39.950Z] #12 25.81 go.mongodb.org/mongo-driver/internal/aws/signer/v4
+[2025-08-02T11:27:39.950Z] #12 25.88 go.mongodb.org/mongo-driver/x/mongo/driver/mongocrypt
+[2025-08-02T11:27:40.204Z] #12 26.16 go.mongodb.org/mongo-driver/x/mongo/driver
+[2025-08-02T11:27:40.204Z] #12 26.17 github.com/ugorji/go/codec
+[2025-08-02T11:27:40.458Z] #12 26.36 go.mongodb.org/mongo-driver/internal/credproviders
+[2025-08-02T11:27:40.712Z] #12 26.49 github.com/spf13/viper
+[2025-08-02T11:27:40.966Z] #12 26.78 go.mongodb.org/mongo-driver/x/mongo/driver/auth/creds
+[2025-08-02T11:27:40.966Z] #12 27.03 github.com/stretchr/testify/mock
+[2025-08-02T11:27:41.220Z] #12 27.13 go.mongodb.org/mongo-driver/x/mongo/driver/ocsp
+[2025-08-02T11:27:41.474Z] #12 27.57 github.com/google/go-github/v33/github
+[2025-08-02T11:27:41.729Z] #12 27.71 github.com/Meesho/go-core/metric
+[2025-08-02T11:27:41.729Z] #12 27.73 github.com/andygrunwald/go-jira
+[2025-08-02T11:27:41.729Z] #12 27.83 github.com/Meesho/go-core/circuitbreaker/manualcb
+[2025-08-02T11:27:41.983Z] #12 27.97 google.golang.org/grpc/internal/transport
+[2025-08-02T11:27:42.238Z] #12 28.14 golang.org/x/net/http2/h2c
+[2025-08-02T11:27:42.493Z] #12 28.48 go.mongodb.org/mongo-driver/x/mongo/driver/operation
+[2025-08-02T11:27:43.416Z] #12 29.25 github.com/PagerDuty/go-pagerduty
+[2025-08-02T11:27:44.777Z] #12 30.51 go.mongodb.org/mongo-driver/x/mongo/driver/auth
+[2025-08-02T11:27:45.701Z] #12 31.42 google.golang.org/grpc
+[2025-08-02T11:27:45.956Z] #12 31.79 go.mongodb.org/mongo-driver/x/mongo/driver/connstring
+[2025-08-02T11:27:45.956Z] #12 31.91 buddy/pkg/pagerduty
+[2025-08-02T11:27:46.514Z] #12 32.33 go.mongodb.org/mongo-driver/mongo/options
+[2025-08-02T11:27:47.878Z] #12 33.82 go.mongodb.org/mongo-driver/x/mongo/driver/topology
+[2025-08-02T11:27:48.133Z] #12 33.99 github.com/go-redsync/redsync/v4/redis/goredis/v8
+[2025-08-02T11:27:48.692Z] #12 34.56 github.com/Meesho/go-core/circuitbreaker/failsafecb
+[2025-08-02T11:27:48.692Z] #12 34.68 github.com/Meesho/go-core/circuitbreaker
+[2025-08-02T11:27:49.250Z] #12 35.09 github.com/Meesho/go-core/httpclient
+[2025-08-02T11:27:49.810Z] #12 35.78 go.mongodb.org/mongo-driver/mongo
+[2025-08-02T11:27:50.064Z] #12 36.04 github.com/gin-gonic/gin/render
+[2025-08-02T11:27:50.064Z] #12 36.05 github.com/gin-gonic/gin/binding
+[2025-08-02T11:27:50.319Z] #12 36.20 github.com/Meesho/go-core/slacknotification
+[2025-08-02T11:27:50.573Z] #12 36.47 github.com/gin-gonic/gin
+[2025-08-02T11:27:50.573Z] #12 36.51 github.com/Meesho/go-core/zookeeper
+[2025-08-02T11:27:51.497Z] #12 37.51 github.com/Meesho/go-core/config
+[2025-08-02T11:27:51.497Z] #12 37.61 buddy/pkg/config
+[2025-08-02T11:27:51.752Z] #12 37.63 buddy/pkg/db
+[2025-08-02T11:27:51.752Z] #12 37.63 buddy/utils
+[2025-08-02T11:27:51.752Z] #12 37.63 buddy/pkg/redisclient
+[2025-08-02T11:27:51.752Z] #12 37.74 buddy/pkg/assignment
+[2025-08-02T11:27:51.752Z] #12 37.74 buddy/pkg/slack
+[2025-08-02T11:27:51.752Z] #12 37.87 github.com/hibiken/asynq/internal/base
+[2025-08-02T11:27:52.006Z] #12 37.92 buddy/pkg/jira
+[2025-08-02T11:27:52.006Z] #12 37.99 github.com/hibiken/asynq/internal/context
+[2025-08-02T11:27:52.006Z] #12 37.99 github.com/hibiken/asynq/internal/rdb
+[2025-08-02T11:27:52.006Z] #12 38.10 buddy/pkg/users
+[2025-08-02T11:27:52.261Z] #12 38.18 buddy/pkg/startup
+[2025-08-02T11:27:52.523Z] #12 38.25 github.com/hibiken/asynq
+[2025-08-02T11:27:52.523Z] #12 38.55 buddy/pkg/sla
+[2025-08-02T11:27:52.778Z] #12 38.66 buddy/pkg/leave
+[2025-08-02T11:27:52.778Z] #12 38.79 buddy/Scripts
+[2025-08-02T11:27:53.033Z] #12 38.84 command-line-arguments
+[2025-08-02T11:27:56.291Z] #12 DONE 42.0s
+[2025-08-02T11:27:56.291Z] 
+[2025-08-02T11:27:56.291Z] #5 [stage-1 1/3] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/debian:10-slim-v1@sha256:9dde01ac2121d9b2d94c4d7966d1855945d840cc9ece267f0cc6250b2d439fab
+[2025-08-02T11:27:56.291Z] #5 CACHED
+[2025-08-02T11:27:56.546Z] 
+[2025-08-02T11:27:56.546Z] #13 exporting to image
+[2025-08-02T11:27:56.546Z] #13 exporting layers done
+[2025-08-02T11:27:56.546Z] #13 writing image sha256:ede23732eb119137bdd315ad1522bd93d7d8c4cd2e5d853154751fe68fc6ffd7 done
+[2025-08-02T11:27:56.546Z] #13 naming to asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/stg/devop/dev-ops-buddy-backend/sync:v1.0-41a4eeb-1754133858248 done
+[2025-08-02T11:27:56.546Z] #13 DONE 0.0s
+[2025-08-02T11:27:58.431Z] The push refers to repository [asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/stg/devop/dev-ops-buddy-backend/sync]
+[2025-08-02T11:27:58.431Z] e3650eb51a7c: Preparing
+[2025-08-02T11:27:58.431Z] bf37da690b5b: Preparing
+[2025-08-02T11:27:58.431Z] c482db1d72a2: Preparing
+[2025-08-02T11:27:58.431Z] f37b8219d4d2: Preparing
+[2025-08-02T11:27:58.431Z] a8d569091855: Preparing
+[2025-08-02T11:27:58.431Z] bea38dae1f01: Preparing
+[2025-08-02T11:27:58.431Z] d2897ab29b0e: Preparing
+[2025-08-02T11:27:58.431Z] d2897ab29b0e: Waiting
+[2025-08-02T11:27:58.431Z] bea38dae1f01: Waiting
+[2025-08-02T11:27:58.431Z] c482db1d72a2: Layer already exists
+[2025-08-02T11:27:58.431Z] bf37da690b5b: Layer already exists
+[2025-08-02T11:27:58.431Z] f37b8219d4d2: Layer already exists
+[2025-08-02T11:27:58.431Z] a8d569091855: Layer already exists
+[2025-08-02T11:27:58.431Z] e3650eb51a7c: Layer already exists
+[2025-08-02T11:27:58.431Z] d2897ab29b0e: Layer already exists
+[2025-08-02T11:27:58.431Z] bea38dae1f01: Layer already exists
+[2025-08-02T11:27:58.431Z] v1.0-41a4eeb-1754133858248: digest: sha256:38d1fba55ceb2e24ea1e3ef2275eb85dd37b9dc482992e148d808a8817b95ffa size: 1784
+[Pipeline] sh
+[2025-08-02T11:27:58.990Z] + rm -rf Dockerfile-sync
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+[2025-08-02T11:27:59.607Z] [1;32mINFO: tag is v1.0-41a4eeb-1754133858248[0m
+[Pipeline] echo
+[2025-08-02T11:27:59.622Z] [1;31mERROR: java.lang.NullPointerException: Cannot invoke method getUserId() on null object[0m
+[Pipeline] }
+[2025-08-02T11:27:59.642Z] 
+[Pipeline] // ansiColor
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // podTemplate
+[Pipeline] End of Pipeline
+Also:   org.jenkinsci.plugins.workflow.actions.ErrorAction$ErrorId: 036c30cd-2aae-4244-9bc4-977dfbe94b06
+java.lang.NullPointerException: Cannot invoke method getUserId() on null object
+	at org.codehaus.groovy.runtime.NullObject.invokeMethod(NullObject.java:91)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:47)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.NullCallSite.call(NullCallSite.java:34)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:116)
+	at com.cloudbees.groovy.cps.sandbox.DefaultInvoker.methodCall(DefaultInvoker.java:20)
+	at org.jenkinsci.plugins.workflow.cps.LoggingInvoker.methodCall(LoggingInvoker.java:105)
+	at com.meesho.stages.notify.run(notify.groovy:12)
+	at eksCICD.commonCICDFlow(eksCICD.groovy:89)
+	at ___cps.transform___(Native Method)
+	at com.cloudbees.groovy.cps.impl.ContinuationGroup.methodCall(ContinuationGroup.java:90)
+	at com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.dispatchOrArg(FunctionCallBlock.java:116)
+	at com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.fixName(FunctionCallBlock.java:80)
+	at jdk.internal.reflect.GeneratedMethodAccessor311.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at com.cloudbees.groovy.cps.impl.ContinuationPtr$ContinuationImpl.receive(ContinuationPtr.java:72)
+	at com.cloudbees.groovy.cps.impl.ConstantBlock.eval(ConstantBlock.java:21)
+	at com.cloudbees.groovy.cps.Next.step(Next.java:83)
+	at com.cloudbees.groovy.cps.Continuable.run0(Continuable.java:147)
+	at org.jenkinsci.plugins.workflow.cps.SandboxContinuable.access$001(SandboxContinuable.java:17)
+	at org.jenkinsci.plugins.workflow.cps.SandboxContinuable.run0(SandboxContinuable.java:49)
+	at org.jenkinsci.plugins.workflow.cps.CpsThread.runNextChunk(CpsThread.java:180)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup.run(CpsThreadGroup.java:423)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:331)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:295)
+	at org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService.lambda$wrap$4(CpsVmExecutorService.java:136)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at hudson.remoting.SingleLaneExecutorService$1.run(SingleLaneExecutorService.java:139)
+	at jenkins.util.ContextResettingExecutorService$1.run(ContextResettingExecutorService.java:28)
+	at jenkins.security.ImpersonatingExecutorService$1.run(ImpersonatingExecutorService.java:68)
+	at jenkins.util.ErrorLoggingExecutorService.lambda$wrap$0(ErrorLoggingExecutorService.java:51)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService$1.call(CpsVmExecutorService.java:53)
+	at org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService$1.call(CpsVmExecutorService.java:50)
+	at org.codehaus.groovy.runtime.GroovyCategorySupport$ThreadCategoryInfo.use(GroovyCategorySupport.java:136)
+	at org.codehaus.groovy.runtime.GroovyCategorySupport.use(GroovyCategorySupport.java:275)
+	at org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService.lambda$categoryThreadFactory$0(CpsVmExecutorService.java:50)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+GitHub has been notified of this commit’s build result
+
+Finished: FAILURE

@@ -1,0 +1,741 @@
+Branch indexing
+Connecting to https://api.github.com using 379051/****** (CICD github app credentials)
+Obtained Jenkinsfile from 8faadce5f47e6260124e084b14d93036c4826da1
+Loading library devops-lib@uregent-buddy-deployment
+Attempting to resolve uregent-buddy-deployment from remote references...
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+using GIT_ASKPASS to set credentials cicd-github-app
+ > git ls-remote -h -- https://github.com/meesho/devops-lib.git # timeout=10
+Found match: refs/heads/uregent-buddy-deployment revision a96e650c4c36395c0d1328a5a85ddebd2b8649bc
+The recommended git tool is: git
+using credential cicd-github-app
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/dev-ops-buddy-bot-cicd_develop@libs/9f4aa0b8c61c0ec511db846eb4d299e5a43956275c5f10ed3178f4fe35cbf77d/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/meesho/devops-lib.git # timeout=10
+Fetching without tags
+Fetching upstream changes from https://github.com/meesho/devops-lib.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+using GIT_ASKPASS to set credentials cicd-github-app
+ > git fetch --no-tags --force --progress -- https://github.com/meesho/devops-lib.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+Checking out Revision a96e650c4c36395c0d1328a5a85ddebd2b8649bc (uregent-buddy-deployment)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f a96e650c4c36395c0d1328a5a85ddebd2b8649bc # timeout=10
+Commit message: "Merge pull request #558 from Meesho/main"
+ > git rev-list --no-walk a96e650c4c36395c0d1328a5a85ddebd2b8649bc # timeout=10
+[Pipeline] Start of Pipeline
+[Pipeline] echo
+CLOUD_PROVIDER : GCP
+[Pipeline] echo
+INFRA_ENV : stg
+[Pipeline] echo
+Running on GCP
+[Pipeline] libraryResource
+[Pipeline] podTemplate
+[Pipeline] {
+[Pipeline] node
+Created Pod: kubernetes jenkins/dev-ops-buddy-bot-cicd-develop-131-r1n0k-mchww-qgfg6
+Agent dev-ops-buddy-bot-cicd-develop-131-r1n0k-mchww-qgfg6 is provisioned from template dev-ops-buddy-bot-cicd_develop_131-r1n0k-mchww
+---
+apiVersion: "v1"
+kind: "Pod"
+metadata:
+  annotations:
+    buildUrl: "http://jenkins-dev.jenkins.svc.cluster.local:8080/job/dev-ops-buddy-bot-cicd/job/develop/131/"
+    runUrl: "job/dev-ops-buddy-bot-cicd/job/develop/131/"
+  labels:
+    bu: "infra"
+    team: "devops"
+    service: "jenkins-stg"
+    env: "stg"
+    priority: "p0"
+    type: "jenkins"
+    component: "jenkins-agent"
+    jenkins/jenkins-admin-dev-jenkins-agent: "true"
+    jenkins/label-digest: "fbb82d229a85285882b2c9956052d4a89f63dc83"
+    jenkins/label: "dev-ops-buddy-bot-cicd_develop_131-r1n0k"
+  name: "dev-ops-buddy-bot-cicd-develop-131-r1n0k-mchww-qgfg6"
+  namespace: "jenkins"
+spec:
+  containers:
+  - command:
+    - "cat"
+    env:
+    - name: "TZ"
+      value: "Asia/Kolkata"
+    - name: "DOCKER_HOST"
+      value: "dind-dev-svc"
+    image: "asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/devops/build-tools:lunar-v1.0.1-v2"
+    imagePullPolicy: "Always"
+    name: "devops-tools"
+    resources:
+      limits:
+        memory: "1000G"
+        cpu: "100"
+      requests:
+        memory: "6G"
+        cpu: "2"
+    tty: true
+    volumeMounts:
+    - mountPath: "/root"
+      name: "cache"
+      readOnly: false
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  - env:
+    - name: "JENKINS_SECRET"
+      value: "********"
+    - name: "JENKINS_TUNNEL"
+      value: "jenkins-dev-agent.jenkins.svc.cluster.local:50000"
+    - name: "JENKINS_AGENT_NAME"
+      value: "dev-ops-buddy-bot-cicd-develop-131-r1n0k-mchww-qgfg6"
+    - name: "JENKINS_NAME"
+      value: "dev-ops-buddy-bot-cicd-develop-131-r1n0k-mchww-qgfg6"
+    - name: "JENKINS_AGENT_WORKDIR"
+      value: "/home/jenkins/agent"
+    - name: "JENKINS_URL"
+      value: "http://jenkins-dev.jenkins.svc.cluster.local:8080/"
+    image: "jenkins/inbound-agent:3206.vb_15dcf73f6a_9-2"
+    name: "jnlp"
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "100m"
+    volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  nodeSelector:
+    dedicated: "jenkins"
+  restartPolicy: "Never"
+  serviceAccountName: "jenkins-dev-agent"
+  tolerations:
+  - effect: "NoSchedule"
+    key: "dedicated"
+    operator: "Equal"
+    value: "jenkins"
+  volumes:
+  - name: "cache"
+    persistentVolumeClaim:
+      claimName: "pvc-jenkins-agents-cache-dev"
+  - emptyDir:
+      medium: ""
+    name: "workspace-volume"
+
+Running on dev-ops-buddy-bot-cicd-develop-131-r1n0k-mchww-qgfg6 in /home/jenkins/agent/workspace/dev-ops-buddy-bot-cicd_develop
+[Pipeline] {
+[Pipeline] container
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] ansiColor
+[Pipeline] {
+[2025-08-01T06:35:02.736Z] 
+[Pipeline] stage
+[Pipeline] { (Checkout from git)
+[Pipeline] dir
+[2025-08-01T06:35:04.103Z] Running in /home/jenkins/agent/workspace/dev-ops-buddy-bot-cicd_develop/dev-ops-buddy-bot
+[Pipeline] {
+[Pipeline] checkout
+[2025-08-01T06:35:04.132Z] The recommended git tool is: NONE
+[2025-08-01T06:35:05.152Z] using credential svc-devops-meesho
+[2025-08-01T06:35:05.160Z] Warning: JENKINS-30600: special launcher org.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator$1@565c6705; decorates RemoteLauncher[hudson.remoting.Channel@57aec879:JNLP4-connect connection from 172.22.166.99/172.22.166.99:32942] will be ignored (a typical symptom is the Git executable not being run inside a designated container)
+[2025-08-01T06:35:05.163Z] Cloning the remote Git repository
+[2025-08-01T06:35:05.163Z] Cloning with configured refspecs honoured and without tags
+[2025-08-01T06:35:05.176Z] Cloning repository https://github.com/Meesho/dev-ops-buddy-bot.git
+[2025-08-01T06:35:05.198Z]  > git init /home/jenkins/agent/workspace/dev-ops-buddy-bot-cicd_develop/dev-ops-buddy-bot # timeout=10
+[2025-08-01T06:35:05.220Z] Fetching upstream changes from https://github.com/Meesho/dev-ops-buddy-bot.git
+[2025-08-01T06:35:05.220Z]  > git --version # timeout=10
+[2025-08-01T06:35:05.223Z]  > git --version # 'git version 2.39.2'
+[2025-08-01T06:35:05.223Z] using GIT_ASKPASS to set credentials CICD github app credentials
+[2025-08-01T06:35:05.234Z]  > git fetch --no-tags --force --progress -- https://github.com/Meesho/dev-ops-buddy-bot.git +refs/heads/develop:refs/remotes/origin/develop # timeout=10
+[2025-08-01T06:35:06.753Z] Avoid second fetch
+[2025-08-01T06:35:06.753Z] Checking out Revision 8faadce5f47e6260124e084b14d93036c4826da1 (develop)
+[2025-08-01T06:35:06.866Z] Commit message: "Create README.md"
+[2025-08-01T06:35:06.567Z]  > git config remote.origin.url https://github.com/Meesho/dev-ops-buddy-bot.git # timeout=10
+[2025-08-01T06:35:06.571Z]  > git config --add remote.origin.fetch +refs/heads/develop:refs/remotes/origin/develop # timeout=10
+[2025-08-01T06:35:06.757Z]  > git config core.sparsecheckout # timeout=10
+[2025-08-01T06:35:06.763Z]  > git checkout -f 8faadce5f47e6260124e084b14d93036c4826da1 # timeout=10
+[2025-08-01T06:35:06.868Z]  > git rev-list --no-walk 6b762a1d79de50d69c0e398102a4c374a7938fef # timeout=10
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] dir
+[2025-08-01T06:35:08.764Z] Running in /home/jenkins/agent/workspace/dev-ops-buddy-bot-cicd_develop/dev-ops-buddy-bot
+[Pipeline] {
+[Pipeline] readYaml
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] dir
+[2025-08-01T06:35:08.849Z] Running in /home/jenkins/agent/workspace/dev-ops-buddy-bot-cicd_develop/whitelist
+[Pipeline] {
+[Pipeline] git
+[2025-08-01T06:35:08.873Z] The recommended git tool is: NONE
+[2025-08-01T06:35:09.795Z] using credential cicd-github-app
+[2025-08-01T06:35:09.802Z] Warning: JENKINS-30600: special launcher org.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator$1@28404494; decorates RemoteLauncher[hudson.remoting.Channel@57aec879:JNLP4-connect connection from 172.22.166.99/172.22.166.99:32942] will be ignored (a typical symptom is the Git executable not being run inside a designated container)
+[2025-08-01T06:35:09.804Z] Cloning the remote Git repository
+[2025-08-01T06:35:09.805Z] Cloning repository https://github.com/Meesho/whitelists.git
+[2025-08-01T06:35:09.806Z]  > git init /home/jenkins/agent/workspace/dev-ops-buddy-bot-cicd_develop/whitelist # timeout=10
+[2025-08-01T06:35:09.811Z] Fetching upstream changes from https://github.com/Meesho/whitelists.git
+[2025-08-01T06:35:09.811Z]  > git --version # timeout=10
+[2025-08-01T06:35:09.813Z]  > git --version # 'git version 2.39.2'
+[2025-08-01T06:35:09.813Z] using GIT_ASKPASS to set credentials cicd-github-app
+[2025-08-01T06:35:09.816Z]  > git fetch --tags --force --progress -- https://github.com/Meesho/whitelists.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2025-08-01T06:35:11.174Z] Avoid second fetch
+[2025-08-01T06:35:11.178Z] Checking out Revision 61f3f318536d2180062cd7daeb72c404bca6f806 (refs/remotes/origin/main)
+[2025-08-01T06:35:11.202Z] Commit message: "Update allowedNonDevelopPrDeploymentToInt.yaml"
+[2025-08-01T06:35:11.164Z]  > git config remote.origin.url https://github.com/Meesho/whitelists.git # timeout=10
+[2025-08-01T06:35:11.167Z]  > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2025-08-01T06:35:11.175Z]  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+[2025-08-01T06:35:11.180Z]  > git config core.sparsecheckout # timeout=10
+[2025-08-01T06:35:11.182Z]  > git checkout -f 61f3f318536d2180062cd7daeb72c404bca6f806 # timeout=10
+[2025-08-01T06:35:11.185Z]  > git branch -a -v --no-abbrev # timeout=10
+[2025-08-01T06:35:11.194Z]  > git checkout -b main 61f3f318536d2180062cd7daeb72c404bca6f806 # timeout=10
+[2025-08-01T06:35:11.204Z]  > git rev-list --no-walk 61f3f318536d2180062cd7daeb72c404bca6f806 # timeout=10
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] readYaml
+[Pipeline] echo
+[2025-08-01T06:35:12.355Z] Branch Name - develop and Environment - stg
+[Pipeline] echo
+[2025-08-01T06:35:12.412Z] Bucket and Image Repo Details - asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622 asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin gcs-infr-dvps-meesho-artifacts-stg
+[Pipeline] echo
+[2025-08-01T06:35:12.441Z] [1;32mINFO: [arch:amd64, bu:central, build_cmd:ls, build_tool:docker, deployArgo:true, skip_pm2_metrics:true, deployment_order:[dev-ops-buddy-bot], dockerBuildVersion:node-18.16.1, maintainer:aryaman.parida@meesho.com, repo_name:dev-ops-buddy-bot, run_command:node, team:devops, secret_name:dev-ops-buddy-bot, skip_notify:true][0m
+[Pipeline] stage
+[Pipeline] { (Check for Hot Fix)
+[Pipeline] dir
+[2025-08-01T06:35:13.101Z] Running in /home/jenkins/agent/workspace/dev-ops-buddy-bot-cicd_develop/dev-ops-buddy-bot
+[Pipeline] {
+[Pipeline] echo
+[2025-08-01T06:35:13.121Z] [1;32mINFO: **** Branch: develop, So Skipping Hot-fix check ****[0m
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] dir
+[2025-08-01T06:35:13.773Z] Running in /home/jenkins/agent/workspace/dev-ops-buddy-bot-cicd_develop/dev-ops-buddy-bot
+[Pipeline] {
+[Pipeline] fileExists
+[Pipeline] sh
+[2025-08-01T06:35:14.338Z] + jq -r .name package.json
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] dir
+[2025-08-01T06:35:14.387Z] Running in /home/jenkins/agent/workspace/dev-ops-buddy-bot-cicd_develop/dev-ops-buddy-bot
+[Pipeline] {
+[Pipeline] fileExists
+[Pipeline] fileExists
+[Pipeline] sh
+[2025-08-01T06:35:14.960Z] + jq -r .version package.json
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] dir
+[2025-08-01T06:35:15.003Z] Running in /home/jenkins/agent/workspace/dev-ops-buddy-bot-cicd_develop/dev-ops-buddy-bot
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T06:35:15.525Z] + git log -1 --format=%h
+[Pipeline] sh
+[2025-08-01T06:35:16.036Z] + git log -1 --format=%H
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] dir
+[2025-08-01T06:35:16.083Z] Running in /home/jenkins/agent/workspace/dev-ops-buddy-bot-cicd_develop/dev-ops-buddy-bot
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T06:35:16.602Z] + git log -1 --format=%H
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] stage
+[Pipeline] { (Create build files)
+[Pipeline] dir
+[2025-08-01T06:35:17.299Z] Running in /home/jenkins/agent/workspace/dev-ops-buddy-bot-cicd_develop/dev-ops-buddy-bot
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T06:35:17.864Z] + rm -rf package-lock.json
+[Pipeline] echo
+[2025-08-01T06:35:17.881Z] [1;32mINFO: Fetching secrets from Vault with vault-stg-token with CMD - vault kv get -format=json meesho/stg/cntr/devop/dev-ops-buddy-bot-npmrc-stg | jq -r .data.data.MEESHO_NPMRC_SECRET > .npmrc[0m
+[Pipeline] withCredentials
+[2025-08-01T06:35:17.892Z] Masking supported pattern matches of $TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T06:35:18.413Z] + jq -r .data.data.MEESHO_NPMRC_SECRET
+[2025-08-01T06:35:18.413Z] + vault kv get -format=json meesho/stg/cntr/devop/dev-ops-buddy-bot-npmrc-stg
+[2025-08-01T06:35:18.413Z] No value found at meesho/data/stg/cntr/devop/dev-ops-buddy-bot-npmrc-stg
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+[2025-08-01T06:35:18.469Z] [1;32mINFO: Fetching secrets from Vault with vault-stg-token with CMD - vault kv get -format=json meesho/stg/cntr/devop/dev-ops-buddy-bot | jq -r '.data.data | to_entries|map("\(.key)=\(.value|tostring)")|.[]' > .env[0m
+[Pipeline] withCredentials
+[2025-08-01T06:35:18.479Z] Masking supported pattern matches of $TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T06:35:19.004Z] + vault kv get -format=json meesho/stg/cntr/devop/dev-ops-buddy-bot
+[2025-08-01T06:35:19.004Z] + jq -r .data.data | to_entries|map("\(.key)=\(.value|tostring)")|.[]
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build docker images)
+[Pipeline] sh
+[2025-08-01T06:35:21.432Z] + gcloud auth configure-docker asia-southeast1-docker.pkg.dev --quiet
+[2025-08-01T06:35:21.998Z] WARNING: Your config file at [/root/.docker/config.json] contains these credential helper entries:
+[2025-08-01T06:35:21.998Z] 
+[2025-08-01T06:35:21.998Z] {
+[2025-08-01T06:35:21.998Z]   "credHelpers": {
+[2025-08-01T06:35:21.998Z]     "asia-southeast1-docker.pkg.dev": "gcloud"
+[2025-08-01T06:35:21.998Z]   }
+[2025-08-01T06:35:21.998Z] }
+[2025-08-01T06:35:21.998Z] Adding credentials for: asia-southeast1-docker.pkg.dev
+[2025-08-01T06:35:21.998Z] gcloud credential helpers already registered correctly.
+[Pipeline] echo
+[2025-08-01T06:35:22.015Z] Skipping - Registry Creation in GCP.
+[Pipeline] dir
+[2025-08-01T06:35:22.022Z] Running in /home/jenkins/agent/workspace/dev-ops-buddy-bot-cicd_develop/dev-ops-buddy-bot
+[Pipeline] {
+[Pipeline] withCredentials
+[2025-08-01T06:35:22.067Z] Masking supported pattern matches of $FILE
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T06:35:22.083Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2025-08-01T06:35:22.083Z] 		 Affected argument(s) used the following variable(s): [FILE]
+[2025-08-01T06:35:22.083Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2025-08-01T06:35:22.581Z] + cat ****
+[2025-08-01T06:35:22.581Z] + chmod 600 ./id_github_jenkins
+[2025-08-01T06:35:22.581Z] + pwd
+[2025-08-01T06:35:22.581Z] /home/jenkins/agent/workspace/dev-ops-buddy-bot-cicd_develop/dev-ops-buddy-bot
+[2025-08-01T06:35:22.581Z] + ls -al ./id_github_jenkins
+[2025-08-01T06:35:22.581Z] -rw------- 1 root root 3381 Aug  1 06:35 ./id_github_jenkins
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] withCredentials
+[2025-08-01T06:35:22.629Z] Masking supported pattern matches of $GIT_TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T06:35:22.649Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2025-08-01T06:35:22.649Z] 		 Affected argument(s) used the following variable(s): [GIT_TOKEN]
+[2025-08-01T06:35:22.649Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2025-08-01T06:35:23.141Z] + echo GITHUB_TOKEN=****
+[2025-08-01T06:35:23.141Z] + echo GIT_COMMIT_SHA='8faadce5f47e6260124e084b14d93036c4826da1'
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] withCredentials
+[2025-08-01T06:35:23.202Z] Masking supported pattern matches of $TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T06:35:23.224Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2025-08-01T06:35:23.224Z] 		 Affected argument(s) used the following variable(s): [TOKEN]
+[2025-08-01T06:35:23.224Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2025-08-01T06:35:23.720Z] + echo SONAR_HOST_URL='https://sonarqube-central-dev.meeshogcp.in'
+[2025-08-01T06:35:23.720Z] + echo SONAR_TOKEN=****
+[Pipeline] sh
+[2025-08-01T06:35:24.228Z] + echo SONAR_BRANCH_NAME='develop'
+[Pipeline] echo
+[2025-08-01T06:35:24.243Z] Make sure to update script section in package.json for Sonar Analysis to be successfull.
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] fileExists
+[Pipeline] libraryResource
+[Pipeline] writeFile
+[Pipeline] sh
+[2025-08-01T06:35:24.824Z] + cat Dockerfile-dev-ops-buddy-bot
+[2025-08-01T06:35:24.824Z] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:18.16.1-slim-secure-multiarch_v2.0 as build-env
+[2025-08-01T06:35:24.824Z] 
+[2025-08-01T06:35:24.824Z] WORKDIR /usr/src/app
+[2025-08-01T06:35:24.824Z] 
+[2025-08-01T06:35:24.824Z] COPY id_github_jenkins /root/.ssh/id_rsa
+[2025-08-01T06:35:24.824Z] 
+[2025-08-01T06:35:24.824Z] COPY . ./
+[2025-08-01T06:35:24.824Z] 
+[2025-08-01T06:35:24.824Z] RUN ls -al &&     echo 'NPM Install...' &&     npm install &&     if ! false; then         cat .env | grep 'SONAR_' &&         echo 'Installing Java 17...' &&         if [ "$(cat /etc/os-release | grep 'ID=' | awk -F= '{print $2}' | sed '2d')" = 'alpine' ]; then             echo "Alpine" &&             apk add --no-cache openjdk17;         else             echo "Debian" &&             apt-get update &&             apt-get install -y --no-install-recommends openjdk-17-jre &&             apt-get clean;         fi &&         echo 'Performing Test Coverage...' &&         npm run test-report || true &&         echo 'Static Analysis...' &&         npm run sonar -- source=branch;     fi &&     echo 'NPM build...' &&     npm run build
+[Pipeline] sh
+[2025-08-01T06:35:25.336Z] + echo FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:18.16.1-alpine-secure-multiarch_v1.0
+[2025-08-01T06:35:25.336Z] + echo RUN npm install pm2 -g
+[2025-08-01T06:35:25.336Z] + [true = false]
+[2025-08-01T06:35:25.336Z] /home/jenkins/agent/workspace/dev-ops-buddy-bot-cicd_develop/dev-ops-buddy-bot@tmp/durable-666ed7d5/script.sh.copy: 4: [true: not found
+[2025-08-01T06:35:25.336Z] + [ false = true ]
+[2025-08-01T06:35:25.336Z] + echo WORKDIR /app
+[2025-08-01T06:35:25.336Z] + echo COPY --from=build-env /usr/src/app /app
+[Pipeline] sh
+[2025-08-01T06:35:25.849Z] + cat Dockerfile-dev-ops-buddy-bot
+[2025-08-01T06:35:25.849Z] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:18.16.1-slim-secure-multiarch_v2.0 as build-env
+[2025-08-01T06:35:25.849Z] 
+[2025-08-01T06:35:25.849Z] WORKDIR /usr/src/app
+[2025-08-01T06:35:25.849Z] 
+[2025-08-01T06:35:25.849Z] COPY id_github_jenkins /root/.ssh/id_rsa
+[2025-08-01T06:35:25.849Z] 
+[2025-08-01T06:35:25.849Z] COPY . ./
+[2025-08-01T06:35:25.849Z] 
+[2025-08-01T06:35:25.849Z] RUN ls -al &&     echo 'NPM Install...' &&     npm install &&     if ! false; then         cat .env | grep 'SONAR_' &&         echo 'Installing Java 17...' &&         if [ "$(cat /etc/os-release | grep 'ID=' | awk -F= '{print $2}' | sed '2d')" = 'alpine' ]; then             echo "Alpine" &&             apk add --no-cache openjdk17;         else             echo "Debian" &&             apt-get update &&             apt-get install -y --no-install-recommends openjdk-17-jre &&             apt-get clean;         fi &&         echo 'Performing Test Coverage...' &&         npm run test-report || true &&         echo 'Static Analysis...' &&         npm run sonar -- source=branch;     fi &&     echo 'NPM build...' &&     npm run build
+[2025-08-01T06:35:25.849Z] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:18.16.1-alpine-secure-multiarch_v1.0
+[2025-08-01T06:35:25.849Z] RUN npm install pm2 -g
+[2025-08-01T06:35:25.849Z] WORKDIR /app
+[2025-08-01T06:35:25.849Z] COPY --from=build-env /usr/src/app /app
+[Pipeline] sh
+[2025-08-01T06:35:26.366Z] + max_attempts=5
+[2025-08-01T06:35:26.366Z] + images=asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:18.16.1-alpine-secure-multiarch_v1.0 asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/devops/google-cloud-sdk:458.0.0-alpine asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:18.16.1-slim-secure-multiarch_v2.0
+[2025-08-01T06:35:26.366Z] + attempt=1
+[2025-08-01T06:35:26.366Z] + docker pull asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:18.16.1-alpine-secure-multiarch_v1.0
+[2025-08-01T06:35:27.292Z] 18.16.1-alpine-secure-multiarch_v1.0: Pulling from meesho-devops-admin-0622/admin/build/node
+[2025-08-01T06:35:27.547Z] 3695f6c099b8: Pulling fs layer
+[2025-08-01T06:35:27.547Z] b1d63096adcb: Pulling fs layer
+[2025-08-01T06:35:27.547Z] 36e8cdaf7a35: Pulling fs layer
+[2025-08-01T06:35:27.547Z] c76d069d5ea9: Pulling fs layer
+[2025-08-01T06:35:27.547Z] a33a1350f95b: Pulling fs layer
+[2025-08-01T06:35:27.547Z] d0e4d36845bb: Pulling fs layer
+[2025-08-01T06:35:27.547Z] 038f82b627eb: Pulling fs layer
+[2025-08-01T06:35:27.547Z] 9c2f2b375ef0: Pulling fs layer
+[2025-08-01T06:35:27.547Z] c76d069d5ea9: Waiting
+[2025-08-01T06:35:27.547Z] a33a1350f95b: Waiting
+[2025-08-01T06:35:27.547Z] d0e4d36845bb: Waiting
+[2025-08-01T06:35:27.547Z] 038f82b627eb: Waiting
+[2025-08-01T06:35:27.547Z] 9c2f2b375ef0: Waiting
+[2025-08-01T06:35:27.547Z] b1d63096adcb: Download complete
+[2025-08-01T06:35:27.547Z] 3695f6c099b8: Verifying Checksum
+[2025-08-01T06:35:27.802Z] 3695f6c099b8: Pull complete
+[2025-08-01T06:35:27.802Z] b1d63096adcb: Pull complete
+[2025-08-01T06:35:27.802Z] a33a1350f95b: Verifying Checksum
+[2025-08-01T06:35:27.802Z] a33a1350f95b: Download complete
+[2025-08-01T06:35:27.802Z] c76d069d5ea9: Verifying Checksum
+[2025-08-01T06:35:27.802Z] c76d069d5ea9: Download complete
+[2025-08-01T06:35:27.802Z] 038f82b627eb: Verifying Checksum
+[2025-08-01T06:35:27.802Z] 038f82b627eb: Download complete
+[2025-08-01T06:35:27.802Z] d0e4d36845bb: Verifying Checksum
+[2025-08-01T06:35:27.802Z] d0e4d36845bb: Download complete
+[2025-08-01T06:35:28.057Z] 36e8cdaf7a35: Verifying Checksum
+[2025-08-01T06:35:28.057Z] 36e8cdaf7a35: Download complete
+[2025-08-01T06:35:28.057Z] 9c2f2b375ef0: Verifying Checksum
+[2025-08-01T06:35:28.057Z] 9c2f2b375ef0: Download complete
+[2025-08-01T06:35:29.422Z] 36e8cdaf7a35: Pull complete
+[2025-08-01T06:35:29.422Z] c76d069d5ea9: Pull complete
+[2025-08-01T06:35:29.422Z] a33a1350f95b: Pull complete
+[2025-08-01T06:35:29.687Z] d0e4d36845bb: Pull complete
+[2025-08-01T06:35:29.687Z] 038f82b627eb: Pull complete
+[2025-08-01T06:35:29.687Z] 9c2f2b375ef0: Pull complete
+[2025-08-01T06:35:29.687Z] Digest: sha256:8ec7f35816c14e9f1658d28d3363c78d8f919bf0b1a853227bf7df7d0103f5b7
+[2025-08-01T06:35:29.687Z] Status: Downloaded newer image for asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:18.16.1-alpine-secure-multiarch_v1.0
+[2025-08-01T06:35:29.687Z] asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:18.16.1-alpine-secure-multiarch_v1.0
+[2025-08-01T06:35:29.687Z] + attempt=1
+[2025-08-01T06:35:29.687Z] + docker pull asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/devops/google-cloud-sdk:458.0.0-alpine
+[2025-08-01T06:35:30.634Z] 458.0.0-alpine: Pulling from meesho-devops-admin-0622/admin/devops/google-cloud-sdk
+[2025-08-01T06:35:30.634Z] Digest: sha256:1ee1bdabe289d733ee54bbb451551c40a634f41a2173c8a1125789222900493f
+[2025-08-01T06:35:30.634Z] Status: Image is up to date for asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/devops/google-cloud-sdk:458.0.0-alpine
+[2025-08-01T06:35:30.634Z] asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/devops/google-cloud-sdk:458.0.0-alpine
+[2025-08-01T06:35:30.634Z] + attempt=1
+[2025-08-01T06:35:30.634Z] + docker pull asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:18.16.1-slim-secure-multiarch_v2.0
+[2025-08-01T06:35:31.996Z] 18.16.1-slim-secure-multiarch_v2.0: Pulling from meesho-devops-admin-0622/admin/build/node
+[2025-08-01T06:35:31.996Z] 7d97e254a046: Already exists
+[2025-08-01T06:35:31.996Z] 3002d9dd2834: Already exists
+[2025-08-01T06:35:31.996Z] fa2e0aa597f3: Already exists
+[2025-08-01T06:35:31.996Z] a9e4daeb6daa: Pulling fs layer
+[2025-08-01T06:35:31.996Z] f26c283bc33f: Pulling fs layer
+[2025-08-01T06:35:31.996Z] 20c757460947: Pulling fs layer
+[2025-08-01T06:35:31.996Z] 28ddeefa3534: Pulling fs layer
+[2025-08-01T06:35:31.996Z] 78f7150c07f1: Pulling fs layer
+[2025-08-01T06:35:31.996Z] d5d56b4469c1: Pulling fs layer
+[2025-08-01T06:35:31.996Z] 956e98aa7032: Pulling fs layer
+[2025-08-01T06:35:31.996Z] 105604ab8548: Pulling fs layer
+[2025-08-01T06:35:31.996Z] b9ad39df187e: Pulling fs layer
+[2025-08-01T06:35:31.996Z] 53a36fb18b18: Pulling fs layer
+[2025-08-01T06:35:31.996Z] 47c7fb7d074d: Pulling fs layer
+[2025-08-01T06:35:31.996Z] 956e98aa7032: Waiting
+[2025-08-01T06:35:31.996Z] 105604ab8548: Waiting
+[2025-08-01T06:35:31.996Z] b9ad39df187e: Waiting
+[2025-08-01T06:35:31.996Z] 53a36fb18b18: Waiting
+[2025-08-01T06:35:31.996Z] 47c7fb7d074d: Waiting
+[2025-08-01T06:35:31.996Z] d5d56b4469c1: Waiting
+[2025-08-01T06:35:31.996Z] 28ddeefa3534: Waiting
+[2025-08-01T06:35:31.996Z] 78f7150c07f1: Waiting
+[2025-08-01T06:35:31.996Z] 20c757460947: Verifying Checksum
+[2025-08-01T06:35:31.996Z] 20c757460947: Download complete
+[2025-08-01T06:35:31.996Z] 28ddeefa3534: Verifying Checksum
+[2025-08-01T06:35:31.996Z] 28ddeefa3534: Download complete
+[2025-08-01T06:35:32.251Z] a9e4daeb6daa: Verifying Checksum
+[2025-08-01T06:35:32.251Z] a9e4daeb6daa: Download complete
+[2025-08-01T06:35:32.251Z] f26c283bc33f: Verifying Checksum
+[2025-08-01T06:35:32.251Z] f26c283bc33f: Download complete
+[2025-08-01T06:35:32.251Z] 78f7150c07f1: Verifying Checksum
+[2025-08-01T06:35:32.251Z] 78f7150c07f1: Download complete
+[2025-08-01T06:35:32.251Z] 105604ab8548: Download complete
+[2025-08-01T06:35:32.506Z] d5d56b4469c1: Download complete
+[2025-08-01T06:35:32.506Z] 956e98aa7032: Verifying Checksum
+[2025-08-01T06:35:32.506Z] 956e98aa7032: Download complete
+[2025-08-01T06:35:32.506Z] b9ad39df187e: Verifying Checksum
+[2025-08-01T06:35:32.506Z] b9ad39df187e: Download complete
+[2025-08-01T06:35:32.761Z] 47c7fb7d074d: Verifying Checksum
+[2025-08-01T06:35:32.761Z] 47c7fb7d074d: Download complete
+[2025-08-01T06:35:33.686Z] a9e4daeb6daa: Pull complete
+[2025-08-01T06:35:34.612Z] f26c283bc33f: Pull complete
+[2025-08-01T06:35:34.612Z] 20c757460947: Pull complete
+[2025-08-01T06:35:34.612Z] 28ddeefa3534: Pull complete
+[2025-08-01T06:35:34.612Z] 78f7150c07f1: Pull complete
+[2025-08-01T06:35:34.612Z] d5d56b4469c1: Pull complete
+[2025-08-01T06:35:34.612Z] 956e98aa7032: Pull complete
+[2025-08-01T06:35:34.868Z] 105604ab8548: Pull complete
+[2025-08-01T06:35:34.868Z] b9ad39df187e: Pull complete
+[2025-08-01T06:35:34.868Z] 53a36fb18b18: Pull complete
+[2025-08-01T06:35:34.868Z] 47c7fb7d074d: Pull complete
+[2025-08-01T06:35:34.868Z] Digest: sha256:384535792b8b45f7542a3f1487889d153908150342646531ce70289b6fd8902e
+[2025-08-01T06:35:34.868Z] Status: Downloaded newer image for asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:18.16.1-slim-secure-multiarch_v2.0
+[2025-08-01T06:35:34.868Z] asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:18.16.1-slim-secure-multiarch_v2.0
+[Pipeline] sh
+[2025-08-01T06:35:35.380Z] + export DOCKER_BUILDKIT=0
+[2025-08-01T06:35:35.380Z] + docker build --tag asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/stg/devop/dev-ops-buddy-bot:v1.0.0-8faadce-1754030116076 -f Dockerfile-dev-ops-buddy-bot .
+[2025-08-01T06:35:35.380Z] DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+[2025-08-01T06:35:35.380Z]             BuildKit is currently disabled; enable it by removing the DOCKER_BUILDKIT=0
+[2025-08-01T06:35:35.380Z]             environment-variable.
+[2025-08-01T06:35:35.380Z] 
+[2025-08-01T06:35:35.949Z] Sending build context to Docker daemon  591.4kB
+[2025-08-01T06:35:35.949Z] Step 1/9 : FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:18.16.1-slim-secure-multiarch_v2.0 as build-env
+[2025-08-01T06:35:35.949Z]  ---> 7839c1f662b8
+[2025-08-01T06:35:35.949Z] Step 2/9 : WORKDIR /usr/src/app
+[2025-08-01T06:35:37.834Z]  ---> Running in bd35d28b4492
+[2025-08-01T06:35:37.834Z] Removing intermediate container bd35d28b4492
+[2025-08-01T06:35:37.834Z]  ---> d538662d3952
+[2025-08-01T06:35:37.834Z] Step 3/9 : COPY id_github_jenkins /root/.ssh/id_rsa
+[2025-08-01T06:35:37.834Z]  ---> 697014b8f76d
+[2025-08-01T06:35:37.834Z] Step 4/9 : COPY . ./
+[2025-08-01T06:35:37.834Z]  ---> ded72b71dbf5
+[2025-08-01T06:35:37.834Z] Step 5/9 : RUN ls -al &&     echo 'NPM Install...' &&     npm install &&     if ! false; then         cat .env | grep 'SONAR_' &&         echo 'Installing Java 17...' &&         if [ "$(cat /etc/os-release | grep 'ID=' | awk -F= '{print $2}' | sed '2d')" = 'alpine' ]; then             echo "Alpine" &&             apk add --no-cache openjdk17;         else             echo "Debian" &&             apt-get update &&             apt-get install -y --no-install-recommends openjdk-17-jre &&             apt-get clean;         fi &&         echo 'Performing Test Coverage...' &&         npm run test-report || true &&         echo 'Static Analysis...' &&         npm run sonar -- source=branch;     fi &&     echo 'NPM build...' &&     npm run build
+[2025-08-01T06:35:37.834Z]  ---> Running in 410c761d1e00
+[2025-08-01T06:35:37.834Z] total 76
+[2025-08-01T06:35:37.834Z] drwxr-xr-x 1 root root 4096 Aug  1 06:35 .
+[2025-08-01T06:35:37.834Z] drwxr-xr-x 1 root root 4096 Aug  1 06:35 ..
+[2025-08-01T06:35:37.834Z] -rw-r--r-- 1 root root 1270 Aug  1 06:35 .env
+[2025-08-01T06:35:37.834Z] drwxr-xr-x 8 root root 4096 Aug  1 06:35 .git
+[2025-08-01T06:35:37.834Z] -rw-r--r-- 1 root root   87 Aug  1 06:35 .gitignore
+[2025-08-01T06:35:37.834Z] -rw-r--r-- 1 root root    0 Aug  1 06:35 .npmrc
+[2025-08-01T06:35:37.834Z] -rw-r--r-- 1 root root   25 Aug  1 06:35 .prettierrc
+[2025-08-01T06:35:37.834Z] -rw-r--r-- 1 root root 1130 Aug  1 06:35 Dockerfile-dev-ops-buddy-bot
+[2025-08-01T06:35:37.834Z] -rw-r--r-- 1 root root   90 Aug  1 06:35 Jenkinsfile
+[2025-08-01T06:35:37.834Z] -rw-r--r-- 1 root root  318 Aug  1 06:35 README.md
+[2025-08-01T06:35:37.834Z] -rw-r--r-- 1 root root 1822 Aug  1 06:35 bot.ts
+[2025-08-01T06:35:37.834Z] drwxr-xr-x 2 root root 4096 Aug  1 06:35 config
+[2025-08-01T06:35:37.834Z] -rw-r--r-- 1 root root  407 Aug  1 06:35 config.yaml
+[2025-08-01T06:35:37.834Z] drwxr-xr-x 2 root root 4096 Aug  1 06:35 controllers
+[2025-08-01T06:35:37.834Z] drwxr-xr-x 2 root root 4096 Aug  1 06:35 deployments
+[2025-08-01T06:35:37.834Z] -rw------- 1 root root 3381 Aug  1 06:35 id_github_jenkins
+[2025-08-01T06:35:37.834Z] -rw-r--r-- 1 root root  847 Aug  1 06:35 package.json
+[2025-08-01T06:35:37.834Z] drwxr-xr-x 2 root root 4096 Aug  1 06:35 routes
+[2025-08-01T06:35:37.834Z] -rw-r--r-- 1 root root  302 Aug  1 06:35 tsconfig.json
+[2025-08-01T06:35:37.834Z] drwxr-xr-x 2 root root 4096 Aug  1 06:35 utils
+[2025-08-01T06:35:37.834Z] NPM Install...
+[2025-08-01T06:35:49.992Z] [91mnpm WARN EBADENGINE Unsupported engine {
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE   package: '@azure/identity@4.10.2',
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE   required: { node: '>=20.0.0' },
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE   current: { node: 'v18.16.1', npm: '9.5.1' }
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE }
+[2025-08-01T06:35:49.992Z] [0m[91mnpm WARN EBADENGINE Unsupported engine {
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE   package: '@azure/core-auth@1.10.0',
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE   required: { node: '>=20.0.0' },
+[2025-08-01T06:35:49.992Z] npm WARN[0m[91m EBADENGINE   current: { node: 'v18.16.1', npm: '9.5.1' }
+[2025-08-01T06:35:49.992Z] [0m[91mnpm WARN EBADENGINE }
+[2025-08-01T06:35:49.992Z] [0m[91mnpm WARN EBADENGINE Unsupported engine {
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE   package: '@azure/core-client@1.10.0',
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE   required: { node: '>=20.0.0' },
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE   current: { node: 'v18.16.1', npm: '9.5.1' }
+[2025-08-01T06:35:49.992Z] npm [0m[91mWARN EBADENGINE }
+[2025-08-01T06:35:49.992Z] [0m[91mnpm WARN EBADENGINE Unsupported engine {
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE   package: '@azure/core-rest-pipeline@1.22.0',
+[2025-08-01T06:35:49.992Z] npm WARN [0m[91mEBADENGINE   required: { node: '>=20.0.0' },
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE   current: { node: 'v18.16.1', npm: '9.5.1' }
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE }
+[2025-08-01T06:35:49.992Z] [0m[91mnpm WARN EBADENGINE[0m[91m Unsupported engine {
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE   package: '@azure/core-tracing@1.3.0',
+[2025-08-01T06:35:49.992Z] npm WARN[0m[91m EBADENGINE   required: { node: '>=20.0.0' },
+[2025-08-01T06:35:49.992Z] npm[0m[91m WARN EBADENGINE   current: { node: 'v18.16.1', npm: '9.5.1' }
+[2025-08-01T06:35:49.992Z] npm WARN [0m[91mEBADENGINE }
+[2025-08-01T06:35:49.992Z] [0m[91mnpm WARN EBADENGINE Unsupported engine {
+[2025-08-01T06:35:49.992Z] npm [0m[91mWARN EBADENGINE   package: '@azure/core-util@1.13.0',
+[2025-08-01T06:35:49.992Z] npm [0m[91mWARN EBADENGINE   required: { node: '>=20.0.0' },
+[2025-08-01T06:35:49.992Z] npm [0m[91mWARN EBADENGINE   current: { node: 'v18.16.1', npm: '9.5.1' }
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE }
+[2025-08-01T06:35:49.992Z] [0m[91mnpm WARN EBADENGINE Unsupported engine {
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE   package: '@azure/logger@1.3.0',
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE   required: { node: '>=20.0.0' },
+[2025-08-01T06:35:49.992Z] npm [0m[91mWARN [0m[91mEBADENGINE   current: { node: 'v18.16.1', npm: '9.5.1' }
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE }
+[2025-08-01T06:35:49.992Z] [0m[91mnpm WARN EBADENGINE Unsupported engine {
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE   package: '@typespec/ts-http-runtime@0.3.0',
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE   required: { node: '>=20.0.0' },
+[2025-08-01T06:35:49.992Z] [0m[91mnpm WARN EBADENGINE   current: { node: 'v18.16.1', npm: '9.5.1' }
+[2025-08-01T06:35:49.992Z] npm WARN EBADENGINE }
+[2025-08-01T06:35:55.230Z] [0m
+[2025-08-01T06:35:55.230Z] added 271 packages, and audited 272 packages in 16s
+[2025-08-01T06:35:55.230Z] 
+[2025-08-01T06:35:55.230Z] 41 packages are looking for funding
+[2025-08-01T06:35:55.230Z]   run `npm fund` for details
+[2025-08-01T06:35:55.230Z] 
+[2025-08-01T06:35:55.230Z] found 0 vulnerabilities
+[2025-08-01T06:35:55.230Z] [91mnpm notice 
+[2025-08-01T06:35:55.230Z] npm notice New major version of npm available! 9.5.1 -> 11.5.2
+[2025-08-01T06:35:55.230Z] npm notice Changelog: <https://github.com/npm/cli/releases/tag/v11.5.2>
+[2025-08-01T06:35:55.230Z] npm notice Run `npm install -g npm@11.5.2` to update!
+[2025-08-01T06:35:55.230Z] npm notice 
+[2025-08-01T06:35:55.230Z] [0mSONAR_HOST_URL='https://sonarqube-central-dev.meeshogcp.in'
+[2025-08-01T06:35:55.230Z] SONAR_TOKEN='squ_4ddba2bfd143a02a60925cdb2bd13d13ce9a7b56'
+[2025-08-01T06:35:55.230Z] SONAR_BRANCH_NAME='develop'
+[2025-08-01T06:35:55.230Z] Installing Java 17...
+[2025-08-01T06:35:55.230Z] Debian
+[2025-08-01T06:35:55.230Z] Get:1 http://deb.debian.org/debian bullseye InRelease [116 kB]
+[2025-08-01T06:35:55.230Z] Get:2 http://deb.debian.org/debian-security bullseye-security InRelease [27.2 kB]
+[2025-08-01T06:35:55.230Z] Get:3 http://deb.debian.org/debian bullseye-updates InRelease [44.0 kB]
+[2025-08-01T06:35:55.230Z] Err:1 http://deb.debian.org/debian bullseye InRelease
+[2025-08-01T06:35:55.230Z]   Unknown error executing apt-key
+[2025-08-01T06:35:55.230Z] Err:2 http://deb.debian.org/debian-security bullseye-security InRelease
+[2025-08-01T06:35:55.230Z]   Unknown error executing apt-key
+[2025-08-01T06:35:55.230Z] Err:3 http://deb.debian.org/debian bullseye-updates InRelease
+[2025-08-01T06:35:55.230Z]   Unknown error executing apt-key
+[2025-08-01T06:35:55.230Z] Reading package lists...
+[2025-08-01T06:35:55.230Z] [91mW: No sandbox user '_apt' on the system, can not drop privileges
+[2025-08-01T06:35:55.230Z] W: GPG error: http://deb.debian.org/debian bullseye InRelease: Unknown error executing apt-key
+[2025-08-01T06:35:55.230Z] E: The repository 'http://deb.debian.org/debian bullseye InRelease' is not signed.
+[2025-08-01T06:35:55.230Z] W: GPG error: http://deb.debian.org/debian-security bullseye-security InRelease: Unknown error executing apt-key
+[2025-08-01T06:35:55.230Z] E: The repository 'http://deb.debian.org/debian-security bullseye-security InRelease' is not signed.
+[2025-08-01T06:35:55.230Z] W: GPG error: http://deb.debian.org/debian bullseye-updates InRelease: Unknown error executing apt-key
+[2025-08-01T06:35:55.230Z] E: The repository 'http://deb.debian.org/debian bullseye-updates InRelease' is not signed.
+[2025-08-01T06:35:55.230Z] [0mStatic Analysis...
+[2025-08-01T06:35:55.230Z] 
+[2025-08-01T06:35:55.230Z] > dev-ops-buddy-bot@1.0.0 sonar
+[2025-08-01T06:35:55.230Z] > echo 'Skipping Sonar analysis...' source=branch
+[2025-08-01T06:35:55.230Z] 
+[2025-08-01T06:35:55.230Z] Skipping Sonar analysis... source=branch
+[2025-08-01T06:35:55.230Z] NPM build...
+[2025-08-01T06:35:55.230Z] 
+[2025-08-01T06:35:55.230Z] > dev-ops-buddy-bot@1.0.0 build
+[2025-08-01T06:35:55.230Z] > tsc --noEmit
+[2025-08-01T06:35:55.230Z] 
+[2025-08-01T06:36:07.397Z] Removing intermediate container 410c761d1e00
+[2025-08-01T06:36:07.397Z]  ---> 16848939a237
+[2025-08-01T06:36:07.397Z] Step 6/9 : FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:18.16.1-alpine-secure-multiarch_v1.0
+[2025-08-01T06:36:07.397Z]  ---> 62b86c027deb
+[2025-08-01T06:36:07.397Z] Step 7/9 : RUN npm install pm2 -g
+[2025-08-01T06:36:07.397Z]  ---> Running in 62bb79c4fd0b
+[2025-08-01T06:36:09.930Z] 
+[2025-08-01T06:36:09.930Z] added 135 packages in 4s
+[2025-08-01T06:36:09.930Z] 
+[2025-08-01T06:36:09.930Z] 13 packages are looking for funding
+[2025-08-01T06:36:09.930Z]   run `npm fund` for details
+[2025-08-01T06:36:09.930Z] [91mnpm notice 
+[2025-08-01T06:36:09.930Z] npm notice[0m[91m New major version of npm available! 9.5.1 -> 11.5.2
+[2025-08-01T06:36:09.930Z] npm notice Changelog: <https://github.com/npm/cli/releases/tag/v11.5.2>
+[2025-08-01T06:36:09.930Z] [0m[91mnpm notice Run `npm install -g npm@11.5.2` to update!
+[2025-08-01T06:36:09.930Z] npm [0m[91mnotice 
+[2025-08-01T06:36:12.453Z] [0mRemoving intermediate container 62bb79c4fd0b
+[2025-08-01T06:36:12.453Z]  ---> ad617e2f0b62
+[2025-08-01T06:36:12.453Z] Step 8/9 : WORKDIR /app
+[2025-08-01T06:36:12.453Z]  ---> Running in 7a62d86d89fe
+[2025-08-01T06:36:12.453Z] Removing intermediate container 7a62d86d89fe
+[2025-08-01T06:36:12.453Z]  ---> 14c4c04d1a1b
+[2025-08-01T06:36:12.453Z] Step 9/9 : COPY --from=build-env /usr/src/app /app
+[2025-08-01T06:36:20.528Z]  ---> 5e0ef48af8e1
+[2025-08-01T06:36:20.528Z] Successfully built 5e0ef48af8e1
+[2025-08-01T06:36:20.528Z] Successfully tagged asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/stg/devop/dev-ops-buddy-bot:v1.0.0-8faadce-1754030116076
+[Pipeline] sh
+[2025-08-01T06:36:21.040Z] + docker push asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/stg/devop/dev-ops-buddy-bot:v1.0.0-8faadce-1754030116076
+[2025-08-01T06:36:21.967Z] The push refers to repository [asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/stg/devop/dev-ops-buddy-bot]
+[2025-08-01T06:36:21.967Z] 3687522b57e1: Preparing
+[2025-08-01T06:36:21.967Z] 72c2ab5f5767: Preparing
+[2025-08-01T06:36:21.967Z] 8aa059616a13: Preparing
+[2025-08-01T06:36:21.967Z] 683657a1e2ad: Preparing
+[2025-08-01T06:36:21.967Z] 6a9a5643fd85: Preparing
+[2025-08-01T06:36:21.967Z] db118d8639b2: Preparing
+[2025-08-01T06:36:21.967Z] c274b5c52779: Preparing
+[2025-08-01T06:36:21.967Z] ea39b811dae4: Preparing
+[2025-08-01T06:36:21.967Z] 47a949c68d19: Preparing
+[2025-08-01T06:36:21.967Z] e3808de81a96: Preparing
+[2025-08-01T06:36:21.967Z] bc0a9d4e16d0: Preparing
+[2025-08-01T06:36:21.967Z] db118d8639b2: Waiting
+[2025-08-01T06:36:21.967Z] c274b5c52779: Waiting
+[2025-08-01T06:36:21.967Z] ea39b811dae4: Waiting
+[2025-08-01T06:36:21.967Z] 47a949c68d19: Waiting
+[2025-08-01T06:36:21.967Z] e3808de81a96: Waiting
+[2025-08-01T06:36:21.967Z] bc0a9d4e16d0: Waiting
+[2025-08-01T06:36:22.223Z] 6a9a5643fd85: Layer already exists
+[2025-08-01T06:36:22.223Z] 683657a1e2ad: Layer already exists
+[2025-08-01T06:36:22.223Z] db118d8639b2: Layer already exists
+[2025-08-01T06:36:22.478Z] c274b5c52779: Layer already exists
+[2025-08-01T06:36:22.478Z] ea39b811dae4: Layer already exists
+[2025-08-01T06:36:22.478Z] 47a949c68d19: Layer already exists
+[2025-08-01T06:36:22.478Z] e3808de81a96: Layer already exists
+[2025-08-01T06:36:22.478Z] 72c2ab5f5767: Pushed
+[2025-08-01T06:36:22.478Z] bc0a9d4e16d0: Layer already exists
+[2025-08-01T06:36:23.841Z] 8aa059616a13: Pushed
+[2025-08-01T06:36:29.079Z] 3687522b57e1: Pushed
+[2025-08-01T06:36:29.079Z] v1.0.0-8faadce-1754030116076: digest: sha256:1efc201d84234bb441327b3a4d2bf5638e9611a61e00450480d85ae07860f9ad size: 2623
+[Pipeline] sh
+[2025-08-01T06:36:29.592Z] + rm -rf Dockerfile-dev-ops-buddy-bot
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+[2025-08-01T06:36:30.253Z] [1;32mINFO: tag is v1.0.0-8faadce-1754030116076[0m
+[Pipeline] echo
+[2025-08-01T06:36:30.266Z] [1;31mERROR: java.lang.NullPointerException: Cannot invoke method getUserId() on null object[0m
+[Pipeline] }
+[2025-08-01T06:36:30.285Z] 
+[Pipeline] // ansiColor
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // podTemplate
+[Pipeline] End of Pipeline
+Also:   org.jenkinsci.plugins.workflow.actions.ErrorAction$ErrorId: 5c23fbd4-b80d-4959-a3e2-3944c91c5e68
+java.lang.NullPointerException: Cannot invoke method getUserId() on null object
+	at org.codehaus.groovy.runtime.NullObject.invokeMethod(NullObject.java:91)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:47)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.NullCallSite.call(NullCallSite.java:34)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:116)
+	at com.cloudbees.groovy.cps.sandbox.DefaultInvoker.methodCall(DefaultInvoker.java:20)
+	at org.jenkinsci.plugins.workflow.cps.LoggingInvoker.methodCall(LoggingInvoker.java:105)
+	at com.meesho.stages.notify.run(notify.groovy:12)
+	at eksCICD.commonCICDFlow(eksCICD.groovy:89)
+	at ___cps.transform___(Native Method)
+	at com.cloudbees.groovy.cps.impl.ContinuationGroup.methodCall(ContinuationGroup.java:90)
+	at com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.dispatchOrArg(FunctionCallBlock.java:116)
+	at com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.fixName(FunctionCallBlock.java:80)
+	at jdk.internal.reflect.GeneratedMethodAccessor311.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at com.cloudbees.groovy.cps.impl.ContinuationPtr$ContinuationImpl.receive(ContinuationPtr.java:72)
+	at com.cloudbees.groovy.cps.impl.ConstantBlock.eval(ConstantBlock.java:21)
+	at com.cloudbees.groovy.cps.Next.step(Next.java:83)
+	at com.cloudbees.groovy.cps.Continuable.run0(Continuable.java:147)
+	at org.jenkinsci.plugins.workflow.cps.SandboxContinuable.access$001(SandboxContinuable.java:17)
+	at org.jenkinsci.plugins.workflow.cps.SandboxContinuable.run0(SandboxContinuable.java:49)
+	at org.jenkinsci.plugins.workflow.cps.CpsThread.runNextChunk(CpsThread.java:180)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup.run(CpsThreadGroup.java:423)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:331)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:295)
+	at org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService.lambda$wrap$4(CpsVmExecutorService.java:136)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at hudson.remoting.SingleLaneExecutorService$1.run(SingleLaneExecutorService.java:139)
+	at jenkins.util.ContextResettingExecutorService$1.run(ContextResettingExecutorService.java:28)
+	at jenkins.security.ImpersonatingExecutorService$1.run(ImpersonatingExecutorService.java:68)
+	at jenkins.util.ErrorLoggingExecutorService.lambda$wrap$0(ErrorLoggingExecutorService.java:51)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService$1.call(CpsVmExecutorService.java:53)
+	at org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService$1.call(CpsVmExecutorService.java:50)
+	at org.codehaus.groovy.runtime.GroovyCategorySupport$ThreadCategoryInfo.use(GroovyCategorySupport.java:136)
+	at org.codehaus.groovy.runtime.GroovyCategorySupport.use(GroovyCategorySupport.java:275)
+	at org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService.lambda$categoryThreadFactory$0(CpsVmExecutorService.java:50)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+GitHub has been notified of this commit’s build result
+
+Finished: FAILURE

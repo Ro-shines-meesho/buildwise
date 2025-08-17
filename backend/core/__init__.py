@@ -1,0 +1,1 @@
+# Core functionality for Jenkins Analysis System 

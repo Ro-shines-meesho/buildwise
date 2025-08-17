@@ -1,0 +1,462 @@
+Started by user Mahak Jain
+Connecting to https://api.github.com using 379051/****** (CICD github app credentials)
+Obtained Jenkinsfile from 7de14aaabd6d7b85c44ca37756cf7d7c84befbd3
+Loading library devops-lib@prometheus-node-poc
+Attempting to resolve prometheus-node-poc from remote references...
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+using GIT_ASKPASS to set credentials cicd-github-app
+ > git ls-remote -h -- https://github.com/meesho/devops-lib.git # timeout=10
+Found match: refs/heads/prometheus-node-poc revision db2c5bb290bea3727f640844d895662560f7a7bb
+The recommended git tool is: git
+using credential cicd-github-app
+Cloning the remote Git repository
+Cloning with configured refspecs honoured and without tags
+Cloning repository https://github.com/meesho/devops-lib.git
+ > git init /var/jenkins_home/workspace/devops-node-app-cicd_gcp-dev@libs/9f4aa0b8c61c0ec511db846eb4d299e5a43956275c5f10ed3178f4fe35cbf77d # timeout=10
+Fetching upstream changes from https://github.com/meesho/devops-lib.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+using GIT_ASKPASS to set credentials cicd-github-app
+ > git fetch --no-tags --force --progress -- https://github.com/meesho/devops-lib.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/meesho/devops-lib.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+Checking out Revision db2c5bb290bea3727f640844d895662560f7a7bb (prometheus-node-poc)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f db2c5bb290bea3727f640844d895662560f7a7bb # timeout=10
+Commit message: "adding prometheus container"
+First time build. Skipping changelog.
+[Pipeline] Start of Pipeline
+[Pipeline] echo
+CLOUD_PROVIDER : GCP
+[Pipeline] echo
+INFRA_ENV : stg
+[Pipeline] echo
+Running on GCP
+[Pipeline] libraryResource
+[Pipeline] podTemplate
+[Pipeline] {
+[Pipeline] node
+Created Pod: kubernetes jenkins/devops-node-app-cicd-gcp-dev-1-8vm56-w4t6k-x2gm7
+Agent devops-node-app-cicd-gcp-dev-1-8vm56-w4t6k-x2gm7 is provisioned from template devops-node-app-cicd_gcp-dev_1-8vm56-w4t6k
+---
+apiVersion: "v1"
+kind: "Pod"
+metadata:
+  annotations:
+    buildUrl: "http://jenkins-dev.jenkins.svc.cluster.local:8080/job/devops-node-app-cicd/job/gcp-dev/1/"
+    runUrl: "job/devops-node-app-cicd/job/gcp-dev/1/"
+  labels:
+    bu: "infra"
+    team: "devops"
+    service: "jenkins-stg"
+    env: "stg"
+    priority: "p0"
+    type: "jenkins"
+    component: "jenkins-agent"
+    jenkins/jenkins-admin-dev-jenkins-agent: "true"
+    jenkins/label-digest: "e7138efb8d485d08cc70d83b98aea9786182cf59"
+    jenkins/label: "devops-node-app-cicd_gcp-dev_1-8vm56"
+  name: "devops-node-app-cicd-gcp-dev-1-8vm56-w4t6k-x2gm7"
+  namespace: "jenkins"
+spec:
+  containers:
+  - command:
+    - "cat"
+    env:
+    - name: "TZ"
+      value: "Asia/Kolkata"
+    - name: "DOCKER_HOST"
+      value: "dind-dev-svc"
+    image: "asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/devops/build-tools:lunar-v1.0.1"
+    imagePullPolicy: "Always"
+    name: "devops-tools"
+    resources:
+      limits:
+        memory: "1000G"
+        cpu: "100"
+      requests:
+        memory: "6G"
+        cpu: "2"
+    tty: true
+    volumeMounts:
+    - mountPath: "/root"
+      name: "cache"
+      readOnly: false
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  - env:
+    - name: "JENKINS_SECRET"
+      value: "********"
+    - name: "JENKINS_TUNNEL"
+      value: "jenkins-dev-agent.jenkins.svc.cluster.local:50000"
+    - name: "JENKINS_AGENT_NAME"
+      value: "devops-node-app-cicd-gcp-dev-1-8vm56-w4t6k-x2gm7"
+    - name: "JENKINS_NAME"
+      value: "devops-node-app-cicd-gcp-dev-1-8vm56-w4t6k-x2gm7"
+    - name: "JENKINS_AGENT_WORKDIR"
+      value: "/home/jenkins/agent"
+    - name: "JENKINS_URL"
+      value: "http://jenkins-dev.jenkins.svc.cluster.local:8080/"
+    image: "jenkins/inbound-agent:3206.vb_15dcf73f6a_9-2"
+    name: "jnlp"
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "100m"
+    volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  nodeSelector:
+    dedicated: "jenkins"
+  restartPolicy: "Never"
+  serviceAccountName: "jenkins-dev-agent"
+  tolerations:
+  - effect: "NoSchedule"
+    key: "dedicated"
+    operator: "Equal"
+    value: "jenkins"
+  volumes:
+  - name: "cache"
+    persistentVolumeClaim:
+      claimName: "pvc-jenkins-agents-cache-dev"
+  - emptyDir:
+      medium: ""
+    name: "workspace-volume"
+
+Running on devops-node-app-cicd-gcp-dev-1-8vm56-w4t6k-x2gm7 in /home/jenkins/agent/workspace/devops-node-app-cicd_gcp-dev
+[Pipeline] {
+[Pipeline] container
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] ansiColor
+[Pipeline] {
+[2025-03-12T05:25:15.438Z] 
+[Pipeline] stage
+[Pipeline] { (Checkout from git)
+[Pipeline] dir
+[2025-03-12T05:25:17.500Z] Running in /home/jenkins/agent/workspace/devops-node-app-cicd_gcp-dev/devops-node-app
+[Pipeline] {
+[Pipeline] checkout
+[2025-03-12T05:25:17.530Z] The recommended git tool is: NONE
+[2025-03-12T05:25:18.782Z] using credential svc-devops-meesho
+[2025-03-12T05:25:18.789Z] Warning: JENKINS-30600: special launcher org.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator$1@4540de1d; decorates RemoteLauncher[hudson.remoting.Channel@265b59d5:JNLP4-connect connection from 172.22.175.60/172.22.175.60:33936] will be ignored (a typical symptom is the Git executable not being run inside a designated container)
+[2025-03-12T05:25:18.792Z] Cloning the remote Git repository
+[2025-03-12T05:25:18.792Z] Cloning with configured refspecs honoured and without tags
+[2025-03-12T05:25:18.809Z] Cloning repository https://github.com/Meesho/devops-node-app.git
+[2025-03-12T05:25:18.831Z]  > git init /home/jenkins/agent/workspace/devops-node-app-cicd_gcp-dev/devops-node-app # timeout=10
+[2025-03-12T05:25:18.856Z] Fetching upstream changes from https://github.com/Meesho/devops-node-app.git
+[2025-03-12T05:25:18.856Z]  > git --version # timeout=10
+[2025-03-12T05:25:18.860Z]  > git --version # 'git version 2.39.2'
+[2025-03-12T05:25:18.860Z] using GIT_ASKPASS to set credentials CICD github app credentials
+[2025-03-12T05:25:18.874Z]  > git fetch --no-tags --force --progress -- https://github.com/Meesho/devops-node-app.git +refs/heads/gcp-dev:refs/remotes/origin/gcp-dev # timeout=10
+[2025-03-12T05:25:20.422Z] Avoid second fetch
+[2025-03-12T05:25:20.422Z] Checking out Revision 7de14aaabd6d7b85c44ca37756cf7d7c84befbd3 (gcp-dev)
+[2025-03-12T05:25:20.562Z] Commit message: "Update Jenkinsfile"
+[2025-03-12T05:25:20.562Z] First time build. Skipping changelog.
+[2025-03-12T05:25:20.198Z]  > git config remote.origin.url https://github.com/Meesho/devops-node-app.git # timeout=10
+[2025-03-12T05:25:20.202Z]  > git config --add remote.origin.fetch +refs/heads/gcp-dev:refs/remotes/origin/gcp-dev # timeout=10
+[2025-03-12T05:25:20.427Z]  > git config core.sparsecheckout # timeout=10
+[2025-03-12T05:25:20.432Z]  > git checkout -f 7de14aaabd6d7b85c44ca37756cf7d7c84befbd3 # timeout=10
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] dir
+[2025-03-12T05:25:22.213Z] Running in /home/jenkins/agent/workspace/devops-node-app-cicd_gcp-dev/devops-node-app
+[Pipeline] {
+[Pipeline] readYaml
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] echo
+[2025-03-12T05:25:22.317Z] Branch Name - gcp-dev and Environment - stg
+[Pipeline] echo
+[2025-03-12T05:25:22.362Z] Bucket and Image Repo Details - asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622 asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin gcs-infr-dvps-meesho-artifacts-stg
+[Pipeline] echo
+[2025-03-12T05:25:22.382Z] [1;32mINFO: [arch:amd64, bu:central, build_tool:docker, deployArgo:true, deployment_order:[devops-node-app-consumers, devops-node-app], dockerBuildVersion:node-16.15.0, excludedModules:[null], maintainer:Yash Nandwana, notify_channel:devops-alerts, repo_name:devops-node-app, skip_sonar:true, team:devops, skip_notify:true][0m
+[Pipeline] stage
+[Pipeline] { (Check for Hot Fix)
+[Pipeline] dir
+[2025-03-12T05:25:23.024Z] Running in /home/jenkins/agent/workspace/devops-node-app-cicd_gcp-dev/devops-node-app
+[Pipeline] {
+[Pipeline] sh
+[2025-03-12T05:25:23.584Z] + git config --global --add safe.directory *
+[2025-03-12T05:25:23.584Z] + git log -1 --format=%s
+[Pipeline] echo
+[2025-03-12T05:25:23.613Z] [1;32mINFO: update jenkinsfile[0m
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] dir
+[2025-03-12T05:25:24.198Z] Running in /home/jenkins/agent/workspace/devops-node-app-cicd_gcp-dev/devops-node-app
+[Pipeline] {
+[Pipeline] fileExists
+[Pipeline] sh
+[2025-03-12T05:25:24.761Z] + jq -r .name package.json
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] dir
+[2025-03-12T05:25:24.808Z] Running in /home/jenkins/agent/workspace/devops-node-app-cicd_gcp-dev/devops-node-app
+[Pipeline] {
+[Pipeline] fileExists
+[Pipeline] fileExists
+[Pipeline] sh
+[2025-03-12T05:25:25.392Z] + jq -r .version package.json
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] dir
+[2025-03-12T05:25:25.436Z] Running in /home/jenkins/agent/workspace/devops-node-app-cicd_gcp-dev/devops-node-app
+[Pipeline] {
+[Pipeline] sh
+[2025-03-12T05:25:25.953Z] + git log -1 --format=%h
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] dir
+[2025-03-12T05:25:25.998Z] Running in /home/jenkins/agent/workspace/devops-node-app-cicd_gcp-dev/devops-node-app
+[Pipeline] {
+[Pipeline] sh
+[2025-03-12T05:25:26.525Z] + git log -1 --format=%H
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] stage
+[Pipeline] { (Create build files)
+[Pipeline] dir
+[2025-03-12T05:25:27.205Z] Running in /home/jenkins/agent/workspace/devops-node-app-cicd_gcp-dev/devops-node-app
+[Pipeline] {
+[Pipeline] sh
+[2025-03-12T05:25:27.722Z] + rm -rf package-lock.json
+[Pipeline] echo
+[2025-03-12T05:25:27.740Z] [1;32mINFO: Fetching secrets from Vault with vault-stg-token with CMD - vault kv get -format=json meesho/stg/cntr/devop/devops-node-app-npmrc-stg | jq -r .data.data.MEESHO_NPMRC_SECRET > .npmrc[0m
+[Pipeline] withCredentials
+[2025-03-12T05:25:27.753Z] Masking supported pattern matches of $TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2025-03-12T05:25:28.277Z] + vault kv get -format=json meesho/stg/cntr/devop/devops-node-app-npmrc-stg
+[2025-03-12T05:25:28.277Z] + jq -r .data.data.MEESHO_NPMRC_SECRET
+[2025-03-12T05:25:28.277Z] No value found at meesho/data/stg/cntr/devop/devops-node-app-npmrc-stg
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+[2025-03-12T05:25:28.329Z] [1;32mINFO: Fetching secrets from Vault with vault-stg-token with CMD - vault kv get -format=json meesho/stg/cntr/devop/devops-node-app | jq -r '.data.data | to_entries|map("\(.key)=\(.value|tostring)")|.[]' > .env[0m
+[Pipeline] withCredentials
+[2025-03-12T05:25:28.340Z] Masking supported pattern matches of $TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2025-03-12T05:25:28.872Z] + vault kv get -format=json meesho/stg/cntr/devop/devops-node-app
+[2025-03-12T05:25:28.872Z] + jq -r .data.data | to_entries|map("\(.key)=\(.value|tostring)")|.[]
+[2025-03-12T05:25:28.872Z] No value found at meesho/data/stg/cntr/devop/devops-node-app
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build docker images)
+[Pipeline] sh
+[2025-03-12T05:25:30.616Z] + gcloud auth configure-docker asia-southeast1-docker.pkg.dev --quiet
+[2025-03-12T05:25:31.183Z] WARNING: Your config file at [/root/.docker/config.json] contains these credential helper entries:
+[2025-03-12T05:25:31.183Z] 
+[2025-03-12T05:25:31.183Z] {
+[2025-03-12T05:25:31.183Z]   "credHelpers": {
+[2025-03-12T05:25:31.183Z]     "asia-southeast1-docker.pkg.dev": "gcloud"
+[2025-03-12T05:25:31.183Z]   }
+[2025-03-12T05:25:31.183Z] }
+[2025-03-12T05:25:31.183Z] Adding credentials for: asia-southeast1-docker.pkg.dev
+[2025-03-12T05:25:31.183Z] gcloud credential helpers already registered correctly.
+[Pipeline] echo
+[2025-03-12T05:25:31.199Z] Skipping - Registry Creation in GCP.
+[Pipeline] dir
+[2025-03-12T05:25:31.207Z] Running in /home/jenkins/agent/workspace/devops-node-app-cicd_gcp-dev/devops-node-app
+[Pipeline] {
+[Pipeline] withCredentials
+[2025-03-12T05:25:31.249Z] Masking supported pattern matches of $FILE
+[Pipeline] {
+[Pipeline] sh
+[2025-03-12T05:25:31.262Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2025-03-12T05:25:31.262Z] 		 Affected argument(s) used the following variable(s): [FILE]
+[2025-03-12T05:25:31.262Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2025-03-12T05:25:31.763Z] + cat ****
+[2025-03-12T05:25:31.763Z] + chmod 600 ./id_github_jenkins
+[2025-03-12T05:25:31.763Z] + pwd
+[2025-03-12T05:25:31.763Z] /home/jenkins/agent/workspace/devops-node-app-cicd_gcp-dev/devops-node-app
+[2025-03-12T05:25:31.763Z] + ls -al ./id_github_jenkins
+[2025-03-12T05:25:31.763Z] -rw------- 1 root root 3381 Mar 12 05:25 ./id_github_jenkins
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] withCredentials
+[2025-03-12T05:25:31.810Z] Masking supported pattern matches of $GIT_TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2025-03-12T05:25:31.830Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2025-03-12T05:25:31.830Z] 		 Affected argument(s) used the following variable(s): [GIT_TOKEN]
+[2025-03-12T05:25:31.830Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2025-03-12T05:25:32.324Z] + echo GITHUB_TOKEN=****
+[2025-03-12T05:25:32.324Z] + echo GIT_COMMIT_SHA='7de14aaabd6d7b85c44ca37756cf7d7c84befbd3'
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] withCredentials
+[2025-03-12T05:25:32.371Z] Masking supported pattern matches of $TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2025-03-12T05:25:32.390Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2025-03-12T05:25:32.390Z] 		 Affected argument(s) used the following variable(s): [TOKEN]
+[2025-03-12T05:25:32.390Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2025-03-12T05:25:32.893Z] + echo SONAR_HOST_URL='https://sonarqube-dev.meeshogcp.in'
+[2025-03-12T05:25:32.893Z] + echo SONAR_TOKEN=****
+[Pipeline] sh
+[2025-03-12T05:25:33.406Z] + echo SONAR_BRANCH_NAME='gcp-dev'
+[Pipeline] echo
+[2025-03-12T05:25:33.424Z] Make sure to update script section in package.json for Sonar Analysis to be successfull.
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] fileExists
+[Pipeline] libraryResource
+[Pipeline] writeFile
+[Pipeline] sh
+[2025-03-12T05:25:34.007Z] + cat Dockerfile-devops-node-app
+[2025-03-12T05:25:34.007Z] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:16.15.0-slim-secure-multiarch_v2.0 as build-env
+[2025-03-12T05:25:34.007Z] 
+[2025-03-12T05:25:34.007Z] WORKDIR /usr/src/app
+[2025-03-12T05:25:34.007Z] 
+[2025-03-12T05:25:34.007Z] COPY id_github_jenkins /root/.ssh/id_rsa
+[2025-03-12T05:25:34.007Z] 
+[2025-03-12T05:25:34.007Z] COPY . ./
+[2025-03-12T05:25:34.007Z] 
+[2025-03-12T05:25:34.007Z] RUN ls -al &&     echo 'NPM Install...' &&     npm install &&     if [ !true ]; then         cat .env | grep 'SONAR_' &&         echo 'Installing Java 17...' &&         if [ "$(cat /etc/os-release | grep 'ID=' | awk -F= '{print $2}' | sed '2d')" = 'alpine' ]; then             echo "Alpine" &&             apk add --no-cache openjdk17;         else             echo "Debian" &&             apt-get update &&             apt-get install -y --no-install-recommends openjdk-17-jre &&             apt-get clean;         fi &&         echo 'Performing Test Coverage...' &&         npm run test-report || true &&         echo 'Static Analysis...' &&         npm run sonar -- source=branch;     fi &&     echo 'NPM build...' &&     npm run build
+[Pipeline] sh
+[2025-03-12T05:25:34.520Z] + echo FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:16.15.0-alpine-secure-multiarch_v1.0
+[2025-03-12T05:25:34.520Z] + echo RUN npm install pm2 -g
+[2025-03-12T05:25:34.520Z] + echo RUN pm2 install pm2-metrics
+[2025-03-12T05:25:34.520Z] + echo RUN pm2 install pm2-prom-module
+[2025-03-12T05:25:34.520Z] + echo RUN pm2 set pm2-prom-module:port 9200
+[2025-03-12T05:25:34.520Z] + echo RUN pm2 restart pm2-prom-module
+[2025-03-12T05:25:34.520Z] + echo WORKDIR /app
+[2025-03-12T05:25:34.520Z] + echo COPY --from=build-env /usr/src/app /app
+[Pipeline] sh
+[2025-03-12T05:25:35.036Z] + cat Dockerfile-devops-node-app
+[2025-03-12T05:25:35.036Z] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:16.15.0-slim-secure-multiarch_v2.0 as build-env
+[2025-03-12T05:25:35.036Z] 
+[2025-03-12T05:25:35.036Z] WORKDIR /usr/src/app
+[2025-03-12T05:25:35.036Z] 
+[2025-03-12T05:25:35.036Z] COPY id_github_jenkins /root/.ssh/id_rsa
+[2025-03-12T05:25:35.036Z] 
+[2025-03-12T05:25:35.036Z] COPY . ./
+[2025-03-12T05:25:35.036Z] 
+[2025-03-12T05:25:35.036Z] RUN ls -al &&     echo 'NPM Install...' &&     npm install &&     if [ !true ]; then         cat .env | grep 'SONAR_' &&         echo 'Installing Java 17...' &&         if [ "$(cat /etc/os-release | grep 'ID=' | awk -F= '{print $2}' | sed '2d')" = 'alpine' ]; then             echo "Alpine" &&             apk add --no-cache openjdk17;         else             echo "Debian" &&             apt-get update &&             apt-get install -y --no-install-recommends openjdk-17-jre &&             apt-get clean;         fi &&         echo 'Performing Test Coverage...' &&         npm run test-report || true &&         echo 'Static Analysis...' &&         npm run sonar -- source=branch;     fi &&     echo 'NPM build...' &&     npm run build
+[2025-03-12T05:25:35.036Z] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:16.15.0-alpine-secure-multiarch_v1.0
+[2025-03-12T05:25:35.036Z] RUN npm install pm2 -g
+[2025-03-12T05:25:35.036Z] RUN pm2 install pm2-metrics
+[2025-03-12T05:25:35.036Z] RUN pm2 install pm2-prom-module
+[2025-03-12T05:25:35.036Z] RUN pm2 set pm2-prom-module:port 9200
+[2025-03-12T05:25:35.036Z] RUN pm2 restart pm2-prom-module
+[2025-03-12T05:25:35.036Z] WORKDIR /app
+[2025-03-12T05:25:35.036Z] COPY --from=build-env /usr/src/app /app
+[Pipeline] sh
+[2025-03-12T05:25:35.550Z] + export DOCKER_BUILDKIT=0
+[2025-03-12T05:25:35.550Z] + docker build --tag asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/stg/devop/devops-node-app:v1.0.0-7de14aa-1741757125989 -f Dockerfile-devops-node-app .
+[2025-03-12T05:25:35.550Z] DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+[2025-03-12T05:25:35.550Z]             BuildKit is currently disabled; enable it by removing the DOCKER_BUILDKIT=0
+[2025-03-12T05:25:35.550Z]             environment-variable.
+[2025-03-12T05:25:35.550Z] 
+[2025-03-12T05:25:36.484Z] Sending build context to Docker daemon  111.1kB
+[2025-03-12T05:25:36.484Z] Step 1/13 : FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:16.15.0-slim-secure-multiarch_v2.0 as build-env
+[2025-03-12T05:25:36.484Z]  ---> 3e45667f891e
+[2025-03-12T05:25:36.484Z] Step 2/13 : WORKDIR /usr/src/app
+[2025-03-12T05:25:36.484Z]  ---> Using cache
+[2025-03-12T05:25:36.484Z]  ---> e839887a4ede
+[2025-03-12T05:25:36.484Z] Step 3/13 : COPY id_github_jenkins /root/.ssh/id_rsa
+[2025-03-12T05:25:36.484Z]  ---> Using cache
+[2025-03-12T05:25:36.484Z]  ---> 28d85e4eedbb
+[2025-03-12T05:25:36.484Z] Step 4/13 : COPY . ./
+[2025-03-12T05:25:36.484Z]  ---> d82d7c14abae
+[2025-03-12T05:25:36.484Z] Step 5/13 : RUN ls -al &&     echo 'NPM Install...' &&     npm install &&     if [ !true ]; then         cat .env | grep 'SONAR_' &&         echo 'Installing Java 17...' &&         if [ "$(cat /etc/os-release | grep 'ID=' | awk -F= '{print $2}' | sed '2d')" = 'alpine' ]; then             echo "Alpine" &&             apk add --no-cache openjdk17;         else             echo "Debian" &&             apt-get update &&             apt-get install -y --no-install-recommends openjdk-17-jre &&             apt-get clean;         fi &&         echo 'Performing Test Coverage...' &&         npm run test-report || true &&         echo 'Static Analysis...' &&         npm run sonar -- source=branch;     fi &&     echo 'NPM build...' &&     npm run build
+[2025-03-12T05:25:36.485Z]  ---> Running in b7fd87f38644
+[2025-03-12T05:25:36.743Z] total 48
+[2025-03-12T05:25:36.743Z] drwxr-xr-x 1 root root 4096 Mar 12 05:25 .
+[2025-03-12T05:25:36.743Z] drwxr-xr-x 1 root root 4096 Mar 12 05:09 ..
+[2025-03-12T05:25:36.743Z] -rw-r--r-- 1 root root  251 Mar 12 05:25 .env
+[2025-03-12T05:25:36.743Z] drwxr-xr-x 8 root root 4096 Mar 12 05:25 .git
+[2025-03-12T05:25:36.743Z] -rw-r--r-- 1 root root    0 Mar 12 05:25 .npmrc
+[2025-03-12T05:25:36.743Z] -rw-r--r-- 1 root root 1262 Mar 12 05:25 Dockerfile-devops-node-app
+[2025-03-12T05:25:36.743Z] -rw-r--r-- 1 root root   83 Mar 12 05:25 Jenkinsfile
+[2025-03-12T05:25:36.743Z] -rw-r--r-- 1 root root  306 Mar 12 05:25 config.yaml
+[2025-03-12T05:25:36.743Z] drwxr-xr-x 2 root root 4096 Mar 12 05:25 deployments
+[2025-03-12T05:25:36.743Z] -rw------- 1 root root 3381 Mar 12 05:25 id_github_jenkins
+[2025-03-12T05:25:36.743Z] -rw-r--r-- 1 root root  354 Mar 12 05:25 index.js
+[2025-03-12T05:25:36.743Z] -rw-r--r-- 1 root root  306 Mar 12 05:25 package.json
+[2025-03-12T05:25:36.743Z] -rw-r--r-- 1 root root  195 Mar 12 05:25 pm2-config.json
+[2025-03-12T05:25:36.743Z] NPM Install...
+[2025-03-12T05:25:37.002Z] 
+[2025-03-12T05:25:37.002Z] up to date, audited 1 package in 229ms
+[2025-03-12T05:25:37.002Z] 
+[2025-03-12T05:25:37.002Z] found 0 vulnerabilities
+[2025-03-12T05:25:37.002Z] SONAR_HOST_URL='https://sonarqube-dev.meeshogcp.in'
+[2025-03-12T05:25:37.002Z] SONAR_TOKEN='squ_8112b08fc43051e0d77d24273d352ee8682319f7'
+[2025-03-12T05:25:37.002Z] SONAR_BRANCH_NAME='gcp-dev'
+[2025-03-12T05:25:37.002Z] Installing Java 17...
+[2025-03-12T05:25:37.002Z] Debian
+[2025-03-12T05:25:37.260Z] Get:1 http://deb.debian.org/debian bullseye InRelease [116 kB]
+[2025-03-12T05:25:37.260Z] Get:2 http://deb.debian.org/debian-security bullseye-security InRelease [27.2 kB]
+[2025-03-12T05:25:37.260Z] Get:3 http://deb.debian.org/debian bullseye-updates InRelease [44.1 kB]
+[2025-03-12T05:25:37.260Z] Err:1 http://deb.debian.org/debian bullseye InRelease
+[2025-03-12T05:25:37.260Z]   Unknown error executing apt-key
+[2025-03-12T05:25:37.260Z] Err:2 http://deb.debian.org/debian-security bullseye-security InRelease
+[2025-03-12T05:25:37.260Z]   Unknown error executing apt-key
+[2025-03-12T05:25:37.260Z] Err:3 http://deb.debian.org/debian bullseye-updates InRelease
+[2025-03-12T05:25:37.260Z]   Unknown error executing apt-key
+[2025-03-12T05:25:37.260Z] Reading package lists...
+[2025-03-12T05:25:37.260Z] [91mW: No sandbox user '_apt' on the system, can not drop privileges
+[2025-03-12T05:25:37.260Z] W: GPG error: http://deb.debian.org/debian bullseye InRelease: Unknown error executing apt-key
+[2025-03-12T05:25:37.260Z] E: The repository 'http://deb.debian.org/debian bullseye InRelease' is not signed.
+[2025-03-12T05:25:37.260Z] W: GPG error: http://deb.debian.org/debian-security bullseye-security InRelease: Unknown error executing apt-key
+[2025-03-12T05:25:37.260Z] E: The repository 'http://deb.debian.org/debian-security bullseye-security InRelease' is not signed.
+[2025-03-12T05:25:37.260Z] W: GPG error: http://deb.debian.org/debian bullseye-updates InRelease: Unknown error executing apt-key
+[2025-03-12T05:25:37.260Z] E: The repository 'http://deb.debian.org/debian bullseye-updates InRelease' is not signed.
+[2025-03-12T05:25:37.260Z] [0mStatic Analysis...
+[2025-03-12T05:25:37.519Z] [91mnpm[0m[91m ERR! Missing script: "sonar"
+[2025-03-12T05:25:37.519Z] npm [0m[91mERR![0m[91m 
+[2025-03-12T05:25:37.519Z] npm ERR![0m[91m To see a list of scripts, run:
+[2025-03-12T05:25:37.519Z] npm ERR![0m[91m   npm run
+[2025-03-12T05:25:37.519Z] [0m[91m
+[2025-03-12T05:25:37.519Z] [0m[91mnpm ERR![0m[91m A complete log of this run can be found in:
+[2025-03-12T05:25:37.519Z] npm [0m[91mERR![0m[91m     /root/.npm/_logs/2025-03-12T05_25_37_284Z-debug-0.log
+[2025-03-12T05:25:37.777Z] [0mThe command '/bin/sh -c ls -al &&     echo 'NPM Install...' &&     npm install &&     if [ !true ]; then         cat .env | grep 'SONAR_' &&         echo 'Installing Java 17...' &&         if [ "$(cat /etc/os-release | grep 'ID=' | awk -F= '{print $2}' | sed '2d')" = 'alpine' ]; then             echo "Alpine" &&             apk add --no-cache openjdk17;         else             echo "Debian" &&             apt-get update &&             apt-get install -y --no-install-recommends openjdk-17-jre &&             apt-get clean;         fi &&         echo 'Performing Test Coverage...' &&         npm run test-report || true &&         echo 'Static Analysis...' &&         npm run sonar -- source=branch;     fi &&     echo 'NPM build...' &&     npm run build' returned a non-zero code: 1
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] echo
+[2025-03-12T05:25:37.839Z] [1;31mERROR: Error in building DockerFile Or Pushing To ECR
+[2025-03-12T05:25:37.839Z] hudson.AbortException: script returned exit code 1[0m
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Send Notification)
+[Pipeline] echo
+[2025-03-12T05:25:38.964Z] true true
+[Pipeline] echo
+[2025-03-12T05:25:38.976Z] [1;32mINFO: Skipping - Slack Notification.[0m
+[Pipeline] echo
+[2025-03-12T05:25:38.988Z] [1;32mINFO: Skipping - Updating in Deployment Tracker.[0m
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2025-03-12T05:25:39.606Z] 
+[Pipeline] // ansiColor
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // podTemplate
+[Pipeline] End of Pipeline
+
+GitHub has been notified of this commit’s build result
+
+Finished: FAILURE

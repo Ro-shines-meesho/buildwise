@@ -1,0 +1,1200 @@
+Started by user turbo-turtle
+Connecting to https://api.github.com using 379051/****** (CICD github app credentials)
+Obtained Jenkinsfile from 9eb6b7a196aa6cf67ca94442c4c8854882aee1d8
+Loading library devops-lib@main
+Attempting to resolve main from remote references...
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+using GIT_ASKPASS to set credentials cicd-github-app
+ > git ls-remote -h -- https://github.com/meesho/devops-lib.git # timeout=10
+Found match: refs/heads/main revision b6104dc6b6c1b14ec67c6f07d862e8e349ef1f68
+The recommended git tool is: git
+using credential cicd-github-app
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/_ops-buddy-frontend-cicd_develop@libs/9f4aa0b8c61c0ec511db846eb4d299e5a43956275c5f10ed3178f4fe35cbf77d/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/meesho/devops-lib.git # timeout=10
+Fetching without tags
+Fetching upstream changes from https://github.com/meesho/devops-lib.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+using GIT_ASKPASS to set credentials cicd-github-app
+ > git fetch --no-tags --force --progress -- https://github.com/meesho/devops-lib.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+Checking out Revision b6104dc6b6c1b14ec67c6f07d862e8e349ef1f68 (main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f b6104dc6b6c1b14ec67c6f07d862e8e349ef1f68 # timeout=10
+Commit message: "Merge pull request #564 from Meesho/ShivamGupta0402-patch-4"
+ > git rev-list --no-walk b6104dc6b6c1b14ec67c6f07d862e8e349ef1f68 # timeout=10
+[Pipeline] Start of Pipeline
+[Pipeline] echo
+CLOUD_PROVIDER : GCP
+[Pipeline] echo
+INFRA_ENV : stg
+[Pipeline] echo
+Running on GCP
+[Pipeline] libraryResource
+[Pipeline] podTemplate
+[Pipeline] {
+[Pipeline] node
+Created Pod: kubernetes jenkins/dev-ops-buddy-frontend-cicd-develop-238-g5dtx-nq28h-qftnx
+Agent dev-ops-buddy-frontend-cicd-develop-238-g5dtx-nq28h-qftnx is provisioned from template dev-ops-buddy-frontend-cicd_develop_238-g5dtx-nq28h
+---
+apiVersion: "v1"
+kind: "Pod"
+metadata:
+  annotations:
+    buildUrl: "http://jenkins-dev.jenkins.svc.cluster.local:8080/job/dev-ops-buddy-frontend-cicd/job/develop/238/"
+    runUrl: "job/dev-ops-buddy-frontend-cicd/job/develop/238/"
+  labels:
+    bu: "infra"
+    team: "devops"
+    service: "jenkins-stg"
+    env: "stg"
+    priority: "p0"
+    type: "jenkins"
+    component: "jenkins-agent"
+    jenkins/jenkins-admin-dev-jenkins-agent: "true"
+    jenkins/label-digest: "a610e76fc40ce10e876c203055fb20a0347b7ff8"
+    jenkins/label: "dev-ops-buddy-frontend-cicd_develop_238-g5dtx"
+  name: "dev-ops-buddy-frontend-cicd-develop-238-g5dtx-nq28h-qftnx"
+  namespace: "jenkins"
+spec:
+  containers:
+  - command:
+    - "cat"
+    env:
+    - name: "TZ"
+      value: "Asia/Kolkata"
+    - name: "DOCKER_HOST"
+      value: "dind-dev-svc"
+    image: "asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/devops/build-tools:lunar-v1.0.1-v2"
+    imagePullPolicy: "Always"
+    name: "devops-tools"
+    resources:
+      limits:
+        memory: "1000G"
+        cpu: "100"
+      requests:
+        memory: "6G"
+        cpu: "2"
+    tty: true
+    volumeMounts:
+    - mountPath: "/root"
+      name: "cache"
+      readOnly: false
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  - env:
+    - name: "JENKINS_SECRET"
+      value: "********"
+    - name: "JENKINS_TUNNEL"
+      value: "jenkins-dev-agent.jenkins.svc.cluster.local:50000"
+    - name: "JENKINS_AGENT_NAME"
+      value: "dev-ops-buddy-frontend-cicd-develop-238-g5dtx-nq28h-qftnx"
+    - name: "JENKINS_NAME"
+      value: "dev-ops-buddy-frontend-cicd-develop-238-g5dtx-nq28h-qftnx"
+    - name: "JENKINS_AGENT_WORKDIR"
+      value: "/home/jenkins/agent"
+    - name: "JENKINS_URL"
+      value: "http://jenkins-dev.jenkins.svc.cluster.local:8080/"
+    image: "jenkins/inbound-agent:3206.vb_15dcf73f6a_9-2"
+    name: "jnlp"
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "100m"
+    volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+  nodeSelector:
+    dedicated: "jenkins"
+  restartPolicy: "Never"
+  serviceAccountName: "jenkins-dev-agent"
+  tolerations:
+  - effect: "NoSchedule"
+    key: "dedicated"
+    operator: "Equal"
+    value: "jenkins"
+  volumes:
+  - name: "cache"
+    persistentVolumeClaim:
+      claimName: "pvc-jenkins-agents-cache-dev"
+  - emptyDir:
+      medium: ""
+    name: "workspace-volume"
+
+Running on dev-ops-buddy-frontend-cicd-develop-238-g5dtx-nq28h-qftnx in /home/jenkins/agent/workspace/_ops-buddy-frontend-cicd_develop
+[Pipeline] {
+[Pipeline] container
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] ansiColor
+[Pipeline] {
+[2025-08-01T11:22:00.846Z] 
+[Pipeline] stage
+[Pipeline] { (Checkout from git)
+[Pipeline] dir
+[2025-08-01T11:22:02.123Z] Running in /home/jenkins/agent/workspace/_ops-buddy-frontend-cicd_develop/dev-ops-buddy-frontend
+[Pipeline] {
+[Pipeline] checkout
+[2025-08-01T11:22:02.152Z] The recommended git tool is: NONE
+[2025-08-01T11:22:03.255Z] using credential svc-devops-meesho
+[2025-08-01T11:22:03.264Z] Warning: JENKINS-30600: special launcher org.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator$1@469af8d5; decorates RemoteLauncher[hudson.remoting.Channel@75afaafd:JNLP4-connect connection from 172.22.162.139/172.22.162.139:57092] will be ignored (a typical symptom is the Git executable not being run inside a designated container)
+[2025-08-01T11:22:03.267Z] Cloning the remote Git repository
+[2025-08-01T11:22:03.267Z] Cloning with configured refspecs honoured and without tags
+[2025-08-01T11:22:03.289Z] Cloning repository https://github.com/Meesho/dev-ops-buddy-frontend.git
+[2025-08-01T11:22:03.318Z]  > git init /home/jenkins/agent/workspace/_ops-buddy-frontend-cicd_develop/dev-ops-buddy-frontend # timeout=10
+[2025-08-01T11:22:03.346Z] Fetching upstream changes from https://github.com/Meesho/dev-ops-buddy-frontend.git
+[2025-08-01T11:22:03.347Z]  > git --version # timeout=10
+[2025-08-01T11:22:03.350Z]  > git --version # 'git version 2.39.2'
+[2025-08-01T11:22:03.350Z] using GIT_ASKPASS to set credentials CICD github app credentials
+[2025-08-01T11:22:03.362Z]  > git fetch --no-tags --force --progress -- https://github.com/Meesho/dev-ops-buddy-frontend.git +refs/heads/develop:refs/remotes/origin/develop # timeout=10
+[2025-08-01T11:22:05.022Z] Avoid second fetch
+[2025-08-01T11:22:05.022Z] Checking out Revision 9eb6b7a196aa6cf67ca94442c4c8854882aee1d8 (develop)
+[2025-08-01T11:22:05.182Z] Commit message: "initialise only once"
+[2025-08-01T11:22:04.807Z]  > git config remote.origin.url https://github.com/Meesho/dev-ops-buddy-frontend.git # timeout=10
+[2025-08-01T11:22:04.811Z]  > git config --add remote.origin.fetch +refs/heads/develop:refs/remotes/origin/develop # timeout=10
+[2025-08-01T11:22:05.026Z]  > git config core.sparsecheckout # timeout=10
+[2025-08-01T11:22:05.034Z]  > git checkout -f 9eb6b7a196aa6cf67ca94442c4c8854882aee1d8 # timeout=10
+[2025-08-01T11:22:05.183Z]  > git rev-list --no-walk 9eb6b7a196aa6cf67ca94442c4c8854882aee1d8 # timeout=10
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] dir
+[2025-08-01T11:22:06.892Z] Running in /home/jenkins/agent/workspace/_ops-buddy-frontend-cicd_develop/dev-ops-buddy-frontend
+[Pipeline] {
+[Pipeline] readYaml
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] dir
+[2025-08-01T11:22:06.975Z] Running in /home/jenkins/agent/workspace/_ops-buddy-frontend-cicd_develop/whitelist
+[Pipeline] {
+[Pipeline] git
+[2025-08-01T11:22:07.000Z] The recommended git tool is: NONE
+[2025-08-01T11:22:07.007Z] using credential cicd-github-app
+[2025-08-01T11:22:07.014Z] Warning: JENKINS-30600: special launcher org.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator$1@167cb096; decorates RemoteLauncher[hudson.remoting.Channel@75afaafd:JNLP4-connect connection from 172.22.162.139/172.22.162.139:57092] will be ignored (a typical symptom is the Git executable not being run inside a designated container)
+[2025-08-01T11:22:07.015Z] Cloning the remote Git repository
+[2025-08-01T11:22:07.018Z] Cloning repository https://github.com/Meesho/whitelists.git
+[2025-08-01T11:22:07.019Z]  > git init /home/jenkins/agent/workspace/_ops-buddy-frontend-cicd_develop/whitelist # timeout=10
+[2025-08-01T11:22:07.024Z] Fetching upstream changes from https://github.com/Meesho/whitelists.git
+[2025-08-01T11:22:07.025Z]  > git --version # timeout=10
+[2025-08-01T11:22:07.031Z]  > git --version # 'git version 2.39.2'
+[2025-08-01T11:22:07.031Z] using GIT_ASKPASS to set credentials cicd-github-app
+[2025-08-01T11:22:07.034Z]  > git fetch --tags --force --progress -- https://github.com/Meesho/whitelists.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2025-08-01T11:22:08.427Z] Avoid second fetch
+[2025-08-01T11:22:08.432Z] Checking out Revision 6afb66e0a90b25975c716ba438cd64f4d792d878 (refs/remotes/origin/main)
+[2025-08-01T11:22:08.473Z] Commit message: "Merge pull request #108 from Meesho/vg-meesho-patch-10"
+[2025-08-01T11:22:08.417Z]  > git config remote.origin.url https://github.com/Meesho/whitelists.git # timeout=10
+[2025-08-01T11:22:08.419Z]  > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2025-08-01T11:22:08.428Z]  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+[2025-08-01T11:22:08.433Z]  > git config core.sparsecheckout # timeout=10
+[2025-08-01T11:22:08.436Z]  > git checkout -f 6afb66e0a90b25975c716ba438cd64f4d792d878 # timeout=10
+[2025-08-01T11:22:08.453Z]  > git branch -a -v --no-abbrev # timeout=10
+[2025-08-01T11:22:08.463Z]  > git checkout -b main 6afb66e0a90b25975c716ba438cd64f4d792d878 # timeout=10
+[2025-08-01T11:22:08.474Z]  > git rev-list --no-walk 6afb66e0a90b25975c716ba438cd64f4d792d878 # timeout=10
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] readYaml
+[Pipeline] echo
+[2025-08-01T11:22:09.504Z] Branch Name - develop and Environment - stg
+[Pipeline] echo
+[2025-08-01T11:22:09.565Z] Bucket and Image Repo Details - asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622 asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin gcs-infr-dvps-meesho-artifacts-stg
+[Pipeline] echo
+[2025-08-01T11:22:09.587Z] [1;32mINFO: [arch:amd64, bu:central, build_tool:docker, deployArgo:true, deployment_order:[dev-ops-buddy-frontend], module:module_less, dockerBuildVersion:node-22.16.0, excludedModules:[], maintainer:arnav.jose@meesho.com, notify_channel:null, repo_name:dev-ops-buddy-frontend, skip_sonar:true, team:devops, skip_notify:true][0m
+[Pipeline] stage
+[Pipeline] { (Check for Hot Fix)
+[Pipeline] dir
+[2025-08-01T11:22:10.193Z] Running in /home/jenkins/agent/workspace/_ops-buddy-frontend-cicd_develop/dev-ops-buddy-frontend
+[Pipeline] {
+[Pipeline] echo
+[2025-08-01T11:22:10.217Z] [1;32mINFO: **** Branch: develop, So Skipping Hot-fix check ****[0m
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] dir
+[2025-08-01T11:22:11.042Z] Running in /home/jenkins/agent/workspace/_ops-buddy-frontend-cicd_develop/dev-ops-buddy-frontend
+[Pipeline] {
+[Pipeline] fileExists
+[Pipeline] sh
+[2025-08-01T11:22:11.612Z] + jq -r .name package.json
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] dir
+[2025-08-01T11:22:11.673Z] Running in /home/jenkins/agent/workspace/_ops-buddy-frontend-cicd_develop/dev-ops-buddy-frontend
+[Pipeline] {
+[Pipeline] fileExists
+[Pipeline] fileExists
+[Pipeline] sh
+[2025-08-01T11:22:12.225Z] + jq -r .version package.json
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] dir
+[2025-08-01T11:22:12.267Z] Running in /home/jenkins/agent/workspace/_ops-buddy-frontend-cicd_develop/dev-ops-buddy-frontend
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T11:22:12.780Z] + git log -1 --format=%h
+[Pipeline] sh
+[2025-08-01T11:22:13.321Z] + git log -1 --format=%H
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] dir
+[2025-08-01T11:22:13.369Z] Running in /home/jenkins/agent/workspace/_ops-buddy-frontend-cicd_develop/dev-ops-buddy-frontend
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T11:22:13.888Z] + git log -1 --format=%H
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] stage
+[Pipeline] { (Create build files)
+[Pipeline] dir
+[2025-08-01T11:22:14.479Z] Running in /home/jenkins/agent/workspace/_ops-buddy-frontend-cicd_develop/dev-ops-buddy-frontend
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T11:22:14.990Z] + rm -rf package-lock.json
+[Pipeline] echo
+[2025-08-01T11:22:15.009Z] [1;32mINFO: Fetching secrets from Vault with vault-stg-token with CMD - vault kv get -format=json meesho/stg/cntr/devop/dev-ops-buddy-frontend-npmrc-stg | jq -r .data.data.MEESHO_NPMRC_SECRET > .npmrc[0m
+[Pipeline] withCredentials
+[2025-08-01T11:22:15.027Z] Masking supported pattern matches of $TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T11:22:15.557Z] + vault kv get -format=json meesho/stg/cntr/devop/dev-ops-buddy-frontend-npmrc-stg
+[2025-08-01T11:22:15.558Z] + jq -r .data.data.MEESHO_NPMRC_SECRET
+[2025-08-01T11:22:15.558Z] No value found at meesho/data/stg/cntr/devop/dev-ops-buddy-frontend-npmrc-stg
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+[2025-08-01T11:22:15.611Z] [1;32mINFO: Fetching secrets from Vault with vault-stg-token with CMD - vault kv get -format=json meesho/stg/cntr/devop/dev-ops-buddy-frontend | jq -r '.data.data | to_entries|map("\(.key)=\(.value|tostring)")|.[]' > .env[0m
+[Pipeline] withCredentials
+[2025-08-01T11:22:15.622Z] Masking supported pattern matches of $TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T11:22:16.148Z] + vault kv get -format=json meesho/stg/cntr/devop/dev-ops-buddy-frontend
+[2025-08-01T11:22:16.148Z] + jq -r .data.data | to_entries|map("\(.key)=\(.value|tostring)")|.[]
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Quality Gate)
+[Pipeline] echo
+[2025-08-01T11:22:17.571Z] [1;32mINFO: Skipping the quality gate check as sonar scan is skipped or this is a hotfix [0m
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build docker images)
+[Pipeline] sh
+[2025-08-01T11:22:19.334Z] + gcloud auth configure-docker asia-southeast1-docker.pkg.dev --quiet
+[2025-08-01T11:22:19.894Z] WARNING: Your config file at [/root/.docker/config.json] contains these credential helper entries:
+[2025-08-01T11:22:19.895Z] 
+[2025-08-01T11:22:19.895Z] {
+[2025-08-01T11:22:19.895Z]   "credHelpers": {
+[2025-08-01T11:22:19.895Z]     "asia-southeast1-docker.pkg.dev": "gcloud"
+[2025-08-01T11:22:19.895Z]   }
+[2025-08-01T11:22:19.895Z] }
+[2025-08-01T11:22:19.895Z] Adding credentials for: asia-southeast1-docker.pkg.dev
+[2025-08-01T11:22:19.895Z] gcloud credential helpers already registered correctly.
+[Pipeline] echo
+[2025-08-01T11:22:19.913Z] Skipping - Registry Creation in GCP.
+[Pipeline] dir
+[2025-08-01T11:22:19.920Z] Running in /home/jenkins/agent/workspace/_ops-buddy-frontend-cicd_develop/dev-ops-buddy-frontend
+[Pipeline] {
+[Pipeline] withCredentials
+[2025-08-01T11:22:19.957Z] Masking supported pattern matches of $FILE
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T11:22:19.974Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2025-08-01T11:22:19.974Z] 		 Affected argument(s) used the following variable(s): [FILE]
+[2025-08-01T11:22:19.974Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2025-08-01T11:22:20.464Z] + cat ****
+[2025-08-01T11:22:20.464Z] + chmod 600 ./id_github_jenkins
+[2025-08-01T11:22:20.464Z] + pwd
+[2025-08-01T11:22:20.464Z] /home/jenkins/agent/workspace/_ops-buddy-frontend-cicd_develop/dev-ops-buddy-frontend
+[2025-08-01T11:22:20.464Z] + ls -al ./id_github_jenkins
+[2025-08-01T11:22:20.464Z] -rw------- 1 root root 3381 Aug  1 11:22 ./id_github_jenkins
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] withCredentials
+[2025-08-01T11:22:20.511Z] Masking supported pattern matches of $GIT_TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T11:22:20.533Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2025-08-01T11:22:20.533Z] 		 Affected argument(s) used the following variable(s): [GIT_TOKEN]
+[2025-08-01T11:22:20.533Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2025-08-01T11:22:21.024Z] + echo GITHUB_TOKEN=****
+[2025-08-01T11:22:21.024Z] + echo GIT_COMMIT_SHA='9eb6b7a196aa6cf67ca94442c4c8854882aee1d8'
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] withCredentials
+[2025-08-01T11:22:21.071Z] Masking supported pattern matches of $TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2025-08-01T11:22:21.094Z] Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+[2025-08-01T11:22:21.094Z] 		 Affected argument(s) used the following variable(s): [TOKEN]
+[2025-08-01T11:22:21.094Z] 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[2025-08-01T11:22:21.586Z] + echo SONAR_HOST_URL='https://sonarqube-central-dev.meeshogcp.in'
+[2025-08-01T11:22:21.586Z] + echo SONAR_TOKEN=****
+[Pipeline] sh
+[2025-08-01T11:22:22.100Z] + echo SONAR_BRANCH_NAME='develop'
+[Pipeline] echo
+[2025-08-01T11:22:22.116Z] Make sure to update script section in package.json for Sonar Analysis to be successfull.
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] fileExists
+[Pipeline] libraryResource
+[Pipeline] writeFile
+[Pipeline] sh
+[2025-08-01T11:22:22.718Z] + cat Dockerfile-dev-ops-buddy-frontend
+[2025-08-01T11:22:22.718Z] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:22.16.0-slim-secure-multiarch_v2.0 as build-env
+[2025-08-01T11:22:22.718Z] 
+[2025-08-01T11:22:22.718Z] WORKDIR /usr/src/app
+[2025-08-01T11:22:22.718Z] 
+[2025-08-01T11:22:22.718Z] COPY id_github_jenkins /root/.ssh/id_rsa
+[2025-08-01T11:22:22.718Z] 
+[2025-08-01T11:22:22.718Z] COPY . ./
+[2025-08-01T11:22:22.718Z] 
+[2025-08-01T11:22:22.718Z] RUN ls -al &&     echo 'NPM Install...' &&     npm install &&     if ! true; then         cat .env | grep 'SONAR_' &&         echo 'Installing Java 17...' &&         if [ "$(cat /etc/os-release | grep 'ID=' | awk -F= '{print $2}' | sed '2d')" = 'alpine' ]; then             echo "Alpine" &&             apk add --no-cache openjdk17;         else             echo "Debian" &&             apt-get update &&             apt-get install -y --no-install-recommends openjdk-17-jre &&             apt-get clean;         fi &&         echo 'Performing Test Coverage...' &&         npm run test-report || true &&         echo 'Static Analysis...' &&         npm run sonar -- source=branch;     fi &&     echo 'NPM build...' &&     npm run build
+[Pipeline] sh
+[2025-08-01T11:22:23.220Z] + echo FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:22.16.0-alpine-secure-multiarch_v1.0
+[2025-08-01T11:22:23.220Z] + echo RUN npm install pm2 -g
+[2025-08-01T11:22:23.220Z] + echo RUN pm2 install pm2-metrics
+[2025-08-01T11:22:23.220Z] + [ false = true ]
+[2025-08-01T11:22:23.220Z] + echo WORKDIR /app
+[2025-08-01T11:22:23.220Z] + echo COPY --from=build-env /usr/src/app /app
+[Pipeline] sh
+[2025-08-01T11:22:23.729Z] + cat Dockerfile-dev-ops-buddy-frontend
+[2025-08-01T11:22:23.729Z] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:22.16.0-slim-secure-multiarch_v2.0 as build-env
+[2025-08-01T11:22:23.729Z] 
+[2025-08-01T11:22:23.729Z] WORKDIR /usr/src/app
+[2025-08-01T11:22:23.729Z] 
+[2025-08-01T11:22:23.729Z] COPY id_github_jenkins /root/.ssh/id_rsa
+[2025-08-01T11:22:23.729Z] 
+[2025-08-01T11:22:23.729Z] COPY . ./
+[2025-08-01T11:22:23.729Z] 
+[2025-08-01T11:22:23.729Z] RUN ls -al &&     echo 'NPM Install...' &&     npm install &&     if ! true; then         cat .env | grep 'SONAR_' &&         echo 'Installing Java 17...' &&         if [ "$(cat /etc/os-release | grep 'ID=' | awk -F= '{print $2}' | sed '2d')" = 'alpine' ]; then             echo "Alpine" &&             apk add --no-cache openjdk17;         else             echo "Debian" &&             apt-get update &&             apt-get install -y --no-install-recommends openjdk-17-jre &&             apt-get clean;         fi &&         echo 'Performing Test Coverage...' &&         npm run test-report || true &&         echo 'Static Analysis...' &&         npm run sonar -- source=branch;     fi &&     echo 'NPM build...' &&     npm run build
+[2025-08-01T11:22:23.729Z] FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:22.16.0-alpine-secure-multiarch_v1.0
+[2025-08-01T11:22:23.729Z] RUN npm install pm2 -g
+[2025-08-01T11:22:23.729Z] RUN pm2 install pm2-metrics
+[2025-08-01T11:22:23.729Z] WORKDIR /app
+[2025-08-01T11:22:23.729Z] COPY --from=build-env /usr/src/app /app
+[Pipeline] sh
+[2025-08-01T11:22:24.233Z] + max_attempts=5
+[2025-08-01T11:22:24.233Z] + images=asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:22.16.0-alpine-secure-multiarch_v1.0 asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/devops/google-cloud-sdk:458.0.0-alpine asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:22.16.0-slim-secure-multiarch_v2.0
+[2025-08-01T11:22:24.233Z] + attempt=1
+[2025-08-01T11:22:24.233Z] + docker pull asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:22.16.0-alpine-secure-multiarch_v1.0
+[2025-08-01T11:22:25.643Z] 22.16.0-alpine-secure-multiarch_v1.0: Pulling from meesho-devops-admin-0622/admin/build/node
+[2025-08-01T11:22:25.643Z] Digest: sha256:642d9f175de41237271e0a6b023f272d3e3c7afc92f89f86974985a72722ef32
+[2025-08-01T11:22:25.643Z] Status: Image is up to date for asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:22.16.0-alpine-secure-multiarch_v1.0
+[2025-08-01T11:22:25.643Z] asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:22.16.0-alpine-secure-multiarch_v1.0
+[2025-08-01T11:22:25.643Z] + attempt=1
+[2025-08-01T11:22:25.643Z] + docker pull asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/devops/google-cloud-sdk:458.0.0-alpine
+[2025-08-01T11:22:26.568Z] 458.0.0-alpine: Pulling from meesho-devops-admin-0622/admin/devops/google-cloud-sdk
+[2025-08-01T11:22:26.568Z] Digest: sha256:1ee1bdabe289d733ee54bbb451551c40a634f41a2173c8a1125789222900493f
+[2025-08-01T11:22:26.568Z] Status: Image is up to date for asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/devops/google-cloud-sdk:458.0.0-alpine
+[2025-08-01T11:22:26.568Z] asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/devops/google-cloud-sdk:458.0.0-alpine
+[2025-08-01T11:22:26.568Z] + attempt=1
+[2025-08-01T11:22:26.568Z] + docker pull asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:22.16.0-slim-secure-multiarch_v2.0
+[2025-08-01T11:22:27.493Z] 22.16.0-slim-secure-multiarch_v2.0: Pulling from meesho-devops-admin-0622/admin/build/node
+[2025-08-01T11:22:27.493Z] Digest: sha256:c8ba90138190b8a9c839d81dc139f4d7c74012c9d6c756f453aaa09c73770862
+[2025-08-01T11:22:27.493Z] Status: Image is up to date for asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:22.16.0-slim-secure-multiarch_v2.0
+[2025-08-01T11:22:27.493Z] asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:22.16.0-slim-secure-multiarch_v2.0
+[Pipeline] sh
+[2025-08-01T11:22:28.005Z] + export DOCKER_BUILDKIT=0
+[2025-08-01T11:22:28.005Z] + docker build --tag asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/stg/devop/dev-ops-buddy-frontend:v0.0.1-9eb6b7a-1754047333361 -f Dockerfile-dev-ops-buddy-frontend .
+[2025-08-01T11:22:28.005Z] DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+[2025-08-01T11:22:28.005Z]             BuildKit is currently disabled; enable it by removing the DOCKER_BUILDKIT=0
+[2025-08-01T11:22:28.005Z]             environment-variable.
+[2025-08-01T11:22:28.005Z] 
+[2025-08-01T11:22:28.564Z] Sending build context to Docker daemon   6.81MB
+[2025-08-01T11:22:28.564Z] Step 1/10 : FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:22.16.0-slim-secure-multiarch_v2.0 as build-env
+[2025-08-01T11:22:28.564Z]  ---> d36fae996b92
+[2025-08-01T11:22:28.564Z] Step 2/10 : WORKDIR /usr/src/app
+[2025-08-01T11:22:28.564Z]  ---> Using cache
+[2025-08-01T11:22:28.564Z]  ---> 2ae28d33716d
+[2025-08-01T11:22:28.564Z] Step 3/10 : COPY id_github_jenkins /root/.ssh/id_rsa
+[2025-08-01T11:22:28.564Z]  ---> Using cache
+[2025-08-01T11:22:28.564Z]  ---> d482dd482161
+[2025-08-01T11:22:28.564Z] Step 4/10 : COPY . ./
+[2025-08-01T11:22:29.123Z]  ---> 83be4866817e
+[2025-08-01T11:22:29.123Z] Step 5/10 : RUN ls -al &&     echo 'NPM Install...' &&     npm install &&     if ! true; then         cat .env | grep 'SONAR_' &&         echo 'Installing Java 17...' &&         if [ "$(cat /etc/os-release | grep 'ID=' | awk -F= '{print $2}' | sed '2d')" = 'alpine' ]; then             echo "Alpine" &&             apk add --no-cache openjdk17;         else             echo "Debian" &&             apt-get update &&             apt-get install -y --no-install-recommends openjdk-17-jre &&             apt-get clean;         fi &&         echo 'Performing Test Coverage...' &&         npm run test-report || true &&         echo 'Static Analysis...' &&         npm run sonar -- source=branch;     fi &&     echo 'NPM build...' &&     npm run build
+[2025-08-01T11:22:29.378Z]  ---> Running in 6751a7b30214
+[2025-08-01T11:22:29.633Z] total 104
+[2025-08-01T11:22:29.633Z] drwxr-xr-x 1 root root  4096 Aug  1 11:22 .
+[2025-08-01T11:22:29.633Z] drwxr-xr-x 1 root root  4096 Aug  1 10:00 ..
+[2025-08-01T11:22:29.633Z] drwxr-xr-x 3 root root  4096 Aug  1 11:22 .cursor
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root   705 Aug  1 11:22 .env
+[2025-08-01T11:22:29.633Z] drwxr-xr-x 8 root root  4096 Aug  1 11:22 .git
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root   255 Aug  1 11:22 .gitignore
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root     0 Aug  1 11:22 .npmrc
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root    62 Aug  1 11:22 .prettierignore
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root   256 Aug  1 11:22 .prettierrc
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root  1157 Aug  1 11:22 Dockerfile-dev-ops-buddy-frontend
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root    70 Aug  1 11:22 Jenkinsfile
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root   893 Aug  1 11:22 README.md
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root   299 Aug  1 11:22 config.yaml
+[2025-08-01T11:22:29.633Z] drwxr-xr-x 2 root root  4096 Aug  1 11:22 deployments
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root   975 Aug  1 11:22 eslint.config.js
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root 11840 Aug  1 11:22 final.avif
+[2025-08-01T11:22:29.633Z] -rw------- 1 root root  3381 Aug  1 11:22 id_github_jenkins
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root  1419 Aug  1 11:22 package.json
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root    39 Aug  1 11:22 postcss.config.cjs
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root   182 Aug  1 11:22 sample.env
+[2025-08-01T11:22:29.633Z] drwxr-xr-x 4 root root  4096 Aug  1 11:22 src
+[2025-08-01T11:22:29.633Z] drwxr-xr-x 2 root root  4096 Aug  1 11:22 static
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root   729 Aug  1 11:22 svelte.config.js
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root   849 Aug  1 11:22 tsconfig.json
+[2025-08-01T11:22:29.633Z] -rw-r--r-- 1 root root   204 Aug  1 11:22 vite.config.ts
+[2025-08-01T11:22:29.633Z] NPM Install...
+[2025-08-01T11:22:56.149Z] 
+[2025-08-01T11:22:56.149Z] > dev-ops-buddy-frontend@0.0.1 prepare
+[2025-08-01T11:22:56.149Z] > svelte-kit sync || echo ''
+[2025-08-01T11:22:56.149Z] 
+[2025-08-01T11:22:56.149Z] 
+[2025-08-01T11:22:56.149Z] added 279 packages, and audited 280 packages in 24s
+[2025-08-01T11:22:56.149Z] 
+[2025-08-01T11:22:56.149Z] 71 packages are looking for funding
+[2025-08-01T11:22:56.149Z]   run `npm fund` for details
+[2025-08-01T11:22:56.149Z] 
+[2025-08-01T11:22:56.149Z] 4 low severity vulnerabilities
+[2025-08-01T11:22:56.149Z] 
+[2025-08-01T11:22:56.149Z] To address all issues (including breaking changes), run:
+[2025-08-01T11:22:56.149Z]   npm audit fix --force
+[2025-08-01T11:22:56.149Z] 
+[2025-08-01T11:22:56.149Z] Run `npm audit` for details.
+[2025-08-01T11:22:56.149Z] [91mnpm notice
+[2025-08-01T11:22:56.149Z] npm notice New major version of npm available! 10.9.2 -> 11.5.2
+[2025-08-01T11:22:56.149Z] npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.5.2
+[2025-08-01T11:22:56.149Z] npm notice To update run: npm install -g npm@11.5.2
+[2025-08-01T11:22:56.149Z] npm notice
+[2025-08-01T11:22:56.149Z] [0mNPM build...
+[2025-08-01T11:22:56.149Z] 
+[2025-08-01T11:22:56.149Z] > dev-ops-buddy-frontend@0.0.1 build
+[2025-08-01T11:22:56.149Z] > vite build
+[2025-08-01T11:22:56.149Z] 
+[2025-08-01T11:22:56.149Z] vite v6.3.5 building SSR bundle for production...
+[2025-08-01T11:22:56.149Z] transforming...
+[2025-08-01T11:22:57.510Z] [91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1784:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:22:57.510Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:22:57.510Z] [0m[91m1782:                                 <tr>
+[2025-08-01T11:22:57.510Z] 1783:                                     <th>
+[2025-08-01T11:22:57.510Z] 1784:                                         <div class="sortable-header" onclick={() => handleSort('assignee')}
+[2025-08-01T11:22:57.510Z]                                                     ^
+[2025-08-01T11:22:57.510Z] 1785:                                              style={sortColumn === 'assignee' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.510Z] 1786:                                             Assignee 
+[2025-08-01T11:22:57.510Z] 11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1784:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:22:57.510Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:22:57.510Z] 1782:                                 <tr>
+[2025-08-01T11:22:57.510Z] 1783:                                     <th>
+[2025-08-01T11:22:57.510Z] 1784:                                         <div class="sortable-header" onclick={() => handleSort('assignee')}
+[2025-08-01T11:22:57.510Z]                                                     ^
+[2025-08-01T11:22:57.510Z] 1785:                                              style={sortColumn === 'assignee' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.510Z] 1786:                                             Assignee 
+[2025-08-01T11:22:57.510Z] 11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1797:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:22:57.510Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:22:57.510Z] 1795:                                     </th>
+[2025-08-01T11:22:57.510Z] 1796:                                     <th>
+[2025-08-01T11:22:57.510Z] 1797:                                         <div class="sortable-header" onclick={() => handleSort('count')}
+[2025-08-01T11:22:57.510Z]                                                     ^
+[2025-08-01T11:22:57.510Z] 1798:                                              style={sortColumn === 'count' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.510Z] 1799:                                             Issue Count 
+[2025-08-01T11:22:57.510Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1797:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:22:57.510Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:22:57.510Z] 1795:                                     </th>
+[2025-08-01T11:22:57.510Z] 1796:                                     <th>
+[2025-08-01T11:22:57.510Z] 1797:                                         <div class="sortable-header" onclick={() => handleSort('count')}
+[2025-08-01T11:22:57.510Z]                                                     ^
+[2025-08-01T11:22:57.510Z] 1798:                                              style={sortColumn === 'count' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.510Z] 1799:                                             Issue Count 
+[2025-08-01T11:22:57.510Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1810:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:22:57.510Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:22:57.510Z] [0m[91m1808:                                     </th>
+[2025-08-01T11:22:57.510Z] 1809:                                     <th>
+[2025-08-01T11:22:57.510Z] 1810:                                         <div class="sortable-header" onclick={() => handleSort('ack_median')}
+[2025-08-01T11:22:57.510Z]                                                     ^
+[2025-08-01T11:22:57.510Z] 1811:                                              style={sortColumn === 'ack_median' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.510Z] 1812:                                             Median Ack (min) 
+[2025-08-01T11:22:57.510Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1810:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:22:57.510Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:22:57.510Z] 1808:                                     </th>
+[2025-08-01T11:22:57.510Z] 1809:                                     <th>
+[2025-08-01T11:22:57.510Z] 1810:                                         <div class="sortable-header" onclick={() => handleSort('ack_median')}
+[2025-08-01T11:22:57.510Z]                                                     ^
+[2025-08-01T11:22:57.510Z] 1811:                                              style={sortColumn === 'ack_median' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.510Z] 1812:                                             Median Ack (min) 
+[2025-08-01T11:22:57.510Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1823:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:22:57.510Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:22:57.510Z] [0m[91m1821:                                     </th>
+[2025-08-01T11:22:57.510Z] 1822:                                     <th>
+[2025-08-01T11:22:57.510Z] 1823:                                         <div class="sortable-header" onclick={() => handleSort('ack_iqr')}
+[2025-08-01T11:22:57.510Z]                                                     ^
+[2025-08-01T11:22:57.510Z] 1824:                                              style={sortColumn === 'ack_iqr' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.510Z] 1825:                                             P75-P25 Ack (min) 
+[2025-08-01T11:22:57.510Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1823:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:22:57.510Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:22:57.510Z] 1821:                                     </th>
+[2025-08-01T11:22:57.510Z] 1822:                                     <th>
+[2025-08-01T11:22:57.510Z] 1823:                                         <div class="sortable-header" onclick={() => handleSort('ack_iqr')}
+[2025-08-01T11:22:57.510Z]                                                     ^
+[2025-08-01T11:22:57.510Z] 1824:                                              style={sortColumn === 'ack_iqr' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.510Z] 1825:                                             P75-P25 Ack (min) 
+[2025-08-01T11:22:57.510Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1836:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:22:57.510Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:22:57.510Z] 1834:                                     </th>
+[2025-08-01T11:22:57.510Z] 1835:                                     <th>
+[2025-08-01T11:22:57.510Z] 1836:                                         <div class="sortable-header" onclick={() => handleSort('ack_spread')}
+[2025-08-01T11:22:57.510Z]                                                     ^
+[2025-08-01T11:22:57.510Z] 1837:                                              style={sortColumn === 'ack_spread' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.510Z] 1838:                                             Rel. Spread Ack 
+[2025-08-01T11:22:57.510Z] 11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1836:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:22:57.510Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:22:57.510Z] 1834:                                     </th>
+[2025-08-01T11:22:57.510Z] 1835:                                     <th>
+[2025-08-01T11:22:57.510Z] 1836:                                         <div class="sortable-header" onclick={() => handleSort('ack_spread')}
+[2025-08-01T11:22:57.510Z]                                                     ^
+[2025-08-01T11:22:57.510Z] 1837:                                              style={sortColumn === 'ack_spread' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.510Z] 1838:                                             Rel. Spread Ack 
+[2025-08-01T11:22:57.510Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1849:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:22:57.510Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:22:57.510Z] 1847:                                     </th>
+[2025-08-01T11:22:57.510Z] 1848:                                     <th>
+[2025-08-01T11:22:57.510Z] 1849:                                         <div class="sortable-header" onclick={() => handleSort('res_median')}
+[2025-08-01T11:22:57.510Z]                                                     ^
+[2025-08-01T11:22:57.510Z] 1850:                                              style={sortColumn === 'res_median' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.510Z] 1851:                                             Median Res (hrs) 
+[2025-08-01T11:22:57.510Z] 11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1849:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:22:57.510Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:22:57.510Z] 1847:                                     </th>
+[2025-08-01T11:22:57.510Z] 1848:                                     <th>
+[2025-08-01T11:22:57.510Z] 1849:                                         <div class="sortable-header" onclick={() => handleSort('res_median')}
+[2025-08-01T11:22:57.510Z]                                                     ^
+[2025-08-01T11:22:57.510Z] 1850:                                              style={sortColumn === 'res_median' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.511Z] 1851:                                             Median Res (hrs) 
+[2025-08-01T11:22:57.511Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1862:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:22:57.511Z] [0m[91m1860:                                     </th>
+[2025-08-01T11:22:57.511Z] 1861:                                     <th>
+[2025-08-01T11:22:57.511Z] 1862:                                         <div class="sortable-header" onclick={() => handleSort('res_iqr')}
+[2025-08-01T11:22:57.511Z]                                                     ^
+[2025-08-01T11:22:57.511Z] 1863:                                              style={sortColumn === 'res_iqr' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.511Z] 1864:                                             P75-P25 Res (hrs) 
+[2025-08-01T11:22:57.511Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1862:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:22:57.511Z] 1860:                                     </th>
+[2025-08-01T11:22:57.511Z] 1861:                                     <th>
+[2025-08-01T11:22:57.511Z] 1862:                                         <div class="sortable-header" onclick={() => handleSort('res_iqr')}
+[2025-08-01T11:22:57.511Z]                                                     ^
+[2025-08-01T11:22:57.511Z] 1863:                                              style={sortColumn === 'res_iqr' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.511Z] 1864:                                             P75-P25 Res (hrs) 
+[2025-08-01T11:22:57.511Z] 11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1875:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:22:57.511Z] [0m[91m1873:                                     </th>
+[2025-08-01T11:22:57.511Z] 1874:                                     <th>
+[2025-08-01T11:22:57.511Z] 1875:                                         <div class="sortable-header" onclick={() => handleSort('res_spread')}
+[2025-08-01T11:22:57.511Z]                                                     ^
+[2025-08-01T11:22:57.511Z] 1876:                                              style={sortColumn === 'res_spread' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.511Z] 1877:                                             Rel. Spread Res 
+[2025-08-01T11:22:57.511Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1875:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:22:57.511Z] 1873:                                     </th>
+[2025-08-01T11:22:57.511Z] 1874:                                     <th>
+[2025-08-01T11:22:57.511Z] 1875:                                         <div class="sortable-header" onclick={() => handleSort('res_spread')}
+[2025-08-01T11:22:57.511Z]                                                     ^
+[2025-08-01T11:22:57.511Z] 1876:                                              style={sortColumn === 'res_spread' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.511Z] 1877:                                             Rel. Spread Res 
+[2025-08-01T11:22:57.511Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1888:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:22:57.511Z] 1886:                                     </th>
+[2025-08-01T11:22:57.511Z] 1887:                                     <th>
+[2025-08-01T11:22:57.511Z] 1888:                                         <div class="sortable-header" onclick={() => handleSort('total_res')}
+[2025-08-01T11:22:57.511Z]                                                     ^
+[2025-08-01T11:22:57.511Z] 1889:                                              style={sortColumn === 'total_res' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.511Z] 1890:                                             Total Res (hrs) 
+[2025-08-01T11:22:57.511Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1888:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:22:57.511Z] [0m[91m1886:                                     </th>
+[2025-08-01T11:22:57.511Z] 1887:                                     <th>
+[2025-08-01T11:22:57.511Z] 1888:                                         <div class="sortable-header" onclick={() => handleSort('total_res')}
+[2025-08-01T11:22:57.511Z]                                                     ^
+[2025-08-01T11:22:57.511Z] 1889:                                              style={sortColumn === 'total_res' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.511Z] 1890:                                             Total Res (hrs) 
+[2025-08-01T11:22:57.511Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1901:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:22:57.511Z] 1899:                                     </th>
+[2025-08-01T11:22:57.511Z] 1900:                                     <th>
+[2025-08-01T11:22:57.511Z] 1901:                                         <div class="sortable-header" onclick={() => handleSort('total_res_no_outliers')}
+[2025-08-01T11:22:57.511Z]                                                     ^
+[2025-08-01T11:22:57.511Z] 1902:                                              style={sortColumn === 'total_res_no_outliers' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.511Z] 1903:                                             Total Res (no outliers) 
+[2025-08-01T11:22:57.511Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1901:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:22:57.511Z] 1899:                                     </th>
+[2025-08-01T11:22:57.511Z] 1900:                                     <th>
+[2025-08-01T11:22:57.511Z] 1901:                                         <div class="sortable-header" onclick={() => handleSort('total_res_no_outliers')}
+[2025-08-01T11:22:57.511Z]                                                     ^
+[2025-08-01T11:22:57.511Z] 1902:                                              style={sortColumn === 'total_res_no_outliers' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:22:57.511Z] 1903:                                             Total Res (no outliers) 
+[2025-08-01T11:22:57.511Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:2402:8 Unused CSS selector ".data-quality-legend h4"
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/css_unused_selector
+[2025-08-01T11:22:57.511Z] 2400:         }
+[2025-08-01T11:22:57.511Z] 2401:     
+[2025-08-01T11:22:57.511Z] 2402:         .data-quality-legend h4 {
+[2025-08-01T11:22:57.511Z]                                      ^
+[2025-08-01T11:22:57.511Z] 2403:             margin: 0 0 10px 0;
+[2025-08-01T11:22:57.511Z] 2404:             color: #495057;
+[2025-08-01T11:22:57.511Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:2408:8 Unused CSS selector ".data-quality-legend ul"
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/css_unused_selector
+[2025-08-01T11:22:57.511Z] 2406:         }
+[2025-08-01T11:22:57.511Z] 2407:     
+[2025-08-01T11:22:57.511Z] 2408:         .data-quality-legend ul {
+[2025-08-01T11:22:57.511Z]                                      ^
+[2025-08-01T11:22:57.511Z] 2409:             display: grid;
+[2025-08-01T11:22:57.511Z] 2410:             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+[2025-08-01T11:22:57.511Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:2415:8 Unused CSS selector ".data-quality-legend li"
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/css_unused_selector
+[2025-08-01T11:22:57.511Z] 2413:         }
+[2025-08-01T11:22:57.511Z] 2414:     
+[2025-08-01T11:22:57.511Z] 2415:         .data-quality-legend li {
+[2025-08-01T11:22:57.511Z]                                      ^
+[2025-08-01T11:22:57.511Z] 2416:             display: flex;
+[2025-08-01T11:22:57.511Z] 2417:             align-items: center;
+[2025-08-01T11:22:57.511Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:2421:8 Unused CSS selector ".data-quality-legend strong"
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/css_unused_selector
+[2025-08-01T11:22:57.511Z] 2419:         }
+[2025-08-01T11:22:57.511Z] 2420:     
+[2025-08-01T11:22:57.511Z] 2421:         .data-quality-legend strong {
+[2025-08-01T11:22:57.511Z]                                          ^
+[2025-08-01T11:22:57.511Z] 2422:             color: #28a745;
+[2025-08-01T11:22:57.511Z] 2423:         }
+[2025-08-01T11:22:57.511Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:2441:8 Unused CSS selector ".icon-[devicon--jira]"
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/css_unused_selector
+[2025-08-01T11:22:57.511Z] 2439:         }
+[2025-08-01T11:22:57.511Z] 2440:     
+[2025-08-01T11:22:57.511Z] 2441:         .icon-[devicon--jira] {
+[2025-08-01T11:22:57.511Z]                                    ^
+[2025-08-01T11:22:57.511Z] 2442:             display: inline-block;
+[2025-08-01T11:22:57.511Z] 2443:             width: 16px;
+[2025-08-01T11:22:57.511Z] 11:22:57 AM [vite-plugin-svelte] src/routes/metrics/+page.svelte:135:5 A form label must be associated with a control
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/a11y_label_has_associated_control
+[2025-08-01T11:22:57.511Z] 133:         
+[2025-08-01T11:22:57.511Z] 134:         <div class="chart-type-section">
+[2025-08-01T11:22:57.511Z] 135:           <label class="section-label">Category Chart</label>
+[2025-08-01T11:22:57.511Z]                                                                   ^
+[2025-08-01T11:22:57.511Z] 136:           <ChartTypeSelector 
+[2025-08-01T11:22:57.511Z] 137:             selectedType={categoryChartType}
+[2025-08-01T11:22:57.511Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/metrics/+page.svelte:144:6 A form label must be associated with a control
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/a11y_label_has_associated_control
+[2025-08-01T11:22:57.511Z] 142:         {#if showAdvancedOptions}
+[2025-08-01T11:22:57.511Z] 143:           <div class="chart-type-section">
+[2025-08-01T11:22:57.511Z] 144:             <label class="section-label">Team Chart</label>
+[2025-08-01T11:22:57.511Z]                                                                 ^
+[2025-08-01T11:22:57.511Z] 145:             <ChartTypeSelector 
+[2025-08-01T11:22:57.511Z] 146:               selectedType={teamChartType}
+[2025-08-01T11:22:57.511Z] [0m[91msrc/routes/dashboards/priority-focused/+page.svelte (26:1): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+[2025-08-01T11:22:57.511Z] [0m[91msrc/routes/dashboards/priority-focused/+page.svelte (26:1): A comment
+[2025-08-01T11:22:57.511Z] 
+[2025-08-01T11:22:57.511Z] "/* @__PURE__ */"
+[2025-08-01T11:22:57.511Z] 
+[2025-08-01T11:22:57.511Z] in "src/routes/dashboards/priority-focused/+page.svelte" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[2025-08-01T11:22:57.511Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/metrics/ChartTypeSelector.svelte:26:1 A form label must be associated with a control
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/a11y_label_has_associated_control
+[2025-08-01T11:22:57.511Z] 24: 
+[2025-08-01T11:22:57.511Z] 25: <div class="chart-selector">
+[2025-08-01T11:22:57.511Z] 26:   <label class="label">Chart Type</label>
+[2025-08-01T11:22:57.511Z]                                              ^
+[2025-08-01T11:22:57.511Z] 27:   
+[2025-08-01T11:22:57.511Z] 28:   <div class="selector-container">
+[2025-08-01T11:22:57.511Z] [0m[91m11:22:57 AM [vite-plugin-svelte] src/routes/metrics/Multiselect.svelte:11:4 `searchInput` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+[2025-08-01T11:22:57.511Z] https://svelte.dev/e/non_reactive_update
+[2025-08-01T11:22:57.512Z]  9: let searchTerm = $state("");
+[2025-08-01T11:22:57.512Z] 10: let multiselectWrapper;
+[2025-08-01T11:22:57.512Z] 11: let searchInput;
+[2025-08-01T11:22:57.512Z]                    ^
+[2025-08-01T11:22:57.512Z] 12: const filteredOptions = $derived(
+[2025-08-01T11:22:57.512Z] 13:   options.filter(
+[2025-08-01T11:22:58.436Z] [0m[91m"Collection" is imported from external module "mongodb" but never used in "src/routes/api/applications/+server.ts", "src/routes/metrics/+page.server.ts", "src/routes/action-items/[thread_ts]/+page.server.ts", "src/routes/leaves/+page.server.ts", "src/routes/home/+page.server.ts", "src/routes/message/[thread_ts]/+page.server.ts" and "src/routes/tickets/+page.server.ts".
+[2025-08-01T11:22:58.436Z] [0m✓ 244 modules transformed.
+[2025-08-01T11:22:58.436Z] [91mGenerated an empty chunk: "entries/pages/action-items/_page.server.ts".
+[2025-08-01T11:22:58.436Z] [0mrendering chunks...
+[2025-08-01T11:22:59.361Z] vite v6.3.5 building for production...
+[2025-08-01T11:22:59.361Z] transforming...
+[2025-08-01T11:23:00.286Z] [91m11:23:00 AM [vite-plugin-svelte] src/routes/metrics/+page.svelte:135:5 A form label must be associated with a control
+[2025-08-01T11:23:00.286Z] https://svelte.dev/e/a11y_label_has_associated_control
+[2025-08-01T11:23:00.286Z] 133:         
+[2025-08-01T11:23:00.286Z] 134:         <div class="chart-type-section">
+[2025-08-01T11:23:00.286Z] 135:           <label class="section-label">Category Chart</label>
+[2025-08-01T11:23:00.286Z]                                                                   ^
+[2025-08-01T11:23:00.286Z] 136:           <ChartTypeSelector 
+[2025-08-01T11:23:00.286Z] 137:             selectedType={categoryChartType}
+[2025-08-01T11:23:00.286Z] [0m[91m11:23:00 AM [vite-plugin-svelte] src/routes/metrics/+page.svelte:144:6 A form label must be associated with a control
+[2025-08-01T11:23:00.286Z] https://svelte.dev/e/a11y_label_has_associated_control
+[2025-08-01T11:23:00.286Z] 142:         {#if showAdvancedOptions}
+[2025-08-01T11:23:00.286Z] 143:           <div class="chart-type-section">
+[2025-08-01T11:23:00.286Z] 144:             <label class="section-label">Team Chart</label>
+[2025-08-01T11:23:00.286Z]                                                                 ^
+[2025-08-01T11:23:00.286Z] 145:             <ChartTypeSelector 
+[2025-08-01T11:23:00.286Z] 146:               selectedType={teamChartType}
+[2025-08-01T11:23:00.287Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1784:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:23:00.287Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:23:00.287Z] 1782:                                 <tr>
+[2025-08-01T11:23:00.287Z] 1783:                                     <th>
+[2025-08-01T11:23:00.287Z] 1784:                                         <div class="sortable-header" onclick={() => handleSort('assignee')}
+[2025-08-01T11:23:00.287Z]                                                     ^
+[2025-08-01T11:23:00.287Z] 1785:                                              style={sortColumn === 'assignee' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.287Z] 1786:                                             Assignee 
+[2025-08-01T11:23:00.287Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1784:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:23:00.287Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:23:00.287Z] 1782:                                 <tr>
+[2025-08-01T11:23:00.287Z] 1783:                                     <th>
+[2025-08-01T11:23:00.287Z] 1784:                                         <div class="sortable-header" onclick={() => handleSort('assignee')}
+[2025-08-01T11:23:00.287Z]                                                     ^
+[2025-08-01T11:23:00.287Z] 1785:                                              style={sortColumn === 'assignee' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.287Z] 1786:                                             Assignee 
+[2025-08-01T11:23:00.287Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1797:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:23:00.287Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:23:00.287Z] 1795:                                     </th>
+[2025-08-01T11:23:00.287Z] 1796:                                     <th>
+[2025-08-01T11:23:00.287Z] 1797:                                         <div class="sortable-header" onclick={() => handleSort('count')}
+[2025-08-01T11:23:00.287Z]                                                     ^
+[2025-08-01T11:23:00.287Z] 1798:                                              style={sortColumn === 'count' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.287Z] 1799:                                             Issue Count 
+[2025-08-01T11:23:00.287Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1797:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:23:00.287Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:23:00.287Z] 1795:                                     </th>
+[2025-08-01T11:23:00.287Z] 1796:                                     <th>
+[2025-08-01T11:23:00.287Z] 1797:                                         <div class="sortable-header" onclick={() => handleSort('count')}
+[2025-08-01T11:23:00.287Z]                                                     ^
+[2025-08-01T11:23:00.287Z] 1798:                                              style={sortColumn === 'count' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.287Z] 1799:                                             Issue Count 
+[2025-08-01T11:23:00.287Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1810:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:23:00.287Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:23:00.287Z] 1808:                                     </th>
+[2025-08-01T11:23:00.287Z] 1809:                                     <th>
+[2025-08-01T11:23:00.287Z] 1810:                                         <div class="sortable-header" onclick={() => handleSort('ack_median')}
+[2025-08-01T11:23:00.287Z]                                                     ^
+[2025-08-01T11:23:00.287Z] 1811:                                              style={sortColumn === 'ack_median' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.287Z] 1812:                                             Median Ack (min) 
+[2025-08-01T11:23:00.287Z] [0m[91m11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1810:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:23:00.287Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:23:00.287Z] 1808:                                     </th>
+[2025-08-01T11:23:00.287Z] 1809:                                     <th>
+[2025-08-01T11:23:00.287Z] 1810:                                         <div class="sortable-header" onclick={() => handleSort('ack_median')}
+[2025-08-01T11:23:00.287Z]                                                     ^
+[2025-08-01T11:23:00.287Z] 1811:                                              style={sortColumn === 'ack_median' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.287Z] 1812:                                             Median Ack (min) 
+[2025-08-01T11:23:00.287Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1823:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:23:00.287Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:23:00.287Z] 1821:                                     </th>
+[2025-08-01T11:23:00.287Z] 1822:                                     <th>
+[2025-08-01T11:23:00.287Z] 1823:                                         <div class="sortable-header" onclick={() => handleSort('ack_iqr')}
+[2025-08-01T11:23:00.287Z]                                                     ^
+[2025-08-01T11:23:00.287Z] 1824:                                              style={sortColumn === 'ack_iqr' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.287Z] 1825:                                             P75-P25 Ack (min) 
+[2025-08-01T11:23:00.287Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1823:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:23:00.287Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:23:00.287Z] 1821:                                     </th>
+[2025-08-01T11:23:00.287Z] 1822:                                     <th>
+[2025-08-01T11:23:00.287Z] 1823:                                         <div class="sortable-header" onclick={() => handleSort('ack_iqr')}
+[2025-08-01T11:23:00.287Z]                                                     ^
+[2025-08-01T11:23:00.287Z] 1824:                                              style={sortColumn === 'ack_iqr' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.287Z] 1825:                                             P75-P25 Ack (min) 
+[2025-08-01T11:23:00.287Z] [0m[91m11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1836:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:23:00.287Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:23:00.287Z] 1834:                                     </th>
+[2025-08-01T11:23:00.287Z] 1835:                                     <th>
+[2025-08-01T11:23:00.287Z] 1836:                                         <div class="sortable-header" onclick={() => handleSort('ack_spread')}
+[2025-08-01T11:23:00.287Z]                                                     ^
+[2025-08-01T11:23:00.287Z] 1837:                                              style={sortColumn === 'ack_spread' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.287Z] 1838:                                             Rel. Spread Ack 
+[2025-08-01T11:23:00.287Z] [0m[91m11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1836:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:23:00.287Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:23:00.287Z] 1834:                                     </th>
+[2025-08-01T11:23:00.287Z] 1835:                                     <th>
+[2025-08-01T11:23:00.287Z] 1836:                                         <div class="sortable-header" onclick={() => handleSort('ack_spread')}
+[2025-08-01T11:23:00.287Z]                                                     ^
+[2025-08-01T11:23:00.287Z] 1837:                                              style={sortColumn === 'ack_spread' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.287Z] 1838:                                             Rel. Spread Ack 
+[2025-08-01T11:23:00.288Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1849:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:23:00.288Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:23:00.288Z] 1847:                                     </th>
+[2025-08-01T11:23:00.288Z] 1848:                                     <th>
+[2025-08-01T11:23:00.288Z] 1849:                                         <div class="sortable-header" onclick={() => handleSort('res_median')}
+[2025-08-01T11:23:00.288Z]                                                     ^
+[2025-08-01T11:23:00.288Z] 1850:                                              style={sortColumn === 'res_median' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.288Z] 1851:                                             Median Res (hrs) 
+[2025-08-01T11:23:00.288Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1849:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:23:00.288Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:23:00.288Z] 1847:                                     </th>
+[2025-08-01T11:23:00.288Z] 1848:                                     <th>
+[2025-08-01T11:23:00.288Z] 1849:                                         <div class="sortable-header" onclick={() => handleSort('res_median')}
+[2025-08-01T11:23:00.288Z]                                                     ^
+[2025-08-01T11:23:00.288Z] 1850:                                              style={sortColumn === 'res_median' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.288Z] 1851:                                             Median Res (hrs) 
+[2025-08-01T11:23:00.288Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1862:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:23:00.288Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:23:00.288Z] 1860:                                     </th>
+[2025-08-01T11:23:00.288Z] 1861:                                     <th>
+[2025-08-01T11:23:00.288Z] 1862:                                         <div class="sortable-header" onclick={() => handleSort('res_iqr')}
+[2025-08-01T11:23:00.288Z]                                                     ^
+[2025-08-01T11:23:00.288Z] 1863:                                              style={sortColumn === 'res_iqr' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.288Z] 1864:                                             P75-P25 Res (hrs) 
+[2025-08-01T11:23:00.288Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1862:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:23:00.288Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:23:00.288Z] 1860:                                     </th>
+[2025-08-01T11:23:00.288Z] 1861:                                     <th>
+[2025-08-01T11:23:00.288Z] 1862:                                         <div class="sortable-header" onclick={() => handleSort('res_iqr')}
+[2025-08-01T11:23:00.288Z]                                                     ^
+[2025-08-01T11:23:00.288Z] 1863:                                              style={sortColumn === 'res_iqr' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.288Z] 1864:                                             P75-P25 Res (hrs) 
+[2025-08-01T11:23:00.288Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1875:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:23:00.288Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:23:00.288Z] 1873:                                     </th>
+[2025-08-01T11:23:00.288Z] 1874:                                     <th>
+[2025-08-01T11:23:00.288Z] 1875:                                         <div class="sortable-header" onclick={() => handleSort('res_spread')}
+[2025-08-01T11:23:00.288Z]                                                     ^
+[2025-08-01T11:23:00.288Z] 1876:                                              style={sortColumn === 'res_spread' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.288Z] 1877:                                             Rel. Spread Res 
+[2025-08-01T11:23:00.288Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1875:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:23:00.288Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:23:00.288Z] 1873:                                     </th>
+[2025-08-01T11:23:00.288Z] 1874:                                     <th>
+[2025-08-01T11:23:00.288Z] 1875:                                         <div class="sortable-header" onclick={() => handleSort('res_spread')}
+[2025-08-01T11:23:00.288Z]                                                     ^
+[2025-08-01T11:23:00.288Z] 1876:                                              style={sortColumn === 'res_spread' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.288Z] 1877:                                             Rel. Spread Res 
+[2025-08-01T11:23:00.288Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1888:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:23:00.288Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:23:00.288Z] 1886:                                     </th>
+[2025-08-01T11:23:00.288Z] 1887:                                     <th>
+[2025-08-01T11:23:00.288Z] 1888:                                         <div class="sortable-header" onclick={() => handleSort('total_res')}
+[2025-08-01T11:23:00.288Z]                                                     ^
+[2025-08-01T11:23:00.288Z] 1889:                                              style={sortColumn === 'total_res' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.288Z] 1890:                                             Total Res (hrs) 
+[2025-08-01T11:23:00.288Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1888:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:23:00.288Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:23:00.288Z] 1886:                                     </th>
+[2025-08-01T11:23:00.288Z] 1887:                                     <th>
+[2025-08-01T11:23:00.288Z] 1888:                                         <div class="sortable-header" onclick={() => handleSort('total_res')}
+[2025-08-01T11:23:00.288Z]                                                     ^
+[2025-08-01T11:23:00.288Z] 1889:                                              style={sortColumn === 'total_res' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.288Z] 1890:                                             Total Res (hrs) 
+[2025-08-01T11:23:00.288Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1901:40 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+[2025-08-01T11:23:00.288Z] https://svelte.dev/e/a11y_click_events_have_key_events
+[2025-08-01T11:23:00.288Z] 1899:                                     </th>
+[2025-08-01T11:23:00.288Z] 1900:                                     <th>
+[2025-08-01T11:23:00.288Z] 1901:                                         <div class="sortable-header" onclick={() => handleSort('total_res_no_outliers')}
+[2025-08-01T11:23:00.288Z]                                                     ^
+[2025-08-01T11:23:00.288Z] 1902:                                              style={sortColumn === 'total_res_no_outliers' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.288Z] 1903:                                             Total Res (no outliers) 
+[2025-08-01T11:23:00.288Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:1901:40 `<div>` with a click handler must have an ARIA role
+[2025-08-01T11:23:00.288Z] https://svelte.dev/e/a11y_no_static_element_interactions
+[2025-08-01T11:23:00.288Z] 1899:                                     </th>
+[2025-08-01T11:23:00.288Z] 1900:                                     <th>
+[2025-08-01T11:23:00.288Z] 1901:                                         <div class="sortable-header" onclick={() => handleSort('total_res_no_outliers')}
+[2025-08-01T11:23:00.288Z]                                                     ^
+[2025-08-01T11:23:00.288Z] 1902:                                              style={sortColumn === 'total_res_no_outliers' ? 'background-color: rgba(90, 11, 71, 0.15); border-radius: 4px; padding: 4px 8px;' : ''}>
+[2025-08-01T11:23:00.288Z] 1903:                                             Total Res (no outliers) 
+[2025-08-01T11:23:00.288Z] [0m[91m11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:2402:8 Unused CSS selector ".data-quality-legend h4"
+[2025-08-01T11:23:00.288Z] https://svelte.dev/e/css_unused_selector
+[2025-08-01T11:23:00.288Z] 2400:         }
+[2025-08-01T11:23:00.288Z] 2401:     
+[2025-08-01T11:23:00.288Z] 2402:         .data-quality-legend h4 {
+[2025-08-01T11:23:00.288Z]                                      ^
+[2025-08-01T11:23:00.288Z] 2403:             margin: 0 0 10px 0;
+[2025-08-01T11:23:00.288Z] 2404:             color: #495057;
+[2025-08-01T11:23:00.288Z] 11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:2408:8 Unused CSS selector ".data-quality-legend ul"
+[2025-08-01T11:23:00.288Z] https://svelte.dev/e/css_unused_selector
+[2025-08-01T11:23:00.288Z] 2406:         }
+[2025-08-01T11:23:00.288Z] 2407:     
+[2025-08-01T11:23:00.288Z] 2408:         .data-quality-legend ul {
+[2025-08-01T11:23:00.288Z]                                      ^
+[2025-08-01T11:23:00.288Z] 2409:             display: grid;
+[2025-08-01T11:23:00.288Z] 2410:             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+[2025-08-01T11:23:00.288Z] [0m[91m11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:2415:8 Unused CSS selector ".data-quality-legend li"
+[2025-08-01T11:23:00.288Z] https://svelte.dev/e/css_unused_selector
+[2025-08-01T11:23:00.288Z] 2413:         }
+[2025-08-01T11:23:00.288Z] 2414:     
+[2025-08-01T11:23:00.288Z] 2415:         .data-quality-legend li {
+[2025-08-01T11:23:00.288Z]                                      ^
+[2025-08-01T11:23:00.288Z] 2416:             display: flex;
+[2025-08-01T11:23:00.288Z] 2417:             align-items: center;
+[2025-08-01T11:23:00.288Z] [0m[91m11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:2421:8 Unused CSS selector ".data-quality-legend strong"
+[2025-08-01T11:23:00.288Z] https://svelte.dev/e/css_unused_selector
+[2025-08-01T11:23:00.288Z] 2419:         }
+[2025-08-01T11:23:00.288Z] 2420:     
+[2025-08-01T11:23:00.288Z] 2421:         .data-quality-legend strong {
+[2025-08-01T11:23:00.288Z]                                          ^
+[2025-08-01T11:23:00.288Z] 2422:             color: #28a745;
+[2025-08-01T11:23:00.288Z] 2423:         }
+[2025-08-01T11:23:00.288Z] [0m[91m11:23:00 AM [vite-plugin-svelte] src/routes/dashboards/priority-focused/+page.svelte:2441:8 Unused CSS selector ".icon-[devicon--jira]"
+[2025-08-01T11:23:00.289Z] https://svelte.dev/e/css_unused_selector
+[2025-08-01T11:23:00.289Z] 2439:         }
+[2025-08-01T11:23:00.289Z] 2440:     
+[2025-08-01T11:23:00.289Z] 2441:         .icon-[devicon--jira] {
+[2025-08-01T11:23:00.289Z]                                    ^
+[2025-08-01T11:23:00.289Z] 2442:             display: inline-block;
+[2025-08-01T11:23:00.289Z] 2443:             width: 16px;
+[2025-08-01T11:23:00.289Z] [0m[91msrc/routes/dashboards/priority-focused/+page.svelte (56:15): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+[2025-08-01T11:23:00.289Z] [0m[91msrc/routes/dashboards/priority-focused/+page.svelte (56:15): A comment
+[2025-08-01T11:23:00.289Z] 
+[2025-08-01T11:23:00.289Z] "/* @__PURE__ */"
+[2025-08-01T11:23:00.289Z] 
+[2025-08-01T11:23:00.289Z] in "src/routes/dashboards/priority-focused/+page.svelte" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[2025-08-01T11:23:00.289Z] [0m[91msrc/routes/dashboards/priority-focused/+page.svelte (57:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+[2025-08-01T11:23:00.289Z] [0m[91msrc/routes/dashboards/priority-focused/+page.svelte (57:0): A comment
+[2025-08-01T11:23:00.289Z] 
+[2025-08-01T11:23:00.289Z] "/* @__PURE__ */"
+[2025-08-01T11:23:00.289Z] 
+[2025-08-01T11:23:00.289Z] in "src/routes/dashboards/priority-focused/+page.svelte" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[2025-08-01T11:23:00.289Z] [0m[91msrc/routes/dashboards/priority-focused/+page.svelte (58:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+[2025-08-01T11:23:00.289Z] [0m[91msrc/routes/dashboards/priority-focused/+page.svelte (58:0): A comment
+[2025-08-01T11:23:00.289Z] 
+[2025-08-01T11:23:00.289Z] "/* @__PURE__ */"
+[2025-08-01T11:23:00.289Z] 
+[2025-08-01T11:23:00.289Z] in "src/routes/dashboards/priority-focused/+page.svelte" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+[2025-08-01T11:23:00.544Z] [0m[91m11:23:00 AM [vite-plugin-svelte] src/routes/metrics/Multiselect.svelte:11:4 `searchInput` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+[2025-08-01T11:23:00.544Z] https://svelte.dev/e/non_reactive_update
+[2025-08-01T11:23:00.544Z]  9: let searchTerm = $state("");
+[2025-08-01T11:23:00.544Z] 10: let multiselectWrapper;
+[2025-08-01T11:23:00.544Z] 11: let searchInput;
+[2025-08-01T11:23:00.544Z]                    ^
+[2025-08-01T11:23:00.544Z] 12: const filteredOptions = $derived(
+[2025-08-01T11:23:00.544Z] 13:   options.filter(
+[2025-08-01T11:23:00.544Z] 11:23:00 AM [vite-plugin-svelte] src/routes/metrics/ChartTypeSelector.svelte:26:1 A form label must be associated with a control
+[2025-08-01T11:23:00.544Z] https://svelte.dev/e/a11y_label_has_associated_control
+[2025-08-01T11:23:00.544Z] 24: 
+[2025-08-01T11:23:00.544Z] 25: <div class="chart-selector">
+[2025-08-01T11:23:00.544Z] 26:   <label class="label">Chart Type</label>
+[2025-08-01T11:23:00.544Z]                                              ^
+[2025-08-01T11:23:00.544Z] 27:   
+[2025-08-01T11:23:00.544Z] 28:   <div class="selector-container">
+[2025-08-01T11:23:01.907Z] [0m✓ 236 modules transformed.
+[2025-08-01T11:23:01.907Z] rendering chunks...
+[2025-08-01T11:23:02.162Z] computing gzip size...
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/version.json                         0.03 kB │ gzip:  0.05 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/.vite/manifest.json                      14.32 kB │ gzip:  1.69 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/assets/3.wYMO3lh3.css      0.04 kB │ gzip:  0.06 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/assets/15.BJDlVLy2.css     0.16 kB │ gzip:  0.14 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/assets/9.DvlIzA7a.css      0.31 kB │ gzip:  0.20 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/assets/10.Dx2b1fPq.css     0.31 kB │ gzip:  0.17 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/assets/12.DiZ0a-th.css     0.64 kB │ gzip:  0.38 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/assets/6.-uaTdEf-.css      1.27 kB │ gzip:  0.59 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/assets/13.BjPoUjMe.css     3.18 kB │ gzip:  0.92 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/assets/14.5CyYm40y.css     7.36 kB │ gzip:  1.81 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/assets/7.Cv7f5A2m.css      8.22 kB │ gzip:  2.22 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/assets/0.CChjgZaX.css     32.01 kB │ gzip:  7.16 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/DqWe9w4q.js         0.04 kB │ gzip:  0.06 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/Bzak7iHL.js         0.10 kB │ gzip:  0.10 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/entry/start.BKiRCB-O.js    0.12 kB │ gzip:  0.11 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/DlDTYWdS.js         0.15 kB │ gzip:  0.14 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/C8FMC-yk.js         0.23 kB │ gzip:  0.16 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/CoYF99gx.js         0.27 kB │ gzip:  0.20 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/nodes/3.Byvu140D.js        0.29 kB │ gzip:  0.23 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/nodes/4.Byvu140D.js        0.29 kB │ gzip:  0.23 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/BZzNzull.js         0.32 kB │ gzip:  0.24 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/boLwliTM.js         0.42 kB │ gzip:  0.30 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/nodes/5.DD0mScMj.js        0.46 kB │ gzip:  0.30 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/nodes/1.C8POwaRp.js        0.51 kB │ gzip:  0.32 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/3fMlCqBq.js         0.51 kB │ gzip:  0.33 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/j_Zd-D20.js         0.64 kB │ gzip:  0.40 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/CPW-qGSM.js         0.76 kB │ gzip:  0.44 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/CpYUa7_y.js         0.79 kB │ gzip:  0.52 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/BsKnDELl.js         0.91 kB │ gzip:  0.56 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/DBjlvlhW.js         0.92 kB │ gzip:  0.53 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/DvpFjsVf.js         0.96 kB │ gzip:  0.56 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/nodes/9.B_fawaWd.js        1.07 kB │ gzip:  0.54 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/CgTmgtUT.js         1.17 kB │ gzip:  0.63 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/acg4dBQo.js         1.18 kB │ gzip:  0.64 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/BZAG2f2n.js         1.71 kB │ gzip:  0.94 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/BWUnn_lV.js         1.78 kB │ gzip:  0.89 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/nodes/6.y-U5kUe7.js        1.99 kB │ gzip:  0.98 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/nodes/12.Cbm1Xo9f.js       2.02 kB │ gzip:  1.01 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/CNXr1aEa.js         2.49 kB │ gzip:  1.10 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/nodes/15.DRFF0AZ9.js       2.52 kB │ gzip:  1.27 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/nodes/0.CcprZ0YR.js        3.21 kB │ gzip:  1.54 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/nodes/11.BdcRJ06I.js       3.37 kB │ gzip:  1.63 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/Dn3UKyCC.js         3.87 kB │ gzip:  1.94 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/CLkeoLdW.js         4.22 kB │ gzip:  2.08 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/nodes/8.U963EIq5.js        5.65 kB │ gzip:  2.59 kB
+[2025-08-01T11:23:02.162Z] .svelte-kit/output/client/_app/immutable/chunks/BA0pF8uY.js         7.06 kB │ gzip:  3.18 kB
+[2025-08-01T11:23:02.163Z] .svelte-kit/output/client/_app/immutable/chunks/B2UkSclh.js         8.02 kB │ gzip:  3.23 kB
+[2025-08-01T11:23:02.163Z] .svelte-kit/output/client/_app/immutable/entry/app.Co27_lmz.js      9.19 kB │ gzip:  3.79 kB
+[2025-08-01T11:23:02.163Z] .svelte-kit/output/client/_app/immutable/nodes/16.CjH6ylXm.js      10.59 kB │ gzip:  3.82 kB
+[2025-08-01T11:23:02.163Z] .svelte-kit/output/client/_app/immutable/nodes/13.smJs_TT0.js      13.59 kB │ gzip:  5.01 kB
+[2025-08-01T11:23:02.163Z] .svelte-kit/output/client/_app/immutable/nodes/10.DQQI1302.js      14.52 kB │ gzip:  5.26 kB
+[2025-08-01T11:23:02.163Z] .svelte-kit/output/client/_app/immutable/chunks/DgZMxRCo.js        23.51 kB │ gzip:  9.29 kB
+[2025-08-01T11:23:02.163Z] .svelte-kit/output/client/_app/immutable/chunks/DLMOv8GV.js        26.64 kB │ gzip: 10.52 kB
+[2025-08-01T11:23:02.163Z] .svelte-kit/output/client/_app/immutable/nodes/14.Du7jmqIJ.js      33.80 kB │ gzip: 12.69 kB
+[2025-08-01T11:23:02.163Z] .svelte-kit/output/client/_app/immutable/nodes/7.mKjNTILe.js       69.86 kB │ gzip: 15.13 kB
+[2025-08-01T11:23:02.163Z] .svelte-kit/output/client/_app/immutable/chunks/DhmfAfKR.js       207.77 kB │ gzip: 71.35 kB
+[2025-08-01T11:23:02.163Z] ✓ built in 2.84s
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/.vite/manifest.json                                            12.67 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/_app/immutable/assets/_page.wYMO3lh3.css                        0.04 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/_app/immutable/assets/_page.BJDlVLy2.css                        0.16 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/_app/immutable/assets/_page.DvlIzA7a.css                        0.31 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/_app/immutable/assets/_page.Dx2b1fPq.css                        0.31 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/_app/immutable/assets/_page.DiZ0a-th.css                        0.64 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/_app/immutable/assets/_page.-uaTdEf-.css                        1.27 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/_app/immutable/assets/_page.BjPoUjMe.css                        3.18 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/_app/immutable/assets/_page.DxSlTxdL.css                        5.69 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/_app/immutable/assets/_page.l3q0T7lG.css                        8.19 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/_app/immutable/assets/_layout.DiLlFvh5.css                     31.90 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/pages/action-items/_page.server.ts.js                   0.00 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/chunks/false.js                                                 0.05 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/chunks/api.js                                                   0.16 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/pages/about/_page.svelte.js                             0.21 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/pages/action-items/_page.svelte.js                      0.21 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/chunks/messages.js                                              0.23 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/endpoints/health/_server.js                             0.24 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/fallbacks/error.svelte.js                               0.34 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/chunks/state.svelte.js                                          0.34 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/pages/action-items/_thread_ts_/_page.svelte.js          0.37 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/chunks/index2.js                                                0.41 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/internal.js                                                     0.41 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/pages/_page.server.ts.js                                0.42 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/endpoints/api/applications/_server.ts.js                0.43 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/chunks/shared-server.js                                         0.44 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/chunks/devops-team.js                                           0.44 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/chunks/auth.js                                                  0.53 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/chunks/hooks.server.js                                          0.55 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/chunks/environment.js                                           0.58 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/chunks/client.js                                                0.60 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/pages/message/_thread_ts_/_page.server.ts.js            0.65 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/pages/login/_page.svelte.js                             0.71 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/pages/action-items/_thread_ts_/_page.server.ts.js       0.95 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/pages/devops-team/_page.svelte.js                       1.05 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/endpoints/dashboards/priority-focused/_server.ts.js     1.15 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/pages/dashboards/service-issues/_page.svelte.js         1.48 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/chunks/index3.js                                                1.55 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/pages/dashboards/priority-focused/_page.server.ts.js    1.77 kB
+[2025-08-01T11:23:03.088Z] .svelte-kit/output/server/entries/pages/leaves/_page.server.ts.js                         2.32 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/entries/pages/dashboards/_page.svelte.js                        2.40 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/entries/pages/leaves/_page.svelte.js                            2.41 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/entries/pages/_layout.svelte.js                                 2.58 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/chunks/event-state.js                                           2.87 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/chunks/functions.js                                             3.30 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/entries/pages/on-call-handover/_page.svelte.js                  3.32 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/chunks/exports.js                                               5.47 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/entries/pages/tickets/_page.server.ts.js                        7.88 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/chunks/index.js                                                 8.75 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/entries/pages/metrics/_page.server.ts.js                        9.00 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/entries/pages/message/_thread_ts_/_page.svelte.js               9.31 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/entries/pages/home/_page.server.ts.js                          10.07 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/remote-entry.js                                                10.85 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/entries/pages/tickets/_page.svelte.js                          11.83 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/entries/pages/metrics/_page.svelte.js                          12.62 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/entries/pages/home/_page.svelte.js                             14.91 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/chunks/internal.js                                             15.91 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/chunks/utils.js                                                46.21 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/entries/pages/dashboards/priority-focused/_page.svelte.js      66.00 kB
+[2025-08-01T11:23:03.089Z] .svelte-kit/output/server/index.js                                                      113.92 kB
+[2025-08-01T11:23:03.089Z] ✓ built in 6.65s
+[2025-08-01T11:23:03.089Z] 
+[2025-08-01T11:23:03.089Z] Run npm run preview to preview your production build locally.
+[2025-08-01T11:23:03.089Z] 
+[2025-08-01T11:23:03.089Z] > Using @sveltejs/adapter-node
+[2025-08-01T11:23:04.984Z]   ✔ done
+[2025-08-01T11:23:19.806Z] Removing intermediate container 6751a7b30214
+[2025-08-01T11:23:19.806Z]  ---> d87550bcb1e5
+[2025-08-01T11:23:19.806Z] Step 6/10 : FROM asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/admin/build/node:22.16.0-alpine-secure-multiarch_v1.0
+[2025-08-01T11:23:19.806Z]  ---> 1ba4dcd53618
+[2025-08-01T11:23:19.806Z] Step 7/10 : RUN npm install pm2 -g
+[2025-08-01T11:23:19.806Z]  ---> Using cache
+[2025-08-01T11:23:19.806Z]  ---> 1462b732ba63
+[2025-08-01T11:23:19.806Z] Step 8/10 : RUN pm2 install pm2-metrics
+[2025-08-01T11:23:19.806Z]  ---> Using cache
+[2025-08-01T11:23:19.806Z]  ---> 673eee9c2cdc
+[2025-08-01T11:23:19.806Z] Step 9/10 : WORKDIR /app
+[2025-08-01T11:23:19.806Z]  ---> Using cache
+[2025-08-01T11:23:19.806Z]  ---> 42d5dfc56567
+[2025-08-01T11:23:19.806Z] Step 10/10 : COPY --from=build-env /usr/src/app /app
+[2025-08-01T11:23:34.639Z]  ---> e7766c3df261
+[2025-08-01T11:23:34.639Z] Successfully built e7766c3df261
+[2025-08-01T11:23:34.639Z] Successfully tagged asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/stg/devop/dev-ops-buddy-frontend:v0.0.1-9eb6b7a-1754047333361
+[Pipeline] sh
+[2025-08-01T11:23:35.155Z] + docker push asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/stg/devop/dev-ops-buddy-frontend:v0.0.1-9eb6b7a-1754047333361
+[2025-08-01T11:23:36.079Z] The push refers to repository [asia-southeast1-docker.pkg.dev/meesho-devops-admin-0622/stg/devop/dev-ops-buddy-frontend]
+[2025-08-01T11:23:36.079Z] b5a3a27460eb: Preparing
+[2025-08-01T11:23:36.079Z] bef01562b637: Preparing
+[2025-08-01T11:23:36.079Z] d8baa109ec06: Preparing
+[2025-08-01T11:23:36.079Z] 36d00db27af2: Preparing
+[2025-08-01T11:23:36.079Z] 17317acf4473: Preparing
+[2025-08-01T11:23:36.079Z] 01ddedaeed7a: Preparing
+[2025-08-01T11:23:36.079Z] 48c308b582b7: Preparing
+[2025-08-01T11:23:36.079Z] df695e586122: Preparing
+[2025-08-01T11:23:36.079Z] d3e46df5e691: Preparing
+[2025-08-01T11:23:36.079Z] 6a6cca838e27: Preparing
+[2025-08-01T11:23:36.079Z] 53fa260c3ba4: Preparing
+[2025-08-01T11:23:36.079Z] 126f43b2ffa5: Preparing
+[2025-08-01T11:23:36.079Z] fd2758d7a50e: Preparing
+[2025-08-01T11:23:36.079Z] 17317acf4473: Waiting
+[2025-08-01T11:23:36.079Z] 01ddedaeed7a: Waiting
+[2025-08-01T11:23:36.079Z] 48c308b582b7: Waiting
+[2025-08-01T11:23:36.079Z] df695e586122: Waiting
+[2025-08-01T11:23:36.079Z] d3e46df5e691: Waiting
+[2025-08-01T11:23:36.079Z] 6a6cca838e27: Waiting
+[2025-08-01T11:23:36.079Z] 53fa260c3ba4: Waiting
+[2025-08-01T11:23:36.079Z] 126f43b2ffa5: Waiting
+[2025-08-01T11:23:36.079Z] fd2758d7a50e: Waiting
+[2025-08-01T11:23:36.079Z] d8baa109ec06: Layer already exists
+[2025-08-01T11:23:36.079Z] bef01562b637: Layer already exists
+[2025-08-01T11:23:36.079Z] 36d00db27af2: Layer already exists
+[2025-08-01T11:23:36.079Z] 01ddedaeed7a: Layer already exists
+[2025-08-01T11:23:36.079Z] 17317acf4473: Layer already exists
+[2025-08-01T11:23:36.079Z] 48c308b582b7: Layer already exists
+[2025-08-01T11:23:36.079Z] df695e586122: Layer already exists
+[2025-08-01T11:23:36.079Z] 6a6cca838e27: Layer already exists
+[2025-08-01T11:23:36.079Z] d3e46df5e691: Layer already exists
+[2025-08-01T11:23:36.079Z] 53fa260c3ba4: Layer already exists
+[2025-08-01T11:23:36.079Z] fd2758d7a50e: Layer already exists
+[2025-08-01T11:23:36.079Z] 126f43b2ffa5: Layer already exists
+[2025-08-01T11:23:54.107Z] b5a3a27460eb: Pushed
+[2025-08-01T11:23:54.361Z] v0.0.1-9eb6b7a-1754047333361: digest: sha256:41f803c1be8abdf7bd51b8973b2a8ce95e3a0b8155420e58fd01da6f886d183d size: 3039
+[Pipeline] sh
+[2025-08-01T11:23:54.869Z] + rm -rf Dockerfile-dev-ops-buddy-frontend
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+[2025-08-01T11:23:55.540Z] [1;32mINFO: tag is v0.0.1-9eb6b7a-1754047333361[0m
+[Pipeline] stage
+[Pipeline] { (Send Notification)
+[Pipeline] dir
+[2025-08-01T11:23:56.130Z] Running in /home/jenkins/agent/workspace/_ops-buddy-frontend-cicd_develop/dev-ops-buddy-frontend/deployments
+[Pipeline] {
+[Pipeline] readYaml
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] writeJSON
+[Pipeline] writeJSON
+[Pipeline] sh
+[2025-08-01T11:23:56.745Z] + curl -s -X POST -H Content-Type: application/json -w \n%{response_code} http://turbo-turtle.admin.meeshogcp.in/api/v1/ci/jenkins/callback -d {"repo_name":"dev-ops-buddy-frontend","source_branch":"develop","pull_request_number":0,"env":"stg","job_name":"dev-ops-buddy-frontend-cicd","sub_job_name":"develop","build_number":238,"image_tag":"v0.0.1-9eb6b7a-1754047333361"}
+[Pipeline] echo
+[2025-08-01T11:23:56.761Z] true true
+[Pipeline] echo
+[2025-08-01T11:23:56.775Z] [1;32mINFO: Skipping - Slack Notification.[0m
+[Pipeline] echo
+[2025-08-01T11:23:56.789Z] [1;32mINFO: Skipping - Updating in Deployment Tracker.[0m
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2025-08-01T11:23:57.340Z] 
+[Pipeline] // ansiColor
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // podTemplate
+[Pipeline] End of Pipeline
+
+GitHub has been notified of this commit’s build result
+
+Finished: SUCCESS
